@@ -11,7 +11,7 @@
   width: 100%;
   height: 100%;
   background-image: url('/assets/images/owwa.png');
-  background-size: cover;
+  background-size: auto;
   background-position: center;
   filter: blur(12px); /* Approximate 30% blur effect */
   z-index: -1; /* Ensure the background is behind other content */

@@ -8,7 +8,7 @@ import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule } from '@nebular/theme';
 import { HeaderComponent } from '../layout/header/header.component';
 
 
@@ -27,7 +27,9 @@ import { HeaderComponent } from '../layout/header/header.component';
     NbSidebarModule.forRoot(),
     NbButtonModule,
     HttpClientModule,
-    NbInputModule
+    NbInputModule,
+    NbCardModule,
+    NbTagModule
   ]
 })
 export class MainModule { }

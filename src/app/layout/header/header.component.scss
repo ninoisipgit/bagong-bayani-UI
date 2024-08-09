@@ -1,67 +1,20 @@
-.header{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100% !important;
-  margin: 0;
+.header-container {
+  padding: 0 15px; /* Standard container padding */
 }
 
-nb-action {
-  float: left;
-  height: auto;
-  width: 100%;
+.logo-container {
+  padding-left: 0; /* Remove default padding if any */
 }
 
-nb-user {
-  cursor: pointer;
-}
-
-.header-container-left{
-  flex: 2;
-  display: flex;
-  align-items: center;
-}
-
-.logo-container{
-
-}
-
-.logo {
-  padding: 0 1.25rem;
-  font-size: 1.75rem;
-  white-space: nowrap;
-  text-decoration: none;
-}
-
-.theme-switcher{
-  margin-left: 85px;
-}
-
-.header-container-right{
-  flex: 3;
+.nb-actions {
   display: flex;
   justify-content: flex-end;
-
 }
 
-.user-action {
-  float: right;
-
+.right-actions {
+  margin-right: 0; /* Ensure there's no extra margin on the right */
 }
 
-@media (max-width: 768px) {
-  .control-item {
-    display: none;
-  }
-  .user-action {
-    border: none;
-    padding: 0;
-  }
+.nb-action {
+  margin-left: 10px; /* Optional: space between actions */
 }
-
-@media (max-width: 576px)  {
-  nb-select {
-    display: none;
-  }
-}
-

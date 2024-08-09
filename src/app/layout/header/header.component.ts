@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   userOrganization:any;
 
 
-  userMenu = [{ title: 'Log out', icon: 'unlock-outline', }];
+  userMenu = [{ title: 'Profile' }, { title: 'Logout', icon: 'log-out-outline' }];
 
   currentTheme = 'default';
   isExpanded = false;
@@ -51,13 +51,13 @@ export class HeaderComponent implements OnInit {
     private themeService: NbThemeService,
     private menu: NbMenuService)
     {
-        this.menu.onItemClick().subscribe(res => {
-            const selected = res.item.title;
-            if(selected == 'Log out'){
-              this.onLogout();
-            }
+        // this.menu.onItemClick().subscribe(res => {
+        //     const selected = res.item.title;
+        //     if(selected == 'Log out'){
+        //       this.onLogout();
+        //     }
 
-        });
+        // });
     }
 
   ngOnInit(): void {
@@ -66,20 +66,13 @@ export class HeaderComponent implements OnInit {
 
   }
 
-
-
-
-
-  getUserMenu(){
-
-
-      this.userMenu = [
-        { title: 'Go back to Admin', icon: 'arrow-circle-left-outline', },
-        { title: 'Select Organization', icon: 'home-outline', },
-        { title: 'Log out', icon: 'unlock-outline', }
-      ]
-
-
+  onMenuItemClick(event:any) {
+    if (event === 'Logout') {
+      // this.authService.logout('email').subscribe(() => {
+      //   // Redirect to the login page or perform any other necessary actions
+      //   window.location.href = '/auth/login';
+      // });
+    }
   }
 
 

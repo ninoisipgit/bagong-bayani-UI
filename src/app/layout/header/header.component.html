@@ -1,33 +1,18 @@
-<div class="header container-fluid">
-	<div class="header-container-left">
-		<div class="logo-container">
-		<!-- <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
-			<nb-icon icon="menu-2-outline" *ngIf="isAuthenticated"></nb-icon>
-		</a> -->
-    <a class="logo" role="button" >
+<div class="header-container row justify-content-between align-items-center">
+  <div class="logo-container col-7">
+    <a class="logo" role="button">
       <img src="assets/images/owwa.png" style="height: auto;width:80px;">
     </a>
-		</div>
-		<!-- <nb-select class="theme-switcher" [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
-		<nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-		</nb-select> -->
-	</div>
-
-	<div class="header-container-right" *ngIf="isAuthenticated">
-		<nb-actions size="small">
-		<nb-action class="user-action" (click)="getUserMenu()">
-			<nb-user [nbContextMenu]="userMenu" name="{{user?.email}}" title="{{userOrganization?.name}}">
-			</nb-user>
-		</nb-action>
-		</nb-actions>
   </div>
+  <div class="col-5 d-flex justify-content-end">
+    <nb-actions size="small">
+      <nb-action icon="home-outline"></nb-action>
+      <nb-action icon="grid-outline"></nb-action>
+      <nb-action icon="settings-2-outline"></nb-action>
 
-  <!-- <div class="header-container-right" *ngIf="!isAuthenticated">
-		<nb-actions size="small">
-        <nb-action>
-          <button nbButton routerLink="/login">Login</button>
-        </nb-action>
-		</nb-actions>
-	</div> -->
+      <nb-action [nbContextMenu]="userMenu" (menuClick)="onMenuItemClick($event)">
+        <nb-user size="medium" name="John Doe" title="Engineer"></nb-user>
+      </nb-action>
+    </nb-actions>
+  </div>
 </div>
-

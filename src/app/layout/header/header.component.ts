@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { Router } from '@angular/router';
 import { NbSidebarService, NbMenuService, NbThemeService, NbMediaBreakpointsService, NbDialogService } from '@nebular/theme';
 import { Subject, takeUntil, map, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -49,6 +50,7 @@ export class HeaderComponent implements OnInit {
     private http : HttpClient,
     private sidebarService: NbSidebarService,
     private themeService: NbThemeService,
+    private authService : AuthService,
     private menu: NbMenuService)
     {
         // this.menu.onItemClick().subscribe(res => {
@@ -68,17 +70,14 @@ export class HeaderComponent implements OnInit {
 
   onMenuItemClick(event:any) {
     if (event === 'Logout') {
-      // this.authService.logout('email').subscribe(() => {
-      //   // Redirect to the login page or perform any other necessary actions
-      //   window.location.href = '/auth/login';
-      // });
+        this.onLogout();
     }
   }
 
 
 
   async onLogout(){
-    // await this.authService.logout();
+    await this.authService.logout();
   }
 
 

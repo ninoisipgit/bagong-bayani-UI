@@ -9,8 +9,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5050',
+  production: true,
+  apiUrl: 'http://127.0.0.1:8000',
   baseUrl: 'https://localhost:4200',
   clientId: 'fdp_spa_local',
 };

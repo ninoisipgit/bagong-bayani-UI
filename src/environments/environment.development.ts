@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5050',
+  apiUrl: 'http://127.0.0.1:8000',
   baseUrl: 'https://localhost:4200',
   clientId: 'fdp_spa_local',
 };

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbSidebarService } from '@nebular/theme';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { NbSidebarService } from '@nebular/theme';
 export class AppComponent implements OnInit {
   title = 'bagong-bayani-UI';
 
-  constructor(private sidebarService: NbSidebarService) {
+  constructor(private sidebarService: NbSidebarService, private authService : AuthService) {
+    this.authService.autoLogin();
   }
 
 

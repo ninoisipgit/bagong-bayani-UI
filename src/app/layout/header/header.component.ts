@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbSidebarService, NbMenuService, NbThemeService, NbMediaBreakpointsService, NbDialogService } from '@nebular/theme';
-import { Subject, takeUntil, map, Subscription } from 'rxjs';
+import { Subject, takeUntil, map, Subscription, filter } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -16,8 +16,9 @@ export class HeaderComponent implements OnInit {
 
   @Output() userData = new EventEmitter<any>();
 
-  user : any;
-  userOrganization:any;
+  user : any;//User shoulkdd have a model
+
+  private userSub: Subscription;
 
 
   userMenu = [{ title: 'Profile' }, { title: 'Logout', icon: 'log-out-outline' }];
@@ -53,27 +54,33 @@ export class HeaderComponent implements OnInit {
     private authService : AuthService,
     private menu: NbMenuService)
     {
-        // this.menu.onItemClick().subscribe(res => {
-        //     const selected = res.item.title;
-        //     if(selected == 'Log out'){
-        //       this.onLogout();
-        //     }
+      this.userSub = this.authService.user.subscribe(user => {
+        this.user = user;
+        this.isAuthenticated = !!user;
+        if(this.isAuthenticated){
 
-        // });
+          // this.getUserProfile();
+          // this.getOrganizations();
+          // this.authService.getUserOrganization().subscribe((response:UserOrganization) => {
+          //   this.userOrganization = response;
+          // });
+          // this.goalSettingService.updateOrganization.subscribe(() => {
+          //   this.userOrganization = JSON.parse(localStorage.getItem('userOrganization'));
+          // });
+        }
+      });
     }
 
   ngOnInit(): void {
 
 
-
-  }
-
-  onMenuItemClick(event:any) {
-    if (event === 'Logout') {
+    this.menu.onItemClick()
+    .subscribe(title => {
+      if(title.item.title == 'Logout'){
         this.onLogout();
-    }
+      }
+    });
   }
-
 
 
   async onLogout(){

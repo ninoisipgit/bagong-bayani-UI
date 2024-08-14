@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   submitted = false;
   socialLinks!: NbAuthSocialLink[];
+  user: any;
+  isAuthenticated = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +29,14 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.authService.user.subscribe(user => {
+      this.user = user;
+      this.isAuthenticated = !!user;
+      if(this.isAuthenticated){
+                window.location.href = '/main/jobs';
+
+      }
+    });
 
   }
   login() {
@@ -37,7 +47,8 @@ export class LoginComponent implements OnInit{
 
       this.authService.login(formData.email, formData.password).subscribe(res => {
         if(res){
-        this.router.navigate(['/main/jobs'])
+        // this.router.navigate(['/main/jobs']);
+        // window.location.href = '/main/jobs';
         }
       })
       // Handle login logic here, e.g., send data to a server

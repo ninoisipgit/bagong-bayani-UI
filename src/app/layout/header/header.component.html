@@ -5,14 +5,11 @@
     </a>
   </div>
   <div class="col-5 d-flex justify-content-end">
-    <nb-actions size="small">
-      <nb-action icon="home-outline"></nb-action>
-      <nb-action icon="grid-outline"></nb-action>
-      <nb-action icon="settings-2-outline"></nb-action>
-      <nb-action icon="power-outline" (click)="onLogout()"></nb-action>
 
-      <nb-action [nbContextMenu]="userMenu" (menuClick)="onMenuItemClick($event)">
-        <nb-user size="medium" name="John Doe" title="Engineer"></nb-user>
+    <nb-actions size="small">
+
+      <nb-action [nbContextMenu]="userMenu" *ngIf="isAuthenticated">
+        <nb-user size="medium" name="First Name Last Name" title="{{user?._email}}"></nb-user>
       </nb-action>
     </nb-actions>
   </div>

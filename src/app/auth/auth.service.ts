@@ -4,6 +4,7 @@ import { User } from '../shared/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
+import { UserToken } from './models/userToken';
 
 const apiUrl = `${environment.apiUrl}/api/auth`;
 
@@ -22,7 +23,7 @@ export interface AuthResponseData{
   providedIn: 'root'
 })
 export class AuthService {
-  user = new BehaviorSubject<User>(null!);
+  user = new BehaviorSubject<UserToken>(null!);
   // user = new Subject<User>();
 
    private tokenExpirationTimer: any;
@@ -33,7 +34,7 @@ export class AuthService {
   private handleAuthentication(email: string, userId:string, token:string, expiresIn: number){
     const expDate = new Date(new Date().getTime() + expiresIn * 1000);
 
-    const user = new User(email, userId, token, expDate);
+    const user = new UserToken(userId,token,expDate, email );
 
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
@@ -96,44 +97,44 @@ export class AuthService {
       // }));
   }
 
-  // autoLogin(){
-  //   const userData:{
-  //     _accessToken:string;
-  //     scope:string;
-  //     tokenType:string;
-  //     _tokenExpirationDate: string;
-  //     _isAdmin: boolean;
-  //     _superUser: boolean;
- 
-  //   } = JSON.parse(localStorage.getItem('userData'));
-  //   if(!userData){
-  //     return;
-  //   }
-  //   this.userInfo.subscribe(res => {
-  //     this.getUserOrganization().subscribe((response:UserOrganization) => {
-  //       if ((!response?.status || !res?.status) && !userData?._isAdmin && !userData?._superUser) {
-  //         Swal.fire({
-  //           title: "",
-  //           text: "This organization or user is not registered. Please contact St. David's Foundation (evalstrategiclearning@stdavidsfoundation.org) for more information.",
-  //           icon: "error",
-  //           confirmButtonText: "Ok",
-  //         }).then((res) => {
-  //           this.logout();
-  //         });
-  //       }
-  //     });
-  //   });
-  //   this.resetTimeout();
-  //   const loadedUser = new UserToken(userData._accessToken, userData.scope, userData.tokenType, new Date(userData._tokenExpirationDate))
-  //   if(loadedUser.getToken){
-  //     this.user.next(loadedUser);
-  //     // future date minus(-) current date
-  //     const expirationDuration = new Date(userData._tokenExpirationDate).getTime()- new Date().getTime();
-  //     // this.autoLogout(expirationDuration);
-  //   }else{
-  //     this.logout();
-  //   }
-  // }
+  autoLogin(){
+
+    const userDataString = localStorage.getItem('userData');
+    if (userDataString !== null) {  // Check if the string is not null
+      try {
+        const userData: {
+          _id: string;
+          _token:string;
+          _tokenExpirationDate:Date;
+          _email?:string;
+          _isAdmin?:boolean;
+        } = JSON.parse(userDataString);
+
+        // You can now safely use userData
+        if (!userData) {
+          return;
+        }
+
+        // Proceed with your logic using userData
+        const loadedUser = new UserToken(userData._id, userData._token, new Date(userData._tokenExpirationDate), userData._email,true);
+        if(loadedUser.getToken){
+          this.user.next(loadedUser);
+          // future date minus(-) current date
+          const expirationDuration = new Date(userData._tokenExpirationDate).getTime()- new Date().getTime();
+          // this.autoLogout(expirationDuration);
+        }else{
+          this.logout();
+        }
+
+      } catch (error) {
+        // Handle JSON parse errors
+        console.error('Error parsing user data:', error);
+      }
+    }
+
+  }
+
+
 
   forgotPassword(email:string){
     return this.http.post<any>(`${apiUrl}/password/forgot`,

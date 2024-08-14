@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule } from '@nebular/theme';
-import { HeaderComponent } from '../layout/header/header.component';
 
 
 @NgModule({

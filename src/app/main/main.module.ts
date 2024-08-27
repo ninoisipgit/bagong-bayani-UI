@@ -8,14 +8,17 @@ import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule, NbAccordionModule, NbSelectModule } from '@nebular/theme';
+import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     MainComponent,
     JobsComponent,
-    ManageJobsComponent
+    ManageJobsComponent,
+    PersonalDetailsFormComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +31,10 @@ import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInput
     HttpClientModule,
     NbInputModule,
     NbCardModule,
-    NbTagModule
+    NbTagModule,
+    NbAccordionModule,
+    ReactiveFormsModule,
+    NbSelectModule
   ]
 })
 export class MainModule { }

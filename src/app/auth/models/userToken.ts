@@ -1,11 +1,11 @@
 export class UserToken {
   constructor(
-    public _id:string,
+    public _email:string,
+    public _id:number,
+    public _type:number,
+    public _status:number,
     public _token:string,
     private _tokenExpirationDate:Date,
-    public _email?:string,
-    public _isAdmin?:boolean,
-    // public _role?:string[],
     ){
   }
 

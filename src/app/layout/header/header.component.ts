@@ -79,6 +79,9 @@ export class HeaderComponent implements OnInit {
       if(title.item.title == 'Logout'){
         this.onLogout();
       }
+      if(title.item.title == 'Profile'){
+        this.router.navigate(['/main/personal-details']);
+      }
     });
   }
 

@@ -10,12 +10,15 @@ const apiUrl = `${environment.apiUrl}/api/auth`;
 
 
 export interface AuthResponseData{
-  idToken:	string;
   email:	string;
-  refreshToken?:	string;
-  expiresIn :	string;
-  localId	:string;
-  status	:string;
+  localId	:number;
+  user_type	:number;
+  status	:number;
+  access_token:	string;
+  expires_in :	string;
+  token_type:string;
+  personID:string;
+
   // registered?: boolean;
 }
 
@@ -31,13 +34,13 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
 
-  private handleAuthentication(email: string, userId:string, token:string, expiresIn: number){
-    const expDate = new Date(new Date().getTime() + expiresIn * 1000);
+  private handleAuthentication(email: string, userId:number, user_type: number, status: number, token:string, expires_in: number){
+    const expDate = new Date(new Date().getTime() + expires_in * 1000);
 
-    const user = new UserToken(userId,token,expDate, email );
+    const user = new UserToken(email,userId,user_type, status, token,expDate );
 
     this.user.next(user);
-    this.autoLogout(expiresIn * 1000);
+    this.autoLogout(expires_in * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
 
   }
@@ -68,7 +71,7 @@ export class AuthService {
           password: password,
           returnSecureToken: true
       }).pipe(tap(res => {
-        this.handleAuthentication(res.email, res.localId, res.idToken, +res.expiresIn);
+        this.handleAuthentication(res.email, res.localId, res.user_type, res.status, res.access_token, +res.expires_in);
     }));
   }
 
@@ -79,9 +82,10 @@ export class AuthService {
           email: value.email,
           password: value.password,
           password_confirmation: value.password,
+          user_type: value.user_type,
           returnSecureToken: true
       }).pipe(tap(res => {
-          this.handleAuthentication(res.email, res.localId, res.idToken, +res.expiresIn);
+          this.handleAuthentication(res.email, res.localId, res.user_type, res.status, res.access_token, +res.expires_in);
       }));
   }
 
@@ -93,7 +97,7 @@ export class AuthService {
           password: value.password,
       });
       // .pipe(tap(res => {
-      //     this.handleAuthentication(res.email, res.localId, res.idToken, +res.expiresIn);
+      //     this.handleAuthentication(res.email, res.access_token, res.idToken, +res.expires_in);
       // }));
   }
 
@@ -103,11 +107,13 @@ export class AuthService {
     if (userDataString !== null) {  // Check if the string is not null
       try {
         const userData: {
-          _id: string;
+
+          _email:string;
+          _id:number;
+          _type:number;
+          _status:number;
           _token:string;
           _tokenExpirationDate:Date;
-          _email?:string;
-          _isAdmin?:boolean;
         } = JSON.parse(userDataString);
 
         // You can now safely use userData
@@ -116,7 +122,8 @@ export class AuthService {
         }
 
         // Proceed with your logic using userData
-        const loadedUser = new UserToken(userData._id, userData._token, new Date(userData._tokenExpirationDate), userData._email,true);
+        const loadedUser = new UserToken(userData._email, userData._id, userData._type, userData._status,userData._token, new Date(userData._tokenExpirationDate));
+
         if(loadedUser.getToken){
           this.user.next(loadedUser);
           // future date minus(-) current date

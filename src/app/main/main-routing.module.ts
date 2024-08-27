@@ -4,6 +4,8 @@ import { MainComponent } from './main.component';
 import { JobsComponent } from './pages/jobs/jobs.component';
 import { RegisterComponent } from '../auth/register/register.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
+import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 
 const routes: Routes = [
   {
@@ -16,8 +18,12 @@ const routes: Routes = [
       },
       {
         path: 'manage-jobs',
-        component: RegisterComponent,
+        component: ManageJobsComponent,
       },
+      {
+        path: 'personal-details',
+        component: PersonalDetailsFormComponent,
+      }
       // {
       //   path: 'reset-password',
       //   component: ResetPasswordComponent,

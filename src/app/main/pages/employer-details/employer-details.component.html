@@ -3,21 +3,6 @@
   <nb-card-body>
     <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
       <div class="row">
-        <!-- User ID -->
-        <!-- <div class="col-lg-3 col-md-6 col-sm-12">
-          <div class="form-group">
-            <label for="userId">User ID</label>
-            <input
-              nbInput
-              fullWidth
-              id="userId"
-              formControlName="userId"
-              placeholder="USER ID"
-              status="basic"
-            >
-          </div>
-        </div> -->
-
         <!-- Company Name -->
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="form-group">
@@ -29,7 +14,11 @@
               formControlName="companyName"
               placeholder="COMPANY NAME"
               status="basic"
+              [status]="isInvalid('companyName') ? 'danger' : 'basic'"
             >
+            <div *ngIf="isInvalid('companyName')" class="invalid-feedback">
+              Company Name is required and must be a string.
+            </div>
           </div>
         </div>
 
@@ -44,7 +33,11 @@
               formControlName="companyType"
               placeholder="COMPANY TYPE"
               status="basic"
+              [status]="isInvalid('companyType') ? 'danger' : 'basic'"
             >
+            <div *ngIf="isInvalid('companyType')" class="invalid-feedback">
+              Company Type is required and must be a string.
+            </div>
           </div>
         </div>
 
@@ -59,7 +52,11 @@
               formControlName="same_as"
               placeholder="EMPLOYER'S WEBSITE URL"
               status="basic"
+              [status]="isInvalid('same_as') ? 'danger' : 'basic'"
             >
+            <div *ngIf="isInvalid('same_as')" class="invalid-feedback">
+              Must be a valid URL.
+            </div>
           </div>
         </div>
 
@@ -74,7 +71,11 @@
               formControlName="logo"
               placeholder="EMPLOYER'S LOGO URL"
               status="basic"
+              [status]="isInvalid('logo') ? 'danger' : 'basic'"
             >
+            <div *ngIf="isInvalid('logo')" class="invalid-feedback">
+              Must be a valid URL.
+            </div>
           </div>
         </div>
 
@@ -89,7 +90,11 @@
               formControlName="industry"
               placeholder="INDUSTRY"
               status="basic"
+              [status]="isInvalid('industry') ? 'danger' : 'basic'"
             >
+            <div *ngIf="isInvalid('industry')" class="invalid-feedback">
+              Industry must be a string with a maximum length of 255 characters.
+            </div>
           </div>
         </div>
 
@@ -105,7 +110,11 @@
               placeholder="ADDRESS ID"
               type="number"
               status="basic"
+              [status]="isInvalid('addressID') ? 'danger' : 'basic'"
             >
+            <div *ngIf="isInvalid('addressID')" class="invalid-feedback">
+              Address ID must be a number.
+            </div>
           </div>
         </div>
 
@@ -120,7 +129,11 @@
               formControlName="description"
               placeholder="DESCRIPTION"
               status="basic"
+              [status]="isInvalid('description') ? 'danger' : 'basic'"
             ></textarea>
+            <div *ngIf="isInvalid('description')" class="invalid-feedback">
+              Description must be a string.
+            </div>
           </div>
         </div>
 
@@ -135,7 +148,11 @@
               formControlName="mission"
               placeholder="MISSION"
               status="basic"
+              [status]="isInvalid('mission') ? 'danger' : 'basic'"
             ></textarea>
+            <div *ngIf="isInvalid('mission')" class="invalid-feedback">
+              Mission must be a string.
+            </div>
           </div>
         </div>
 
@@ -150,16 +167,17 @@
               formControlName="vision"
               placeholder="VISION"
               status="basic"
+              [status]="isInvalid('vision') ? 'danger' : 'basic'"
             ></textarea>
+            <div *ngIf="isInvalid('vision')" class="invalid-feedback">
+              Vision must be a string.
+            </div>
           </div>
         </div>
-
-
       </div>
 
       <!-- Submit Button -->
       <button nbButton fullWidth status="primary" type="submit" [disabled]="companyForm.invalid">Submit</button>
     </form>
-
-</nb-card-body>
+  </nb-card-body>
 </nb-card>

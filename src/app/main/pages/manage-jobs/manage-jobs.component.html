@@ -1,131 +1,287 @@
-<!-- job-description.component.html -->
 <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
   <div class="row">
-    <!-- Job Title -->
-    <div class="col-lg-6 col-md-12">
+    <!-- Title -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="form-group">
-        <label for="jobtitle">Job Title</label>
-        <input
-          nbInput
-          fullWidth
-          id="jobtitle"
-          formControlName="jobTitle"
-          placeholder="Job Title"
-          class="form-control"
-        >
+        <label for="title">Job Title</label>
+        <input nbInput fullWidth id="title" formControlName="title" placeholder="Job Title" class="form-control"
+               [status]="isInvalid('title') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('title')" class="invalid-feedback">
+          Job Title is required and must be less than 255 characters.
+        </div>
       </div>
     </div>
 
-    <!-- Company Name -->
-    <div class="col-lg-6 col-md-12">
+    <!-- Description -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="form-group">
-        <label for="company">Company Name</label>
-        <input
-          nbInput
-          fullWidth
-          id="company"
-          formControlName="companyName"
-          placeholder="Company Name"
-          class="form-control"
-        >
+        <label for="description">Description</label>
+        <textarea nbInput fullWidth id="description" formControlName="description" placeholder="Description"
+                  class="form-control"
+                  [status]="isInvalid('description') ? 'danger' : 'basic'"></textarea>
+        <div *ngIf="isInvalid('description')" class="invalid-feedback">
+          Description is required.
+        </div>
       </div>
     </div>
 
-    <!-- Location -->
-    <div class="col-lg-6 col-md-12">
+    <!-- Date Posted -->
+    <div class="col-lg-3 col-md-6 col-sm-12">
       <div class="form-group">
-        <label for="location">Location</label>
-        <input
-          nbInput
-          fullWidth
-          id="location"
-          formControlName="location"
-          placeholder="Location"
-          class="form-control"
-        >
+        <label for="date_posted">Date Posted</label>
+        <input nbInput fullWidth id="date_posted" formControlName="date_posted" placeholder="MM/DD/YYYY"
+               class="form-control" type="date"
+               [status]="isInvalid('date_posted') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('date_posted')" class="invalid-feedback">
+          Date Posted is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Valid Through -->
+    <div class="col-lg-3 col-md-6 col-sm-12">
+      <div class="form-group">
+        <label for="valid_through">Valid Through</label>
+        <input nbInput fullWidth id="valid_through" formControlName="valid_through" placeholder="MM/DD/YYYY"
+               class="form-control" type="date"
+               [status]="isInvalid('valid_through') ? 'danger' : 'basic'">
       </div>
     </div>
 
     <!-- Employment Type -->
-    <div class="col-lg-6 col-md-12">
+    <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="form-group">
-        <label for="employmentType">Employment Type</label>
-        <nb-select
-          id="employmentType"
-          formControlName="employmentType"
-          placeholder="Select Employment Type"
-          fullWidth
-          nbSelect
-        >
-          <nb-option value="full-time">Full Time</nb-option>
-          <nb-option value="part-time">Part Time</nb-option>
-          <nb-option value="contract">Contract</nb-option>
-          <nb-option value="temporary">Temporary</nb-option>
-        </nb-select>
+        <label for="employment_type">Employment Type</label>
+        <input nbInput fullWidth id="employment_type" formControlName="employment_type" placeholder="Employment Type"
+               class="form-control"
+               [status]="isInvalid('employment_type') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('employment_type')" class="invalid-feedback">
+          Employment Type is required and must be less than 255 characters.
+        </div>
       </div>
     </div>
 
-    <!-- Salary Range -->
-    <div class="col-lg-6 col-md-12">
+    <!-- Hiring Organization Name -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="form-group">
-        <label for="salaryRange">Salary Range</label>
-        <input
-          nbInput
-          fullWidth
-          id="salaryRange"
-          formControlName="salaryRange"
-          placeholder="Salary Range"
-          class="form-control"
-        >
+        <label for="hiring_organization_name">Hiring Organization Name</label>
+        <input nbInput fullWidth id="hiring_organization_name" formControlName="hiring_organization_name"
+               placeholder="Hiring Organization Name" class="form-control"
+               [status]="isInvalid('hiring_organization_name') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('hiring_organization_name')" class="invalid-feedback">
+          Hiring Organization Name is required and must be less than 255 characters.
+        </div>
       </div>
     </div>
 
-    <!-- Job Description -->
-    <div class="col-lg-12">
+    <!-- Hiring Organization Same As -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="form-group">
-        <label for="jobDescription">Job Description</label>
-        <textarea
-          nbInput
-          fullWidth
-          id="jobDescription"
-          formControlName="jobDescription"
-          placeholder="Provide a detailed job description"
-          class="form-control"
-          rows="5"
-        ></textarea>
+        <label for="hiring_organization_same_as">Hiring Organization Website (Optional)</label>
+        <input nbInput fullWidth id="hiring_organization_same_as" formControlName="hiring_organization_same_as"
+               placeholder="Hiring Organization Website" class="form-control"
+               [status]="isInvalid('hiring_organization_same_as') ? 'danger' : 'basic'">
       </div>
     </div>
 
-    <!-- Skills Required -->
-    <div class="col-lg-12">
+    <!-- Hiring Organization Logo -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="form-group">
-        <label for="skills">Skills Required</label>
-        <textarea
-          nbInput
-          fullWidth
-          id="skills"
-          formControlName="skills"
-          placeholder="List required skills"
-          class="form-control"
-          rows="3"
-        ></textarea>
+        <label for="hiring_organization_logo">Hiring Organization Logo URL (Optional)</label>
+        <input nbInput fullWidth id="hiring_organization_logo" formControlName="hiring_organization_logo"
+               placeholder="Hiring Organization Logo URL" class="form-control"
+               [status]="isInvalid('hiring_organization_logo') ? 'danger' : 'basic'">
       </div>
     </div>
 
-    <!-- Submit Button -->
+    <!-- Job Location Street Address -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="job_location_street_address">Job Location Street Address</label>
+        <input nbInput fullWidth id="job_location_street_address" formControlName="job_location_street_address"
+               placeholder="Street Address" class="form-control"
+               [status]="isInvalid('job_location_street_address') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('job_location_street_address')" class="invalid-feedback">
+          Street Address is required and must be less than 255 characters.
+        </div>
+      </div>
+    </div>
 
+    <!-- Job Location Address Locality -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="job_location_address_locality">Job Location City</label>
+        <input nbInput fullWidth id="job_location_address_locality" formControlName="job_location_address_locality"
+               placeholder="City" class="form-control"
+               [status]="isInvalid('job_location_address_locality') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('job_location_address_locality')" class="invalid-feedback">
+          City is required and must be less than 255 characters.
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Location Address Region -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="job_location_address_region">Job Location State/Province</label>
+        <input nbInput fullWidth id="job_location_address_region" formControlName="job_location_address_region"
+               placeholder="State/Province" class="form-control"
+               [status]="isInvalid('job_location_address_region') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('job_location_address_region')" class="invalid-feedback">
+          State/Province is required and must be less than 255 characters.
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Location Postal Code -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="job_location_postal_code">Job Location Postal Code</label>
+        <input nbInput fullWidth id="job_location_postal_code" formControlName="job_location_postal_code"
+               placeholder="Postal Code" class="form-control"
+               [status]="isInvalid('job_location_postal_code') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('job_location_postal_code')" class="invalid-feedback">
+          Postal Code is required and must be less than 255 characters.
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Location Country -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="job_location_address_country">Job Location Country</label>
+        <input nbInput fullWidth id="job_location_address_country" formControlName="job_location_address_country"
+               placeholder="Country" class="form-control"
+               [status]="isInvalid('job_location_address_country') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('job_location_address_country')" class="invalid-feedback">
+          Country is required and must be less than 255 characters.
+        </div>
+      </div>
+    </div>
+
+    <!-- Base Salary Value -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="base_salary_value">Base Salary</label>
+        <input nbInput fullWidth id="base_salary_value" formControlName="base_salary_value" placeholder="Base Salary"
+               class="form-control" type="number"
+               [status]="isInvalid('base_salary_value') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('base_salary_value')" class="invalid-feedback">
+          Base Salary is required and must be a number.
+        </div>
+      </div>
+    </div>
+
+    <!-- Base Salary Currency -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="base_salary_currency">Currency</label>
+        <input nbInput fullWidth id="base_salary_currency" formControlName="base_salary_currency"
+               placeholder="Currency" class="form-control"
+               [status]="isInvalid('base_salary_currency') ? 'danger' : 'basic'">
+        <div *ngIf="isInvalid('base_salary_currency')" class="invalid-feedback">
+          Currency is required and must be exactly 3 characters.
+        </div>
+      </div>
+    </div>
+
+    <!-- Base Salary Unit Text -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="base_salary_unit_text">Salary Unit (Optional)</label>
+        <input nbInput fullWidth id="base_salary_unit_text" formControlName="base_salary_unit_text"
+               placeholder="Salary Unit" class="form-control"
+               [status]="isInvalid('base_salary_unit_text') ? 'danger' : 'basic'">
+      </div>
+    </div>
+
+    <!-- Job Benefits -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="job_benefits">Job Benefits (Optional)</label>
+        <textarea nbInput fullWidth id="job_benefits" formControlName="job_benefits" placeholder="Job Benefits"
+                  class="form-control"
+                  [status]="isInvalid('job_benefits') ? 'danger' : 'basic'"></textarea>
+      </div>
+    </div>
+
+    <!-- Responsibilities -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="responsibilities">Responsibilities (Optional)</label>
+        <textarea nbInput fullWidth id="responsibilities" formControlName="responsibilities"
+                  placeholder="Responsibilities" class="form-control"
+                  [status]="isInvalid('responsibilities') ? 'danger' : 'basic'"></textarea>
+      </div>
+    </div>
+
+    <!-- Qualifications -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="qualifications">Qualifications (Optional)</label>
+        <textarea nbInput fullWidth id="qualifications" formControlName="qualifications" placeholder="Qualifications"
+                  class="form-control"
+                  [status]="isInvalid('qualifications') ? 'danger' : 'basic'"></textarea>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="skills">Skills (Optional)</label>
+        <textarea nbInput fullWidth id="skills" formControlName="skills" placeholder="Skills" class="form-control"
+                  [status]="isInvalid('skills') ? 'danger' : 'basic'"></textarea>
+      </div>
+    </div>
+
+    <!-- Industry -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="industry">Industry (Optional)</label>
+        <input nbInput fullWidth id="industry" formControlName="industry" placeholder="Industry" class="form-control"
+               [status]="isInvalid('industry') ? 'danger' : 'basic'">
+      </div>
+    </div>
+
+    <!-- Applicant Location Requirements -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="applicant_location_requirements">Applicant Location Requirements (Optional)</label>
+        <input nbInput fullWidth id="applicant_location_requirements" formControlName="applicant_location_requirements"
+               placeholder="Applicant Location Requirements" class="form-control"
+               [status]="isInvalid('applicant_location_requirements') ? 'danger' : 'basic'">
+      </div>
+    </div>
+
+    <!-- Job Location Type -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="job_location_type">Job Location Type (Optional)</label>
+        <input nbInput fullWidth id="job_location_type" formControlName="job_location_type"
+               placeholder="Job Location Type" class="form-control"
+               [status]="isInvalid('job_location_type') ? 'danger' : 'basic'">
+      </div>
+    </div>
+
+    <!-- Work Hours -->
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="work_hours">Work Hours (Optional)</label>
+        <input nbInput fullWidth id="work_hours" formControlName="work_hours" placeholder="Work Hours"
+               class="form-control"
+               [status]="isInvalid('work_hours') ? 'danger' : 'basic'">
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label for="tags">Tags (Optional)</label>
+        <textarea nbInput fullWidth id="tags" formControlName="tags" placeholder="Tags" class="form-control"
+                  [status]="isInvalid('tags') ? 'danger' : 'basic'"></textarea>
+      </div>
+    </div>
   </div>
 
-  <div class="col-lg-12">
-    <div class="d-flex justify-content-end mt-3">
-      <button
-        nbButton
-        status="primary"
-        type="submit"
-        class="btn btn-primary"
-      >
-        Submit Job Description
-      </button>
-    </div>
-  </div>
+  <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid">Submit</button>
 </form>

@@ -58,10 +58,10 @@ export class HeaderComponent implements OnInit {
         this.user = user;
         this.isAuthenticated = !!user;
         if(this.isAuthenticated){
-          if(user._type == 1){
-            this.userMenu = [{ title: 'Company Details' }, { title: 'Logout', icon: 'log-out-outline' }];
-          }else if(user._type == 2){
-            this.userMenu = [{ title: 'Profile' }, { title: 'Logout', icon: 'log-out-outline' }];
+          if(user._type == 1){//company
+            this.userMenu = [{ title: 'Manage Jobs', icon: 'briefcase-outline' },{ title: 'Company Details' , icon: 'book-outline'}, { title: 'Logout', icon: 'log-out-outline' }];
+          }else if(user._type == 2){//ofw
+            this.userMenu = [{ title: 'Profile', icon: 'person-done-outline' }, { title: 'Logout', icon: 'log-out-outline' }];
           }
 
           // this.getUserProfile();
@@ -90,6 +90,11 @@ export class HeaderComponent implements OnInit {
       if(title.item.title == 'Company Details'){
         this.router.navigate(['/main/company-details']);
       }
+
+      if(title.item.title == 'Manage Jobs'){
+        this.router.navigate(['/main/manage-jobs']);
+      }
+
     });
   }
 

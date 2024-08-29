@@ -87,4 +87,10 @@ export class EmployerDetailsComponent {
     }
   }
 
+     // Helper method to check if a form control is invalid and touched
+     isInvalid(controlName: string): boolean {
+      const control = this.companyForm.get(controlName);
+      return control !== null && control !== undefined && control.invalid && (control.dirty || control.touched);
+    }
+
 }

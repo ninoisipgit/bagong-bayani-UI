@@ -6,6 +6,7 @@ import { RegisterComponent } from '../auth/register/register.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
+import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'personal-details',
         component: PersonalDetailsFormComponent,
+      },
+      {
+        path: 'company-details',
+        component: EmployerDetailsComponent,
       }
       // {
       //   path: 'reset-password',

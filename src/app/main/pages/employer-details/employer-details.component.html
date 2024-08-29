@@ -1,0 +1,165 @@
+<nb-card class="auth-card" style="min-width: 100%; width: 100%;">
+  <nb-card-header>Company Details</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- User ID -->
+        <!-- <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="userId">User ID</label>
+            <input
+              nbInput
+              fullWidth
+              id="userId"
+              formControlName="userId"
+              placeholder="USER ID"
+              status="basic"
+            >
+          </div>
+        </div> -->
+
+        <!-- Company Name -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="companyName">Company Name</label>
+            <input
+              nbInput
+              fullWidth
+              id="companyName"
+              formControlName="companyName"
+              placeholder="COMPANY NAME"
+              status="basic"
+            >
+          </div>
+        </div>
+
+        <!-- Company Type -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="companyType">Company Type</label>
+            <input
+              nbInput
+              fullWidth
+              id="companyType"
+              formControlName="companyType"
+              placeholder="COMPANY TYPE"
+              status="basic"
+            >
+          </div>
+        </div>
+
+        <!-- Same As -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="same_as">Same As (URL)</label>
+            <input
+              nbInput
+              fullWidth
+              id="same_as"
+              formControlName="same_as"
+              placeholder="EMPLOYER'S WEBSITE URL"
+              status="basic"
+            >
+          </div>
+        </div>
+
+        <!-- Logo -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="logo">Logo (URL)</label>
+            <input
+              nbInput
+              fullWidth
+              id="logo"
+              formControlName="logo"
+              placeholder="EMPLOYER'S LOGO URL"
+              status="basic"
+            >
+          </div>
+        </div>
+
+        <!-- Industry -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="industry">Industry</label>
+            <input
+              nbInput
+              fullWidth
+              id="industry"
+              formControlName="industry"
+              placeholder="INDUSTRY"
+              status="basic"
+            >
+          </div>
+        </div>
+
+        <!-- Address ID -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="addressID">Address ID</label>
+            <input
+              nbInput
+              fullWidth
+              id="addressID"
+              formControlName="addressID"
+              placeholder="ADDRESS ID"
+              type="number"
+              status="basic"
+            >
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              nbInput
+              fullWidth
+              id="description"
+              formControlName="description"
+              placeholder="DESCRIPTION"
+              status="basic"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Mission -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group">
+            <label for="mission">Mission</label>
+            <textarea
+              nbInput
+              fullWidth
+              id="mission"
+              formControlName="mission"
+              placeholder="MISSION"
+              status="basic"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Vision -->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group">
+            <label for="vision">Vision</label>
+            <textarea
+              nbInput
+              fullWidth
+              id="vision"
+              formControlName="vision"
+              placeholder="VISION"
+              status="basic"
+            ></textarea>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Submit Button -->
+      <button nbButton fullWidth status="primary" type="submit" [disabled]="companyForm.invalid">Submit</button>
+    </form>
+
+</nb-card-body>
+</nb-card>

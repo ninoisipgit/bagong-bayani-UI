@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   private userSub: Subscription;
 
 
-  userMenu = [{ title: 'Profile' }, { title: 'Logout', icon: 'log-out-outline' }];
+  userMenu!: any[];
 
   currentTheme = 'default';
   isExpanded = false;
@@ -58,6 +58,11 @@ export class HeaderComponent implements OnInit {
         this.user = user;
         this.isAuthenticated = !!user;
         if(this.isAuthenticated){
+          if(user._type == 1){
+            this.userMenu = [{ title: 'Company Details' }, { title: 'Logout', icon: 'log-out-outline' }];
+          }else if(user._type == 2){
+            this.userMenu = [{ title: 'Profile' }, { title: 'Logout', icon: 'log-out-outline' }];
+          }
 
           // this.getUserProfile();
           // this.getOrganizations();
@@ -81,6 +86,9 @@ export class HeaderComponent implements OnInit {
       }
       if(title.item.title == 'Profile'){
         this.router.navigate(['/main/personal-details']);
+      }
+      if(title.item.title == 'Company Details'){
+        this.router.navigate(['/main/company-details']);
       }
     });
   }

@@ -11,6 +11,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule, NbAccordionModule, NbSelectModule } from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MainComponent,
     JobsComponent,
     ManageJobsComponent,
-    PersonalDetailsFormComponent
+    PersonalDetailsFormComponent,
+    EmployerDetailsComponent
   ],
   imports: [
     CommonModule,

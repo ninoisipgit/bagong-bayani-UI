@@ -79,6 +79,17 @@
           </div>
         </div>
       </div>
+      <div class="row justify-content-end  mt-3">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="password">Choose your type</label>
+            <nb-radio-group class="d-flex " formControlName="user_type" name="reactive-forms-group">
+              <nb-radio value="1">Employer</nb-radio>
+              <nb-radio value="2">Ofw</nb-radio>
+            </nb-radio-group>
+          </div>
+        </div>
+      </div>
       <div class="row justify-content-end mt-3">
         <button nbButton status="primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
       </div>

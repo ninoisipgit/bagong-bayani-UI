@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -20,7 +20,8 @@ export class RegisterComponent implements OnInit {
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      user_type: [1, Validators.required],
     });
   }
 
@@ -31,7 +32,6 @@ export class RegisterComponent implements OnInit {
   signup() {
     if (this.signupForm.valid) {
       const formData = this.signupForm.value;
-      formData.user_type = 1;
       this.authService.signUp(formData).subscribe((response) => {
         if(response) {
           this.router.navigate(['/main/jobs']);

@@ -2,182 +2,190 @@
   <nb-card class="auth-card" style="min-width: 100%; width: 100%;">
     <nb-card-header>Employees Personal Details</nb-card-header>
     <nb-card-body>
-      <form [formGroup]="participantProfileForm" (ngSubmit)="onSubmit()">
         <nb-accordion multi >
 
           <!-- Personal Information Section -->
           <nb-accordion-item [expanded]="true">
             <nb-accordion-item-header>Personal Information</nb-accordion-item-header>
             <nb-accordion-item-body>
-              <div class="row">
-                <!-- First Name -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="firstname">First Name</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="firstname"
-                      formControlName="firstname"
-                      placeholder="FIRST NAME"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Last Name -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="lastname">Last Name</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="lastname"
-                      formControlName="lastname"
-                      placeholder="LAST NAME"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Middle Name -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="middlename">Middle Name</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="middlename"
-                      formControlName="middlename"
-                      placeholder="MIDDLE NAME"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Suffix -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="suffix">Suffix</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="suffix"
-                      formControlName="suffix"
-                      placeholder="SUFFIX"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Birthdate -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="birthdate">Birthdate</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="birthdate"
-                      formControlName="birthdate"
-                      placeholder="MM/DD/YYYY"
-                      class="form-control"
-                      type="date"
-                    >
-                  </div>
-                </div>
-                <!-- Gender -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select
-                      nbSelect
-                      fullWidth
-                      id="gender"
-                      formControlName="gender"
-                      class="form-control"
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- Civil Status -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="civilstatus">Civil Status</label>
-                    <select
-                      nbSelect
-                      fullWidth
-                      id="civilstatus"
-                      formControlName="civilstatus"
-                      class="form-control"
-                    >
-                      <option value="">Select Civil Status</option>
-                      <option value="single">Single</option>
-                      <option value="married">Married</option>
-                      <option value="divorced">Divorced</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- Passport No. -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="passportno">Passport No.</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="passportno"
-                      formControlName="passportno"
-                      placeholder="Passport No."
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Foreign Address -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="foreignaddress">OFW's Foreign Address</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="foreignaddress"
-                      formControlName="foreignaddress"
-                      placeholder="FOREIGN ADDRESS"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Country -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="country">Country</label>
+              <form [formGroup]="participantProfileForm">
+
+                  <div class="row">
+                    <!-- First Name -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="firstname"
+                          formControlName="FirstName"
+                          placeholder="FIRST NAME"
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
+                    <!-- Last Name -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="lastname"
+                          formControlName="LastName"
+                          placeholder="LAST NAME"
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
+                    <!-- Middle Name -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="middlename">Middle Name</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="middlename"
+                          formControlName="MiddleName"
+                          placeholder="MIDDLE NAME"
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
+                    <!-- Suffix -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="suffix">Suffix</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="suffix"
+                          formControlName="suffix"
+                          placeholder="SUFFIX"
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
+                    <!-- Birthdate -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="birthdate">Birthdate</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="birthdate"
+                          formControlName="birthdate"
+                          placeholder="MM/DD/YYYY"
+                          class="form-control"
+                          type="date"
+                        >
+                      </div>
+                    </div>
+                    <!-- Gender -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="gender">Gender</label>
                         <select
-                        nbSelect
-                        fullWidth
-                        id="country"
-                        formControlName="country"
-                        [(ngModel)]="selectedCountry"
-                        class="form-control"
-                      >
-                        <option value="">- SELECT COUNTRY -</option>
-                        <option *ngFor="let country of countries" [value]="country">
-                          {{ country }}
-                        </option>
-                    </select>
+                          nbSelect
+                          fullWidth
+                          id="gender"
+                          formControlName="gender"
+                          class="form-control"
+                        >
+                          <option value="">Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- Civil Status -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="civilstatus">Civil Status</label>
+                        <select
+                          nbSelect
+                          fullWidth
+                          id="civilstatus"
+                          formControlName="civilstatus"
+                          class="form-control"
+                        >
+                          <option value="">Select Civil Status</option>
+                          <option value="single">Single</option>
+                          <option value="married">Married</option>
+                          <option value="divorced">Divorced</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- Passport No. -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="passportno">Passport No.</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="passportno"
+                          formControlName="passportNo"
+                          placeholder="Passport No."
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
+                    <!-- Foreign Address -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="foreignaddress">OFW's Foreign Address</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="foreignaddress"
+                          formControlName="foreignaddress"
+                          placeholder="FOREIGN ADDRESS"
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
+                    <!-- Country -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="country">Country</label>
+                            <select
+                            nbSelect
+                            fullWidth
+                            id="country"
+                            formControlName="country"
+                            [(ngModel)]="selectedCountry"
+                            class="form-control"
+                          >
+                            <option value="">- SELECT COUNTRY -</option>
+                            <option *ngFor="let country of countries" [value]="country">
+                              {{ country }}
+                            </option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- Contact No. Abroad -->
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                      <div class="form-group">
+                        <label for="contactnoabroad">Contact No. Abroad</label>
+                        <input
+                          nbInput
+                          fullWidth
+                          id="contactnoabroad"
+                          formControlName="contactnoabroad"
+                          placeholder="FOREIGN CONTACT NUMBER"
+                          class="form-control"
+                        >
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <!-- Contact No. Abroad -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="contactnoabroad">Contact No. Abroad</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="contactnoabroad"
-                      formControlName="contactnoabroad"
-                      placeholder="FOREIGN CONTACT NUMBER"
-                      class="form-control"
-                    >
+
+                  <!-- Submit Button -->
+                  <div class="row justify-content-end mt-3">
+                    <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
+                    <button nbButton status="primary" type="submit" (click)="onSubmitPersonalDetails()">Submit</button>
                   </div>
-                </div>
-              </div>
+              </form>
             </nb-accordion-item-body>
           </nb-accordion-item>
 
@@ -185,6 +193,8 @@
           <nb-accordion-item>
             <nb-accordion-item-header>Philippine Address</nb-accordion-item-header>
             <nb-accordion-item-body>
+              <form [formGroup]="addressForm">
+
               <div class="row">
                 <!-- Province -->
                 <div class="col-lg-3 col-md-6 col-sm-12">
@@ -194,7 +204,7 @@
                     nbSelect
                     fullWidth
                     id="province"
-                    formControlName="province"
+                    formControlName="provinceID"
                     [(ngModel)]="selectedProvince"
                     class="form-control"
                   >
@@ -214,7 +224,7 @@
                     nbInput
                     fullWidth
                     id="municipality"
-                    formControlName="municipality"
+                    formControlName="cityID"
                     placeholder="Municipality/City"
                     class="form-control"
                   >
@@ -228,7 +238,7 @@
                         nbInput
                         fullWidth
                         id="barangay"
-                        formControlName="barangay"
+                        formControlName="barangayID"
                         placeholder="Barangay"
                         class="form-control"
                       >
@@ -256,7 +266,7 @@
                       nbInput
                       fullWidth
                       id="houseunitno"
-                      formControlName="houseunitno"
+                      formControlName="street"
                       placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET"
                       class="form-control"
                     >
@@ -270,7 +280,7 @@
                       nbInput
                       fullWidth
                       id="mobileno"
-                      formControlName="mobileno"
+                      formControlName="mobileNo"
                       placeholder="9341XXXXXX"
                       class="form-control"
                     >
@@ -284,7 +294,7 @@
                       nbInput
                       fullWidth
                       id="emailaddress"
-                      formControlName="emailaddress"
+                      formControlName="email"
                       placeholder="EMAIL ADDRESS"
                       class="form-control"
                     >
@@ -344,6 +354,13 @@
                   </div>
                 </div>
               </div>
+              </form>
+
+              <!-- Submit Button -->
+              <div class="row justify-content-end mt-3">
+                <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
+                <button nbButton status="primary" type="submit" (click)="onSubmitAddress()">Submit</button>
+              </div>
             </nb-accordion-item-body>
           </nb-accordion-item>
 
@@ -351,6 +368,7 @@
           <nb-accordion-item>
             <nb-accordion-item-header>Employment Details</nb-accordion-item-header>
             <nb-accordion-item-body>
+              <form [formGroup]="employmentForm">
               <div class="row">
                 <!-- Employer Name -->
                 <div class="col-lg-3 col-md-6 col-sm-12">
@@ -511,17 +529,11 @@
                   </div>
                 </div>
               </div>
+            </form>
             </nb-accordion-item-body>
           </nb-accordion-item>
 
         </nb-accordion>
-
-        <!-- Submit Button -->
-        <div class="row justify-content-end mt-3">
-          <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-          <button nbButton status="primary" type="submit" >Submit</button>
-        </div>
-      </form>
     </nb-card-body>
   </nb-card>
 </div>

@@ -61,7 +61,7 @@
         </div>
 
         <!-- Logo -->
-        <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="logo">Logo (URL)</label>
             <input
@@ -177,7 +177,7 @@
       </div>
 
       <!-- Submit Button -->
-      <button nbButton fullWidth status="primary" type="submit" [disabled]="companyForm.invalid">Submit</button>
+      <button nbButton fullWidth status="primary" type="submit" [disabled]="companyForm.invalid && companyForm.untouched">Submit</button>
     </form>
   </nb-card-body>
 </nb-card>

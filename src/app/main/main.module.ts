@@ -8,7 +8,7 @@ import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule, NbAccordionModule, NbSelectModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule, NbAccordionModule, NbSelectModule, NbToastrModule } from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
@@ -36,7 +36,8 @@ import { EmployerDetailsComponent } from './pages/employer-details/employer-deta
     NbTagModule,
     NbAccordionModule,
     ReactiveFormsModule,
-    NbSelectModule
+    NbSelectModule,
+    NbToastrModule.forRoot(),
   ]
 })
 export class MainModule { }

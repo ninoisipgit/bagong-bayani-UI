@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -16,7 +17,8 @@ export class EmployerDetailsComponent {
   private userSub: Subscription;
   user!: UserToken;
   isAuthenticated = false;
-  constructor(private fb: FormBuilder, private userDetailsService:UserDetailsService,private authService : AuthService) {
+  selectedId:number = 0;
+  constructor(private fb: FormBuilder, private userDetailsService:UserDetailsService,private authService : AuthService,private toastrService: NbToastrService) {
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;
       this.isAuthenticated = !!user;
@@ -45,8 +47,9 @@ export class EmployerDetailsComponent {
     this.userDetailsService.getEmployerDetails(this.user._id).subscribe(
       (details: EmployerDetails) => {
         details;
+        this.selectedId = details?.id ?? 0;
         this.companyForm.patchValue({
-          userId: details.userId,
+          userId: this.user._id,
           companyName: details.companyName,
           companyType: details.companyType,
           same_as: details.same_as,
@@ -65,6 +68,37 @@ export class EmployerDetailsComponent {
   }
 
   onSubmit(): void {
+
+    if(this.selectedId > 0){
+        this.onUpdate();
+    }else{
+      if (this.companyForm.valid) {
+        console.log(this.companyForm.value);
+        const employerDetails: EmployerDetails = {
+          userId: this.user._id,
+          companyName: this.companyForm.value.companyName,
+          companyType: this.companyForm.value.companyType,
+          same_as: this.companyForm.value.same_as,
+          logo: this.companyForm.value.logo,
+          industry: this.companyForm.value.industry,
+          description: this.companyForm.value.description,
+          mission: this.companyForm.value.mission,
+          vision: this.companyForm.value.vision,
+          addressID: this.companyForm.value.addressID,
+        };
+        this.userDetailsService.saveUpdateEmployerDetails(this.companyForm.value).subscribe((response) => {
+          if(response) {
+            this.companyForm.markAsUntouched();
+            console.log(response);
+              // Show success toast
+            this.showToast('Form submitted successfully!', 'Success', 'success');
+          }
+        })
+      }
+    }
+  }
+
+  onUpdate(): void {
     if (this.companyForm.valid) {
       console.log(this.companyForm.value);
       const employerDetails: EmployerDetails = {
@@ -79,9 +113,12 @@ export class EmployerDetailsComponent {
         vision: this.companyForm.value.vision,
         addressID: this.companyForm.value.addressID,
       };
-      this.userDetailsService.saveUpdateEmployerDetails(this.companyForm.value).subscribe((response) => {
+      this.userDetailsService.updateEmployerDetails(this.companyForm.value,this.selectedId).subscribe((response) => {
         if(response) {
+          this.companyForm.markAsUntouched();
           console.log(response);
+            // Show success toast
+          this.showToast('Form submitted successfully!', 'Success', 'success');
         }
       })
     }
@@ -91,6 +128,10 @@ export class EmployerDetailsComponent {
      isInvalid(controlName: string): boolean {
       const control = this.companyForm.get(controlName);
       return control !== null && control !== undefined && control.invalid && (control.dirty || control.touched);
+    }
+
+    showToast(message: string, title: string, status: string) {
+      this.toastrService.show(message, title, { status });
     }
 
 }

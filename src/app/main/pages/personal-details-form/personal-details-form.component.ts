@@ -14,6 +14,8 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
 })
 export class PersonalDetailsFormComponent implements OnInit  {
   participantProfileForm!: FormGroup;
+  addressForm!: FormGroup;
+  employmentForm!: FormGroup;
 
   private userSub: Subscription;
   user!: UserToken;
@@ -29,52 +31,48 @@ export class PersonalDetailsFormComponent implements OnInit  {
   selectedCity = '';
   selectedBarangay = '';
 
-  constructor(private fb: FormBuilder,private locationService: LocationService,private authService : AuthService, private userDetails:UserDetailsService) {
-    this.userSub = this.authService.user.subscribe(user => {
-      this.user = user;
-      this.isAuthenticated = !!user;
-    });
-  }
-
-  ngOnInit(): void {
-    // Fetch countries
-      this.locationService.getCountries().subscribe((data) => {
-        this.countries = data.map((country: any) => country.name.common);
-      });
-
-    // Fetch provinces
-    this.locationService.getProvinces().subscribe((data) => {
-      this.provinces = data;
-    });
-
+  constructor(private fb: FormBuilder,
+    private locationService: LocationService,
+    private authService : AuthService,
+    private userDetails:UserDetailsService) {
 
     this.participantProfileForm = this.fb.group({
       // Personal Information
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
-      middlename: [''],
+      id: [0],
+      userId: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      MiddleName: [''],
       suffix: [''],
       birthdate: ['', Validators.required],
       gender: ['', Validators.required],
       civilstatus: ['', Validators.required],
-      passportno: [''],
+      passportNo: [''],
       foreignaddress: [''],
       country: ['', Validators.required],
       contactnoabroad: [''],
+    });
 
+    this.addressForm = this.fb.group({
       // Philippine Address
-      province: ['', Validators.required],
-      municipality: ['', Validators.required],
-      barangay: ['', Validators.required],
+      id: [0],
+      userId: ['', Validators.required],
+      provinceID: ['', Validators.required],
+      cityID: ['', Validators.required],
+      barangayID: ['', Validators.required],
       zipcode: [''],
-      houseunitno: [''],
-      mobileno: ['', Validators.required],
-      emailaddress: ['', [Validators.required, Validators.email]],
+      street: [''],
+      mobileNo: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       religion: [''],
       education: [''],
       course: [''],
+    });
 
+    this.employmentForm = this.fb.group({
       // Employment Details
+      id: [0],
+      userId: ['', Validators.required],
       employer: ['', Validators.required],
       employeraddress: ['', Validators.required],
       employercontactno: [''],
@@ -87,6 +85,61 @@ export class PersonalDetailsFormComponent implements OnInit  {
       jobsite: [''],
       salarycurrency: ['']
     });
+
+    this.userSub = this.authService.user.subscribe(user => {
+      this.user = user;
+      this.isAuthenticated = !!user;
+    });
+  }
+
+  ngOnInit(): void {
+
+    this.userDetails.getPersonalDetailsByUserId(this.user._id).subscribe((response) => {
+      this.participantProfileForm.patchValue({
+        userId:  this.user._id,
+        id:  response.id,
+        FirstName:  response.FirstName,
+        LastName:  response.LastName,
+        MiddleName:  response.MiddleName,
+        suffix:  response.suffix,
+        birthdate:  response.birthdate,
+        gender:  response.gender,
+        civilstatus:  response.civilStatus,
+        passportNo:  response.passportNo,
+        foreignaddress:  response?.foreignaddress,
+        country:  response?.country,
+        contactnoabroad:  response?.contactnoabroad,
+      });
+    });
+
+    this.userDetails.getAddressByUserId(this.user._id).subscribe((response) => {
+      this.addressForm.patchValue({
+        userId:  this.user._id,
+        id:  response.id,
+        provinceID: response.provinceID,
+        cityID: response.cityID,
+        barangayID: response.barangayID,
+        zipcode: response.zipcode,
+        street: response.street,
+        mobileNo: response.mobileNo,
+        email: response.email,
+        religion: response?.religion,
+        education: response?.education,
+        course: response?.course,
+      });
+    });
+    // Fetch countries
+      this.locationService.getCountries().subscribe((data) => {
+        this.countries = data.map((country: any) => country.name.common);
+      });
+
+    // Fetch provinces
+    this.locationService.getProvinces().subscribe((data) => {
+      this.provinces = data;
+    });
+
+
+
   }
 
   onProvinceChange(provinceId: string) {
@@ -103,32 +156,45 @@ export class PersonalDetailsFormComponent implements OnInit  {
     });
   }
 
-  onSubmit(): void {
-
+  onSubmitPersonalDetails(): void {
     const userProfile: UserProfile = {
       userId: this.user._id,
-      firstName: this.participantProfileForm.value.firstname,
-      lastName: this.participantProfileForm.value.lastname,
-      middleName: this.participantProfileForm.value.middlename,
+      id: this.participantProfileForm.value.id,
+      FirstName: this.participantProfileForm.value.FirstName,
+      LastName: this.participantProfileForm.value.LastName,
+      MiddleName: this.participantProfileForm.value.MiddleName,
       suffix: this.participantProfileForm.value.suffix,
       birthdate: this.participantProfileForm.value.birthdate,
       gender: this.participantProfileForm.value.gender,
       civilStatus: this.participantProfileForm.value.civilstatus,
-      religion: this.participantProfileForm.value.religion,
-      educationalAttainment: this.participantProfileForm.value.educationalAttainment,
-      course: this.participantProfileForm.value.course,
-      addressID: this.participantProfileForm.value.addressID,
-      employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
-      tags: this.participantProfileForm.value.tags,
+      passportNo:  this.participantProfileForm.value.passportNo,
+      foreignaddress:  this.participantProfileForm.value?.foreignaddress,
+      country:  this.participantProfileForm.value?.country,
+      contactnoabroad:  this.participantProfileForm.value?.contactnoabroad,
+
+      // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
+      // course: this.participantProfileForm.value.course,
+      // addressID: this.participantProfileForm.value.addressID,
+      // employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
+      // tags: this.participantProfileForm.value.tags,
     };
-    console.log(userProfile);
     if(this.user){
-      this.userDetails.saveUpdatePersonalDetails(userProfile).subscribe((response) => {
-        if(response) {
-          console.log(response);
-        }
-      });
+      if(userProfile.id){
+        this.userDetails.updatePersonalDetails(userProfile).subscribe((response) => {
+          if(response) {
+            console.log(response);
+          }
+        });
+      }else{
+        this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
+          if(response) {
+            console.log(response);
+          }
+        });
+      }
     }
+
+
 
     // if (this.participantProfileForm.valid) {
     //   console.log('Form Submitted', this.participantProfileForm.value);
@@ -138,4 +204,40 @@ export class PersonalDetailsFormComponent implements OnInit  {
     // }
   }
 
+  onSubmitAddress(): void {
+
+    const address: any = {
+      userId: this.user._id,
+      id: this.addressForm.value.id,
+      provinceID: this.addressForm.value.provinceID,
+      cityID: this.addressForm.value.cityID,
+      barangayID: this.addressForm.value.barangayID,
+      zipcode: this.addressForm.value.zipcode,
+      street: this.addressForm.value.street,
+      mobileNo: this.addressForm.value.mobileNo,
+      email: this.addressForm.value.email,
+
+      // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
+      // course: this.participantProfileForm.value.course,
+      // addressID: this.participantProfileForm.value.addressID,
+      // employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
+      // tags: this.participantProfileForm.value.tags,
+    };
+    if(this.user){
+      if(address.id){
+        this.userDetails.updateAddress(address).subscribe((response) => {
+          if(response) {
+            console.log(response);
+          }
+        });
+      }else{
+        this.userDetails.saveAddress(address).subscribe((response) => {
+          if(response) {
+            console.log(response);
+          }
+        });
+      }
+    }
+
+  }
 }

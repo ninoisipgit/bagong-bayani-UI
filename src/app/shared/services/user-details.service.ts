@@ -14,11 +14,41 @@ export class UserDetailsService {
 
 
   constructor(private http: HttpClient) {}
-  saveUpdatePersonalDetails(data: any) {
+  savePersonalDetails(data: any) {
     return this.http.post(`${apiUrl}/persons`, data);
   }
+  updatePersonalDetails(data: any) {
+    return this.http.put(`${apiUrl}/persons/${data.id}`, data);
+  }
+
+  getPersonalDetailsByUserId(userId: number): Observable<any> {
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/persons/${userId}`)
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
+
+  saveAddress(data: any) {
+    return this.http.post(`${apiUrl}/addresses`, data);
+  }
+  updateAddress(data: any) {
+    return this.http.put(`${apiUrl}/addresses/${data.id}`, data);
+  }
+
+  getAddressByUserId(userId: number): Observable<any> {
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/addresses/${userId}`)
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
   saveUpdateEmployerDetails(data: EmployerDetails) {
     return this.http.post(`${apiUrl}/employers`, data);
+  }
+
+  updateEmployerDetails(data: EmployerDetails,tableId: number) {
+    return this.http.put(`${apiUrl}/employers/${tableId}`, data);
   }
   getEmployerDetails(userId: number): Observable<EmployerDetails> {
     return this.http.get<{ success: boolean; message: string; data: EmployerDetails }>(`${apiUrl}/employers/${userId}`)

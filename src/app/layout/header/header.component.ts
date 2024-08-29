@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
         this.isAuthenticated = !!user;
         if(this.isAuthenticated){
           if(user._type == 1){//company
-            this.userMenu = [{ title: 'Manage Jobs', icon: 'briefcase-outline' },{ title: 'Company Details' , icon: 'book-outline'}, { title: 'Logout', icon: 'log-out-outline' }];
+            this.userMenu = [{ title: 'Company Details' , icon: 'book-outline'},{ title: 'Manage Jobs', icon: 'briefcase-outline' }, { title: 'Logout', icon: 'log-out-outline' }];
           }else if(user._type == 2){//ofw
             this.userMenu = [{ title: 'Profile', icon: 'person-done-outline' }, { title: 'Logout', icon: 'log-out-outline' }];
           }

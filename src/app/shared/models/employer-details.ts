@@ -1,5 +1,6 @@
 export interface EmployerDetails {
-  userId: number;
+  userId?: number;
+  id?: number;
   companyName: string;
   companyType: string;
   same_as?: string;

@@ -43,6 +43,20 @@ export class UserDetailsService {
       );
   }
 
+  saveEmploymentDetails(data: any) {
+    return this.http.post(`${apiUrl}/employment`, data);
+  }
+  updateEmploymentDetails(data: any) {
+    return this.http.put(`${apiUrl}/employment/${data.id}`, data);
+  }
+
+  getEmploymentDetailsByUserId(userId: number): Observable<any> {
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/employment/${userId}`)
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
   saveUpdateEmployerDetails(data: EmployerDetails) {
     return this.http.post(`${apiUrl}/employers`, data);
   }

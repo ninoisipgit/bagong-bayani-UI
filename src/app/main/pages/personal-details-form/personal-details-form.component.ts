@@ -73,16 +73,17 @@ export class PersonalDetailsFormComponent implements OnInit  {
       // Employment Details
       id: [0],
       userId: ['', Validators.required],
-      employer: ['', Validators.required],
+      employerName: ['', Validators.required],
       employeraddress: ['', Validators.required],
       employercontactno: [''],
       vessel: [''],
-      position: [''],
+      occupation: [''],
       salary: [''],
-      agency: [''],
-      contractduration: [''],
-      ofwtype: [''],
-      jobsite: [''],
+      agencyName: [''],
+      contractDuration: [''],
+      ofwType: [''],
+      jobSite: [''],
+      monthlySalary: [''],
       salarycurrency: ['']
     });
 
@@ -128,6 +129,23 @@ export class PersonalDetailsFormComponent implements OnInit  {
         course: response?.course,
       });
     });
+
+    this.userDetails.getEmploymentDetailsByUserId(this.user._id).subscribe((response) => {
+      this.employmentForm.patchValue({
+        userId:  this.user._id,
+        id:  response.id,
+        employerName: response.employerName,
+        vessel: response.vessel,
+        occupation: response.occupation,
+        monthlySalary: response.monthlySalary,
+        agencyName: response.agencyName,
+        contractDuration: response.contractDuration,
+        ofwType: response.ofwType,
+        jobSite: response.jobSite,
+        status: response.status,
+      });
+    });
+
     // Fetch countries
       this.locationService.getCountries().subscribe((data) => {
         this.countries = data.map((country: any) => country.name.common);
@@ -232,6 +250,45 @@ export class PersonalDetailsFormComponent implements OnInit  {
         });
       }else{
         this.userDetails.saveAddress(address).subscribe((response) => {
+          if(response) {
+            console.log(response);
+          }
+        });
+      }
+    }
+
+  }
+
+  onSubmitEmploymentDetails(): void {
+
+    const value: any = {
+      userId: this.user._id,
+      id: this.employmentForm.value.id,
+      employerName: this.employmentForm.value.employerName,
+      vessel: this.employmentForm.value.vessel,
+      occupation: this.employmentForm.value.occupation,
+      monthlySalary: this.employmentForm.value.monthlySalary,
+      agencyName: this.employmentForm.value.agencyName,
+      contractDuration: this.employmentForm.value.contractDuration,
+      ofwType: this.employmentForm.value.ofwType,
+      jobSite: this.employmentForm.value.jobSite,
+      status: this.employmentForm.value.status,
+
+      // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
+      // course: this.participantProfileForm.value.course,
+      // addressID: this.participantProfileForm.value.addressID,
+      // employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
+      // tags: this.participantProfileForm.value.tags,
+    };
+    if(this.user){
+      if(value.id){
+        this.userDetails.updateEmploymentDetails(value).subscribe((response) => {
+          if(response) {
+            console.log(response);
+          }
+        });
+      }else{
+        this.userDetails.saveEmploymentDetails(value).subscribe((response) => {
           if(response) {
             console.log(response);
           }

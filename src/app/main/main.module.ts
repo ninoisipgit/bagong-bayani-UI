@@ -12,6 +12,7 @@ import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInput
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
+import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { EmployerDetailsComponent } from './pages/employer-details/employer-deta
     JobsComponent,
     ManageJobsComponent,
     PersonalDetailsFormComponent,
-    EmployerDetailsComponent
+    EmployerDetailsComponent,
+    ManageJobsListComponent
   ],
   imports: [
     CommonModule,

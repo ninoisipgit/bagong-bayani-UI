@@ -378,7 +378,7 @@
                       nbInput
                       fullWidth
                       id="employer"
-                      formControlName="employer"
+                      formControlName="employerName"
                       placeholder="EMPLOYER NAME"
                       class="form-control"
                     >
@@ -434,7 +434,7 @@
                       nbInput
                       fullWidth
                       id="position"
-                      formControlName="position"
+                      formControlName="occupation"
                       placeholder="POSITION"
                       class="form-control"
                     >
@@ -448,7 +448,7 @@
                       nbInput
                       fullWidth
                       id="salary"
-                      formControlName="salary"
+                      formControlName="monthlySalary"
                       placeholder="SALARY"
                       class="form-control"
                     >
@@ -462,7 +462,7 @@
                       nbInput
                       fullWidth
                       id="agency"
-                      formControlName="agency"
+                      formControlName="agencyName"
                       placeholder="AGENCY"
                       class="form-control"
                     >
@@ -476,7 +476,7 @@
                       nbInput
                       fullWidth
                       id="contractduration"
-                      formControlName="contractduration"
+                      formControlName="contractDuration"
                       placeholder="CONTRACT DURATION"
                       class="form-control"
                     >
@@ -490,10 +490,12 @@
                       nbSelect
                       fullWidth
                       id="ofwtype"
-                      formControlName="ofwtype"
+                      formControlName="ofwType"
                       class="form-control"
                     >
                       <option value="">Select OFW Type</option>
+                      <option value="Land-Based">Land-Based</option>
+                      <option value="Sea-Based">Sea-Based</option>
                       <!-- Add OFW Type options here -->
                     </select>
                   </div>
@@ -506,7 +508,7 @@
                       nbInput
                       fullWidth
                       id="jobsite"
-                      formControlName="jobsite"
+                      formControlName="jobSite"
                       placeholder="JOB SITE"
                       class="form-control"
                     >
@@ -530,6 +532,11 @@
                 </div>
               </div>
             </form>
+              <!-- Submit Button -->
+              <div class="row justify-content-end mt-3">
+                <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
+                <button nbButton status="primary" type="submit" (click)="onSubmitEmploymentDetails()">Submit</button>
+              </div>
             </nb-accordion-item-body>
           </nb-accordion-item>
 

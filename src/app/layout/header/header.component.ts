@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
       }
 
       if(title.item.title == 'Manage Jobs'){
-        this.router.navigate(['/main/manage-jobs']);
+        this.router.navigate(['/main/manage-jobs-list']);
       }
 
     });

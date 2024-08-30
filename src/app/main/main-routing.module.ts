@@ -7,6 +7,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
+import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,15 @@ const routes: Routes = [
         component: JobsComponent,
       },
       {
+        path: 'manage-jobs-list',
+        component: ManageJobsListComponent,
+      },
+      {
         path: 'manage-jobs',
+        component: ManageJobsComponent,
+      },
+      {
+        path: 'manage-jobs/:id',
         component: ManageJobsComponent,
       },
       {

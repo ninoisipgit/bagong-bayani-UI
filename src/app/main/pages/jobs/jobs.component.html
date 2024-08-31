@@ -1,15 +1,14 @@
-<p>jobs List!</p>
 <div class="row">
   <div class="col-12 col-xl-5">
-    <nb-card *ngFor="let i of [1,2,3,4,5,6]">
+    <nb-card *ngFor="let job of jobListings">
       <nb-card-body>
           <div class="row">
             <div class="col-2">
               <img src="assets/images/petron.png" style="height: auto;width:80px;">
             </div>
             <div class="col-7">
-              <h6>{{i}}. Senior Software Engineer (.NET & Angular)</h6>
-              <p class="text-details">Company Name.</p>
+              <h6>{{job.title}}</h6>
+              <p class="text-details">{{job.hiring_organization_name}}</p>
               <nb-tag-list>
                 <nb-tag size="tiny" status="basic" appearance="filled" text="basic"></nb-tag>
                 <nb-tag size="tiny" status="primary" appearance="filled" text="primary"></nb-tag>
@@ -23,7 +22,7 @@
               <button nbButton
                 appearance="hero"
                 status="danger"
-                size="giant">
+                size="giant"  (click)="displayJobDetails(job)">
                 LEARN MORE
               </button>
             </div>
@@ -32,60 +31,37 @@
     </nb-card>
   </div>
   <div class="col-12 col-xl-7">
-    <nb-card accent="info" >
+    <nb-card accent="info"  *ngIf="selectedJob">
       <nb-card-header>
-        Senior Software Engineer (.NET & Angular)
-        <span>Company Name</span>
+        {{selectedJob.title}}<br>
+        <span>{{selectedJob.hiring_organization_name}}</span>
       </nb-card-header>
       <nb-card-body>
         <h2>Full job description</h2>
 
-        <p>servicePath is an innovative provider of commercial software for IT Service Providers, specifically managed Services and Cloud Computing providers.</p>
+        <p>{{selectedJob.title}}</p>
 
         <h3>Job Description:</h3>
 
-        <p>We are looking for a top-notch Full Stack Developer to work as Senior Software Engineer with a passion for doing great work and learning and applying cutting edge technologies.</p>
+        <p>{{selectedJob.description}}</p>
 
         <p>The technologies being deployed for our projects include C#, ASP.NET Web API, RavenDB, AngularJS, HTML 5, jQuery, CSS, SalesForce.com and PowerShell. The team is using Microsoft development technologies (Visual Studio 2017, .NET 4.5, GIT, JIRA) and agile development methodologies.</p>
 
         <h3>About the Job:</h3>
 
         <ul>
-          <li>Job Title: Senior Software Engineer</li>
-          <li>Department: Engineering</li>
-          <li>Reports to: Engineering Team Lead (Based out of Philippines)</li>
-          <li>Shift: Day Shift</li>
-          <li>Position: Open-Ended Contract role</li>
-          <li>Location: Philippines</li>
+          <li>Job Title: {{selectedJob.title}}</li>
+          <li>Department: {{selectedJob.industry}}</li>
+          <li>Reports to: {{selectedJob.hiring_organization_name}}</li>
+          <li>Employment Type: {{selectedJob.employment_type}}</li>
+          <li>website:  {{selectedJob.hiring_organization_same_as}}</li>
+          <li>Location: {{selectedJob.job_location_address_region}}</li>
         </ul>
 
         <h3>Technical Skills Requirement:</h3>
 
-        <p>The successful candidates will have around 7-8 years’ experience in:</p>
+        <p>{{selectedJob.skills}}</p>
 
-        <ul>
-          <li>JavaScript</li>
-          <li>General .NET development (Linq, OO programming and design patterns)</li>
-          <li>ASP.NET (and supporting web technologies including CSS, AJAX, JavaScript)</li>
-          <li>jQuery</li>
-          <li>HTML 5 / JavaScript / CSS</li>
-          <li>Knowledge of NoSQL databases specifically Raven DB</li>
-          <li>Angular</li>
-          <li>AngularJS</li>
-          <li>Kendo UI HTML 5 / JavaScript Controls</li>
-          <li>Experience of Test-driven development (TDD)</li>
-          <li>Strong knowledge of ASP and .NET web framework</li>
-          <li>Proficient in C#, SQL, and AngularJS, with a good knowledge of their ecosystems</li>
-          <li>Strong understanding of object-oriented programming</li>
-          <li>Strong client communication skills</li>
-          <li>Familiar with various design and architectural patterns</li>
-          <li>Familiarity with document databases (preferred)</li>
-          <li>Experience with web application frameworks</li>
-          <li>Knack for writing clean, readable, and easily maintainable code.</li>
-          <li>Understanding of fundamental design principles for building a scalable application</li>
-          <li>Basic understanding of Common Language Runtime (CLR), its limitations, weaknesses, and workarounds</li>
-          <li>Proficient understanding of code versioning tools (Git, SVN etc.)</li>
-        </ul>
 
         <h3>Key Competency and Experience:</h3>
 
@@ -100,31 +76,15 @@
           <li>Communication Skills: Excellent in Spoken English with a strong customer focus.</li>
         </ul>
 
-        <h3>Core Competencies:</h3>
 
-        <ul>
-          <li>Programming skills</li>
-          <li>Object Oriented Programming</li>
-          <li>Software Design</li>
-        </ul>
-
-        <h3>Preferred:</h3>
-
-        <ul>
-          <li>Understanding of CRM / CPQ / Sales Management business systems</li>
-          <li>Understanding of the technology and / or managed services industries</li>
-          <li>Raven DB or NoSQL experience</li>
-        </ul>
-
-        <p>Coordinate with Product Manager / Owner: Yes, on Daily Basis (Daily Stand Ups)</p>
 
         <h3>Budget:</h3>
 
-        <p>22K-24K USD Per Year (100K-110K PHP per Month) + Annual Performance Bonus</p>
+        <p>{{selectedJob.base_salary_currency}} {{selectedJob.base_salary_value}}</p>
 
-        <h3>Job Type: Full-time</h3>
+        <h3>{{selectedJob.employment_type}}</h3>
 
-        <p>Pay: Php100,000.00 - Php110,000.00 per month</p>
+        <p>Pay: {{selectedJob.base_salary_currency}} {{selectedJob.base_salary_value}} per month</p>
       </nb-card-body>
     </nb-card>
 

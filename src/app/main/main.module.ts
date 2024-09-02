@@ -13,6 +13,7 @@ import { PersonalDetailsFormComponent } from './pages/personal-details-form/pers
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
+import { EventsComponent } from './pages/events/events.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-li
     ManageJobsComponent,
     PersonalDetailsFormComponent,
     EmployerDetailsComponent,
-    ManageJobsListComponent
+    ManageJobsListComponent,
+    EventsComponent
   ],
   imports: [
     CommonModule,

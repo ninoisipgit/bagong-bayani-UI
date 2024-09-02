@@ -8,6 +8,7 @@ import { PersonalDetailsFormComponent } from './pages/personal-details-form/pers
 import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
+import { EventsComponent } from './pages/events/events.component';
 
 const routes: Routes = [
   {
@@ -37,18 +38,21 @@ const routes: Routes = [
       {
         path: 'company-details',
         component: EmployerDetailsComponent,
-      }
+      },
+      {
+        path: 'events',
+        component: EventsComponent,
+      },
       // {
       //   path: 'reset-password',
       //   component: ResetPasswordComponent,
       // },
-    ]
+    ],
   },
   { path: '', redirectTo: 'jobs', pathMatch: 'full' },
-
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {}

@@ -72,19 +72,18 @@ export class PersonalDetailsFormComponent implements OnInit  {
     this.employmentForm = this.fb.group({
       // Employment Details
       id: [0],
-      userId: ['', Validators.required],
       employerName: ['', Validators.required],
-      employeraddress: ['', Validators.required],
-      employercontactno: [''],
+      personID: ['', Validators.required],
       vessel: [''],
       occupation: [''],
-      salary: [''],
+      monthlySalary: [''],
       agencyName: [''],
       contractDuration: [''],
       ofwType: [''],
       jobSite: [''],
-      monthlySalary: [''],
-      salarycurrency: ['']
+      // employeraddress: ['', Validators.required],
+      // employercontactno: [''],
+      // salarycurrency: ['']
     });
 
     this.userSub = this.authService.user.subscribe(user => {
@@ -132,17 +131,17 @@ export class PersonalDetailsFormComponent implements OnInit  {
 
     this.userDetails.getEmploymentDetailsByUserId(this.user._id).subscribe((response) => {
       this.employmentForm.patchValue({
-        userId:  this.user._id,
-        id:  response.id,
-        employerName: response.employerName,
-        vessel: response.vessel,
-        occupation: response.occupation,
-        monthlySalary: response.monthlySalary,
-        agencyName: response.agencyName,
-        contractDuration: response.contractDuration,
-        ofwType: response.ofwType,
-        jobSite: response.jobSite,
-        status: response.status,
+        personId:  this.user._id,
+        id:  response[0].id,
+        employerName: response[0].employerName,
+        vessel: response[0].vessel,
+        occupation: response[0].occupation,
+        monthlySalary: response[0].monthlySalary,
+        agencyName: response[0].agencyName,
+        contractDuration: response[0].contractDuration,
+        ofwType: response[0].ofwType,
+        jobSite: response[0].jobSite,
+        status: response[0].status,
       });
     });
 
@@ -262,7 +261,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
   onSubmitEmploymentDetails(): void {
 
     const value: any = {
-      userId: this.user._id,
+      personID: this.user._id,
       id: this.employmentForm.value.id,
       employerName: this.employmentForm.value.employerName,
       vessel: this.employmentForm.value.vessel,

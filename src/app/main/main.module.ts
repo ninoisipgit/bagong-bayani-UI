@@ -8,13 +8,23 @@ import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbButtonModule, NbInputModule, NbCardModule, NbTagModule, NbAccordionModule, NbSelectModule, NbToastrModule } from '@nebular/theme';
+import {
+  NbThemeModule,
+  NbLayoutModule,
+  NbSidebarModule,
+  NbButtonModule,
+  NbInputModule,
+  NbCardModule,
+  NbTagModule,
+  NbAccordionModule,
+  NbSelectModule,
+  NbToastrModule,
+} from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
 import { EventsComponent } from './pages/events/events.component';
-
 
 @NgModule({
   declarations: [
@@ -24,9 +34,10 @@ import { EventsComponent } from './pages/events/events.component';
     PersonalDetailsFormComponent,
     EmployerDetailsComponent,
     ManageJobsListComponent,
-    EventsComponent
+    EventsComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule,
     MainRoutingModule,
     NbThemeModule.forRoot({ name: 'default' }),
@@ -42,6 +53,6 @@ import { EventsComponent } from './pages/events/events.component';
     ReactiveFormsModule,
     NbSelectModule,
     NbToastrModule.forRoot(),
-  ]
+  ],
 })
-export class MainModule { }
+export class MainModule {}

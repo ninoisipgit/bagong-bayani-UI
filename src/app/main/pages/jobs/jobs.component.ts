@@ -41,4 +41,8 @@ fetchData(){
   displayJobDetails(job: any){
     this.selectedJob = job;
   }
+
+  applyForJob(){
+
+  }
 }

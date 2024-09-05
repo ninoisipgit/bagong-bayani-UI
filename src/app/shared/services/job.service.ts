@@ -16,7 +16,6 @@ export class JobService {
     );
   }
   updateJobDetails(data: any) {
-    debugger;
     return this.http.put(`${apiUrl}/jobs/${data.id}`, data);
   }
 

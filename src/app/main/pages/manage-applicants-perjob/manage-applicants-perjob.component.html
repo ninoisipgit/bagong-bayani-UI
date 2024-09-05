@@ -1,0 +1,67 @@
+<nb-card accent="info"  *ngIf="jobDetails">
+  <nb-card-header>
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        {{jobDetails.title}}<br>
+        <span>{{jobDetails.hiring_organization_name}}</span>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <h2>Full job description</h2>
+
+    <p>{{jobDetails.title}}</p>
+
+    <h3>Job Description:</h3>
+
+    <p>{{jobDetails.description}}</p>
+
+    <p>The technologies being deployed for our projects include C#, ASP.NET Web API, RavenDB, AngularJS, HTML 5, jQuery, CSS, SalesForce.com and PowerShell. The team is using Microsoft development technologies (Visual Studio 2017, .NET 4.5, GIT, JIRA) and agile development methodologies.</p>
+
+    <h3>About the Job:</h3>
+
+    <ul>
+      <li>Job Title: {{jobDetails.title}}</li>
+      <li>Department: {{jobDetails.industry}}</li>
+      <li>Reports to: {{jobDetails.hiring_organization_name}}</li>
+      <li>Employment Type: {{jobDetails.employment_type}}</li>
+      <li>website:  {{jobDetails.hiring_organization_same_as}}</li>
+      <li>Location: {{jobDetails.job_location_address_region}}</li>
+    </ul>
+
+    <p>Pay: {{jobDetails.base_salary_currency}} {{jobDetails.base_salary_value}} per month</p>
+
+    <h1>Applicants</h1>
+    <table class="table table-striped table-bordered mt-4">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Applicants Name</th>
+          <th scope="col">Date Applied</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Age</th>
+          <th scope="col">Address</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr *ngFor="let job of jobListings">
+          <td>{{ job.title }}</td>
+          <td>{{ job.description }}</td>
+          <td>{{ job.date_posted | date }}</td>
+          <td>{{ job.valid_through  | date}}</td>
+          <td>{{ job.employment_type }}</td>
+          <td>{{ job.hiring_organization_name }}</td>
+          <td class="text-center">
+            <button class="btn btn-info" (click)="editJob(job)">Edit</button>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-danger" (click)="deleteJob(job)">Delete</button>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-success " [routerLink]="['/main/manage-applicants-perjob/', job.id]"  >Manage Applicants</button>
+          </td>
+        </tr> -->
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>

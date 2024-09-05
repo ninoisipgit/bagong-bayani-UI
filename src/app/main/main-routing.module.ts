@@ -8,6 +8,7 @@ import { PersonalDetailsFormComponent } from './pages/personal-details-form/pers
 import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
+import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'company-details',
         component: EmployerDetailsComponent,
+      },
+      {
+        path: 'manage-applicants-perjob/:jobId',
+        component: ManageApplicantsPerjobComponent,
       }
       // {
       //   path: 'reset-password',

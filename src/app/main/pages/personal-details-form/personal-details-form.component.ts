@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -30,10 +31,13 @@ export class PersonalDetailsFormComponent implements OnInit  {
   selectedProvince = '';
   selectedCity = '';
   selectedBarangay = '';
+  readonly: boolean = false;
+  personID:number = 0;
 
   constructor(private fb: FormBuilder,
     private locationService: LocationService,
     private authService : AuthService,
+    private route: ActivatedRoute,
     private userDetails:UserDetailsService) {
 
     this.participantProfileForm = this.fb.group({
@@ -87,16 +91,25 @@ export class PersonalDetailsFormComponent implements OnInit  {
     });
 
     this.userSub = this.authService.user.subscribe(user => {
-      this.user = user;
-      this.isAuthenticated = !!user;
+      if(user){
+        this.user = user;
+        this.personID = user?._id
+        this.isAuthenticated = !!user;
+        if(this.user._type == 1){
+          this.readonly = true
+          this.route.paramMap.subscribe(params => {
+            this.personID = Number(params.get('userId'));
+          });
+        }
+      }
     });
   }
 
   ngOnInit(): void {
 
-    this.userDetails.getPersonalDetailsByUserId(this.user._id).subscribe((response) => {
+    this.userDetails.getPersonalDetailsByUserId(this.personID).subscribe((response) => {
       this.participantProfileForm.patchValue({
-        userId:  this.user._id,
+        userId:  this.personID,
         id:  response.id,
         FirstName:  response.FirstName,
         LastName:  response.LastName,
@@ -112,9 +125,9 @@ export class PersonalDetailsFormComponent implements OnInit  {
       });
     });
 
-    this.userDetails.getAddressByUserId(this.user._id).subscribe((response) => {
+    this.userDetails.getAddressByUserId(this.personID).subscribe((response) => {
       this.addressForm.patchValue({
-        userId:  this.user._id,
+        userId:  this.personID,
         id:  response.id,
         provinceID: response.provinceID,
         cityID: response.cityID,
@@ -129,9 +142,9 @@ export class PersonalDetailsFormComponent implements OnInit  {
       });
     });
 
-    this.userDetails.getEmploymentDetailsByUserId(this.user._id).subscribe((response) => {
+    this.userDetails.getEmploymentDetailsByUserId(this.personID).subscribe((response) => {
       this.employmentForm.patchValue({
-        personId:  this.user._id,
+        personId:  this.personID,
         id:  response[0].id,
         employerName: response[0].employerName,
         vessel: response[0].vessel,

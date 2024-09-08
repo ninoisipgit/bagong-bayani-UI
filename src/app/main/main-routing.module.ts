@@ -36,6 +36,10 @@ const routes: Routes = [
         component: PersonalDetailsFormComponent,
       },
       {
+        path: 'personal-details-view/:userId',
+        component: PersonalDetailsFormComponent,
+      },
+      {
         path: 'company-details',
         component: EmployerDetailsComponent,
       },

@@ -2,7 +2,7 @@
   <nb-card class="auth-card" style="min-width: 100%; width: 100%;">
     <nb-card-header>Employees Personal Details</nb-card-header>
     <nb-card-body>
-        <nb-accordion multi >
+        <nb-accordion multi  [ngClass]="readonly? 'readonly-accordion' : ''">
 
           <!-- Personal Information Section -->
           <nb-accordion-item [expanded]="true">
@@ -181,7 +181,7 @@
                   </div>
 
                   <!-- Submit Button -->
-                  <div class="row justify-content-end mt-3">
+                  <div class="row justify-content-end mt-3" *ngIf="!readonly">
                     <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
                     <button nbButton status="primary" type="submit" (click)="onSubmitPersonalDetails()">Submit</button>
                   </div>
@@ -190,7 +190,7 @@
           </nb-accordion-item>
 
           <!-- Philippine Address Section -->
-          <nb-accordion-item>
+          <nb-accordion-item [expanded]="true">
             <nb-accordion-item-header>Philippine Address</nb-accordion-item-header>
             <nb-accordion-item-body>
               <form [formGroup]="addressForm">
@@ -357,7 +357,7 @@
               </form>
 
               <!-- Submit Button -->
-              <div class="row justify-content-end mt-3">
+              <div class="row justify-content-end mt-3" *ngIf="!readonly">
                 <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
                 <button nbButton status="primary" type="submit" (click)="onSubmitAddress()">Submit</button>
               </div>
@@ -365,7 +365,7 @@
           </nb-accordion-item>
 
           <!-- Employment Details Section -->
-          <nb-accordion-item>
+          <nb-accordion-item [expanded]="true">
             <nb-accordion-item-header>Employment Details</nb-accordion-item-header>
             <nb-accordion-item-body>
               <form [formGroup]="employmentForm">
@@ -532,7 +532,7 @@
               </div>
             </form>
               <!-- Submit Button -->
-              <div class="row justify-content-end mt-3">
+              <div class="row justify-content-end mt-3" *ngIf="!readonly">
                 <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
                 <button nbButton status="primary" type="submit" (click)="onSubmitEmploymentDetails()">Submit</button>
               </div>

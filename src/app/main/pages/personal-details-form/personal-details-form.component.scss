@@ -1,3 +1,15 @@
+.readonly-accordion input {
+  pointer-events: none;
+  // background-color: #f7f7f7; /* Optional: To give a 'disabled' look */
+}
+
+.readonly-accordion select,
+.readonly-accordion nb-select {
+  pointer-events: none;
+  background-color: #f7f7f7; /* Optional: To match the disabled input appearance */
+}
+
+
 /* Base Styles */
 .container-fluid {
   padding: 20px;

@@ -31,6 +31,7 @@ import { EventModalComponent } from './pages/events/event-modal/event-modal.comp
 import { UpdateEventModalComponent } from './pages/events/update-event-modal/update-event-modal.component';
 import { AddEventModalComponent } from './pages/events/add-event-modal/add-event-modal.component';
 import { PostCardComponent } from './pages/events/post-card/post-card.component';
+import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { PostCardComponent } from './pages/events/post-card/post-card.component'
     UpdateEventModalComponent,
     AddEventModalComponent,
     PostCardComponent,
+    ManageApplicantsPerjobComponent,
   ],
   imports: [
     FormsModule,

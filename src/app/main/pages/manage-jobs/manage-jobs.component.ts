@@ -4,8 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
+import { EmployerDetails } from 'src/app/shared/models/employer-details';
 import { JobDetails } from 'src/app/shared/models/job-details';
 import { JobService } from 'src/app/shared/services/job.service';
+import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 
 @Component({
   selector: 'app-manage-jobs',
@@ -20,13 +22,17 @@ export class ManageJobsComponent  implements OnInit{
   user!: UserToken;
   isAuthenticated = false;
 
+  employerDetails!: EmployerDetails
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private authService : AuthService,
     private jobService:JobService,
-    private router: Router
+    private router: Router,
+    private userDetailsService: UserDetailsService
   ) {
+
 
     this.jobForm = this.fb.group({
       id: [''],
@@ -36,7 +42,7 @@ export class ManageJobsComponent  implements OnInit{
       date_posted: ['', Validators.required],
       valid_through: [null],
       employment_type: ['', [Validators.required, Validators.maxLength(255)]],
-      hiring_organization_name: ['', [Validators.required, Validators.maxLength(255)]],
+      hiring_organization_name: [this.employerDetails?.companyName, [Validators.required, Validators.maxLength(255)]],
       hiring_organization_same_as: ['', Validators.maxLength(255)],
       hiring_organization_logo: ['', Validators.maxLength(255)],
       job_location_street_address: ['', [Validators.required, Validators.maxLength(255)]],
@@ -69,6 +75,20 @@ export class ManageJobsComponent  implements OnInit{
       this.jobId = Number(params.get('id'));
       console.log(this.jobId);
     });
+
+    this.userDetailsService.getEmployerDetails(this.user._id).subscribe(
+      (details: EmployerDetails) => {
+        this.employerDetails = details;
+
+        this.jobForm.patchValue({
+          hiring_organization_name:  details.companyName
+        })
+      },
+      (error) => {
+        console.error('Error fetching company details', error);
+      }
+    );
+
   }
 
   ngOnInit(): void {

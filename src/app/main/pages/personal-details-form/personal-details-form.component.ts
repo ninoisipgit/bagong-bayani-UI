@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -30,10 +31,13 @@ export class PersonalDetailsFormComponent implements OnInit  {
   selectedProvince = '';
   selectedCity = '';
   selectedBarangay = '';
+  readonly: boolean = false;
+  personID:number = 0;
 
   constructor(private fb: FormBuilder,
     private locationService: LocationService,
     private authService : AuthService,
+    private route: ActivatedRoute,
     private userDetails:UserDetailsService) {
 
     this.participantProfileForm = this.fb.group({
@@ -72,32 +76,40 @@ export class PersonalDetailsFormComponent implements OnInit  {
     this.employmentForm = this.fb.group({
       // Employment Details
       id: [0],
-      userId: ['', Validators.required],
       employerName: ['', Validators.required],
-      employeraddress: ['', Validators.required],
-      employercontactno: [''],
+      personID: ['', Validators.required],
       vessel: [''],
       occupation: [''],
-      salary: [''],
+      monthlySalary: [''],
       agencyName: [''],
       contractDuration: [''],
       ofwType: [''],
       jobSite: [''],
-      monthlySalary: [''],
-      salarycurrency: ['']
+      // employeraddress: ['', Validators.required],
+      // employercontactno: [''],
+      // salarycurrency: ['']
     });
 
     this.userSub = this.authService.user.subscribe(user => {
-      this.user = user;
-      this.isAuthenticated = !!user;
+      if(user){
+        this.user = user;
+        this.personID = user?._id
+        this.isAuthenticated = !!user;
+        if(this.user._type == 1){
+          this.readonly = true
+          this.route.paramMap.subscribe(params => {
+            this.personID = Number(params.get('userId'));
+          });
+        }
+      }
     });
   }
 
   ngOnInit(): void {
 
-    this.userDetails.getPersonalDetailsByUserId(this.user._id).subscribe((response) => {
+    this.userDetails.getPersonalDetailsByUserId(this.personID).subscribe((response) => {
       this.participantProfileForm.patchValue({
-        userId:  this.user._id,
+        userId:  this.personID,
         id:  response.id,
         FirstName:  response.FirstName,
         LastName:  response.LastName,
@@ -113,9 +125,9 @@ export class PersonalDetailsFormComponent implements OnInit  {
       });
     });
 
-    this.userDetails.getAddressByUserId(this.user._id).subscribe((response) => {
+    this.userDetails.getAddressByUserId(this.personID).subscribe((response) => {
       this.addressForm.patchValue({
-        userId:  this.user._id,
+        userId:  this.personID,
         id:  response.id,
         provinceID: response.provinceID,
         cityID: response.cityID,
@@ -130,19 +142,19 @@ export class PersonalDetailsFormComponent implements OnInit  {
       });
     });
 
-    this.userDetails.getEmploymentDetailsByUserId(this.user._id).subscribe((response) => {
+    this.userDetails.getEmploymentDetailsByUserId(this.personID).subscribe((response) => {
       this.employmentForm.patchValue({
-        userId:  this.user._id,
-        id:  response.id,
-        employerName: response.employerName,
-        vessel: response.vessel,
-        occupation: response.occupation,
-        monthlySalary: response.monthlySalary,
-        agencyName: response.agencyName,
-        contractDuration: response.contractDuration,
-        ofwType: response.ofwType,
-        jobSite: response.jobSite,
-        status: response.status,
+        personId:  this.personID,
+        id:  response[0].id,
+        employerName: response[0].employerName,
+        vessel: response[0].vessel,
+        occupation: response[0].occupation,
+        monthlySalary: response[0].monthlySalary,
+        agencyName: response[0].agencyName,
+        contractDuration: response[0].contractDuration,
+        ofwType: response[0].ofwType,
+        jobSite: response[0].jobSite,
+        status: response[0].status,
       });
     });
 
@@ -262,7 +274,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
   onSubmitEmploymentDetails(): void {
 
     const value: any = {
-      userId: this.user._id,
+      personID: this.user._id,
       id: this.employmentForm.value.id,
       employerName: this.employmentForm.value.employerName,
       vessel: this.employmentForm.value.vessel,

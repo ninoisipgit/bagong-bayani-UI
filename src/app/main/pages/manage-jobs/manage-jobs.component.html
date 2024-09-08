@@ -70,7 +70,7 @@
         <label for="hiring_organization_name">Hiring Organization Name</label>
         <input nbInput fullWidth id="hiring_organization_name" formControlName="hiring_organization_name"
                placeholder="Hiring Organization Name" class="form-control"
-               [status]="isInvalid('hiring_organization_name') ? 'danger' : 'basic'">
+               [status]="isInvalid('hiring_organization_name') ? 'danger' : 'basic'" readonly>
         <div *ngIf="isInvalid('hiring_organization_name')" class="invalid-feedback">
           Hiring Organization Name is required and must be less than 255 characters.
         </div>

@@ -2,7 +2,7 @@
   <nb-card class="auth-card" style="min-width: 100%; width: 100%;">
     <nb-card-header>Employees Personal Details</nb-card-header>
     <nb-card-body>
-        <nb-accordion multi >
+        <nb-accordion multi  [ngClass]="readonly? 'readonly-accordion' : ''">
 
           <!-- Personal Information Section -->
           <nb-accordion-item [expanded]="true">
@@ -181,7 +181,7 @@
                   </div>
 
                   <!-- Submit Button -->
-                  <div class="row justify-content-end mt-3">
+                  <div class="row justify-content-end mt-3" *ngIf="!readonly">
                     <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
                     <button nbButton status="primary" type="submit" (click)="onSubmitPersonalDetails()">Submit</button>
                   </div>
@@ -190,7 +190,7 @@
           </nb-accordion-item>
 
           <!-- Philippine Address Section -->
-          <nb-accordion-item>
+          <nb-accordion-item [expanded]="true">
             <nb-accordion-item-header>Philippine Address</nb-accordion-item-header>
             <nb-accordion-item-body>
               <form [formGroup]="addressForm">
@@ -301,7 +301,7 @@
                   </div>
                 </div>
                 <!-- Religion -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
                     <label for="religion">Religion</label>
                     <input
@@ -313,9 +313,9 @@
                       class="form-control"
                     >
                   </div>
-                </div>
+                </div> -->
                 <!-- Education -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
                     <label for="education">Highest Education Attained</label>
                     <select
@@ -338,9 +338,9 @@
                       <option value="">Doctorate Degree</option>
                     </select>
                   </div>
-                </div>
+                </div> -->
                 <!-- Course -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
                     <label for="course">Course (If Graduate)</label>
                     <input
@@ -352,12 +352,12 @@
                       class="form-control"
                     >
                   </div>
-                </div>
+                </div> -->
               </div>
               </form>
 
               <!-- Submit Button -->
-              <div class="row justify-content-end mt-3">
+              <div class="row justify-content-end mt-3" *ngIf="!readonly">
                 <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
                 <button nbButton status="primary" type="submit" (click)="onSubmitAddress()">Submit</button>
               </div>
@@ -365,7 +365,7 @@
           </nb-accordion-item>
 
           <!-- Employment Details Section -->
-          <nb-accordion-item>
+          <nb-accordion-item [expanded]="true">
             <nb-accordion-item-header>Employment Details</nb-accordion-item-header>
             <nb-accordion-item-body>
               <form [formGroup]="employmentForm">
@@ -385,7 +385,7 @@
                   </div>
                 </div>
                 <!-- Employer Address -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
                     <label for="employeraddress">Employer Address</label>
                     <input
@@ -397,9 +397,9 @@
                       class="form-control"
                     >
                   </div>
-                </div>
+                </div> -->
                 <!-- Employer Contact No. -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
                     <label for="employercontactno">Employer Contact No.</label>
                     <input
@@ -411,7 +411,7 @@
                       class="form-control"
                     >
                   </div>
-                </div>
+                </div> -->
                 <!-- Vessel -->
                 <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
@@ -515,7 +515,7 @@
                   </div>
                 </div>
                 <!-- Salary Currency -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
                     <label for="salarycurrency">Salary Currency</label>
                     <select
@@ -526,14 +526,13 @@
                       class="form-control"
                     >
                       <option value="">Select Currency</option>
-                      <!-- Add currency options here -->
                     </select>
                   </div>
-                </div>
+                </div> -->
               </div>
             </form>
               <!-- Submit Button -->
-              <div class="row justify-content-end mt-3">
+              <div class="row justify-content-end mt-3" *ngIf="!readonly">
                 <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
                 <button nbButton status="primary" type="submit" (click)="onSubmitEmploymentDetails()">Submit</button>
               </div>

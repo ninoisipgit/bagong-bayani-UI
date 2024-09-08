@@ -9,6 +9,7 @@ import { ManageJobsComponent } from './pages/manage-jobs/manage-jobs.component';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
 import { EventsComponent } from './pages/events/events.component';
+import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
 
 const routes: Routes = [
   {
@@ -36,12 +37,20 @@ const routes: Routes = [
         component: PersonalDetailsFormComponent,
       },
       {
+        path: 'personal-details-view/:userId',
+        component: PersonalDetailsFormComponent,
+      },
+      {
         path: 'company-details',
         component: EmployerDetailsComponent,
       },
       {
         path: 'events',
         component: EventsComponent,
+      },
+      {
+        path: 'manage-applicants-perjob/:jobId',
+        component: ManageApplicantsPerjobComponent,
       },
       // {
       //   path: 'reset-password',

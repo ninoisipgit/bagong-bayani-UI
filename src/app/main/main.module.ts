@@ -19,12 +19,18 @@ import {
   NbAccordionModule,
   NbSelectModule,
   NbToastrModule,
+  NbContextMenuModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployerDetailsComponent } from './pages/employer-details/employer-details.component';
 import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
 import { EventsComponent } from './pages/events/events.component';
+import { EventModalComponent } from './pages/events/event-modal/event-modal.component';
+import { UpdateEventModalComponent } from './pages/events/update-event-modal/update-event-modal.component';
+import { AddEventModalComponent } from './pages/events/add-event-modal/add-event-modal.component';
+import { PostCardComponent } from './pages/events/post-card/post-card.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,10 @@ import { EventsComponent } from './pages/events/events.component';
     EmployerDetailsComponent,
     ManageJobsListComponent,
     EventsComponent,
+    EventModalComponent,
+    UpdateEventModalComponent,
+    AddEventModalComponent,
+    PostCardComponent,
   ],
   imports: [
     FormsModule,
@@ -52,6 +62,8 @@ import { EventsComponent } from './pages/events/events.component';
     NbAccordionModule,
     ReactiveFormsModule,
     NbSelectModule,
+    NbContextMenuModule,
+    NbIconModule,
     NbToastrModule.forRoot(),
   ],
 })

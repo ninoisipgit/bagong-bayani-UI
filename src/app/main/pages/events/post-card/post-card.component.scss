@@ -1,0 +1,45 @@
+.image-preview-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .image-item {
+    position: relative;
+    width: calc((100% - 20%) / 3); /* Default width for multiple images */
+    height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .more-images {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    border-radius: 8px;
+  }
+  
+  /* Full-size image when there's only one image */
+  .single-image .image-item {
+    width: 100%;
+  }
+  
+  .single-image .image-item img {
+    object-fit: contain; /* Ensures the image doesn't stretch and respects aspect ratio */
+  }
+  

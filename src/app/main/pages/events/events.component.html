@@ -1,93 +1,32 @@
-<div class="container">
-    <div class="card mb-4">
-
-        
-        <!-- <div class="card-body d-flex align-items-center">
-            <img src="assets/images/owwa.png" alt="Profile Picture" class=" me-3" style="width: 50px; height: 50px;">
-            <input type="text" class="form-control" placeholder="Content...">
-        </div> --> 
-        <div class="row p-3">
-            <div class="col-12">
-                <label for="" class="mt-2 fw-bold">Title</label>
-                <input [(ngModel)]="event.title" type="text" class="form-control" placeholder="..." /> 
-            </div>
-            <div class="col-12">
-                <label for="" class="mt-2 fw-bold">Content</label>
-                <textarea [(ngModel)]="event.content" class="form-control" name="" id="" placeholder="..."></textarea>
-            </div>
-           
-            <div class="col-12">
-                <label class="mt-2 fw-bold">Category</label>
-                <select [(ngModel)]="event.category" class="form-select">
-                  <option value="Events">Events</option>
-                  <option value="Announcements">Announcements</option>
-                </select>
-              </div>
-
-            <div class="col-12 mt-2">
-                    <!-- Image Dropzone -->
-                    <div class="dropzone" (click)="fileInput.click()" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
-                    (dragleave)="onDragLeave($event)" [class.dragover]="isDragOver">
-                    <p class="text-center">Drag & drop images here or click to upload</p>
-                    <input #fileInput type="file" class="form-control" (change)="onFileSelect($event)" multiple accept="image/*"
-                        hidden>
-                </div>
-            </div>
-            <div class="col-12">
-                <!-- Preview of selected images -->
-                <div class="image-preview mt-3" *ngIf="images.length > 0">
-                    <div *ngFor="let image of images; let i = index" class="image-thumbnail">
-                        <img [src]="image" class="img-fluid">
-                        <button type="button" class="btn-close" aria-label="Close" (click)="removeImage(i)"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="card-footer text-end">
-            <button class="btn btn-primary btn-sm" (click)="onSubmit()">Post</button>
-        </div>
-    </div>
-</div>
 <div class="container mt-5">
-    <div class="card mb-4">
-        <!-- <pre>
-        {{events |json}}
-        </pre> -->
-
-        <div class="card-body" *ngFor="let event of events; trackBy:event.id" >
-
+    <div class="card mb-4"> 
+        <div class="card-body"  >
+            <!-- <pre>{{event | json}}</pre> -->
             <!-- Post Header -->
-            <div class="d-flex align-items-center mb-3">
+            <div class="d-flex align-items-center">
                 <img src="assets/images/owwa.png" alt="Profile Picture" class=" me-3"
-                    style="width: 50px; height: 50px;">
-                <div>
-                    <h5 class="mb-0">OWWA</h5>
-                    <!-- <small class="text-muted">2 hours ago</small> -->
-                    <small class="text-muted"><b>Created: </b> {{ event.created_at | date:'short' }} || <b>Published: </b>: {{ event.published_date | date:'short' }}</small>
+                    style="width: 30px; height: 30px;">
+                <div class="w-100">
+                    <textarea placeholder="What's New?"  id="" class="form-control w-100" rows="1" (click)="onAdd()"></textarea>
                 </div>
-                <!-- Action Buttons -->
-                <div class="ms-auto">
-                    <button class="btn btn-light btn-sm me-2"><i class="bi bi-pencil"></i> Edit</button>
-                    <button class="btn btn-light btn-sm me-2"><i class="bi bi-trash"></i> Delete</button>
-                    <button class="btn btn-light btn-sm"><i class="bi bi-globe"></i> Publish</button>
-                </div>
+
             </div>
-
-            <!-- Post Content -->
-            <p class="mb-3">{{event.content}}</p>
-
-            <!-- Responsive Image -->
-            <div class="row">
-                <div class="col-12">
-                    <img src="https://via.placeholder.com/600x300" alt="Post Image" class="img-fluid rounded w-100">
-                </div>
-            </div>
-
-        </div>
-
-        
+        </div> 
     </div>
+
+    <div class="text-center">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Events" value="option1">
+            <label class="form-check-label" for="Events">Events</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Information" value="option1">
+            <label class="form-check-label" for="Information">Information</label>
+          </div>
+    </div>
+</div> 
+<div *ngFor="let event of events;">
+    <app-post-card [event]="event"/>
 </div>
+
+ 

@@ -1,4 +1,9 @@
-.dropzone {
+nb-card-body {
+    max-height: 70vh; /* Adjust to ensure modal body fits within viewport */
+    overflow-y: auto; /* Enable scrolling if content exceeds height */
+  }
+
+  .dropzone {
     border: 2px dashed #caccce;
     padding: 40px;
     text-align: center;
@@ -42,5 +47,3 @@
     font-size: 12px;
     border-radius: 50%;
 }
-
-

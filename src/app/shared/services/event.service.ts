@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Events } from '../models/events.model';
+import { EventImage, Events } from '../models/events.model';
 
 const apiUrl = `${environment.apiUrl}/api/auth`;
 @Injectable({
@@ -35,7 +35,7 @@ export class EventService {
       .pipe(map((response) => response.data));
   }
 
-  createPost(post: Events): Observable<Events> {
+  createPost(post: any): Observable<Events> {
     return this.http
       .post<{ success: boolean; message: string; data: any }>(
         `${apiUrl}/information`,
@@ -55,5 +55,24 @@ export class EventService {
 
   deletePost(id: number): Observable<void> {
     return this.http.delete<void>(`${`${apiUrl}/information`}/${id}`);
+  }
+
+  insertImage(image: any): Observable<EventImage> {
+    return this.http
+      .post<{ success: boolean; message: string; data: any }>(
+        `${apiUrl}/eventImages`,
+        image
+      )
+      .pipe(map((response) => response.data));
+  }
+  getImageByPostId(): Observable<EventImage> {
+    return this.http
+      .get<{ success: boolean; message: string; data: any }>(
+        `${apiUrl}/eventImages/information`
+      )
+      .pipe(map((response) => response.data));
+  }
+  deleteImage(id: number): Observable<void> {
+    return this.http.delete<void>(`${`${apiUrl}/eventImages`}/${id}`);
   }
 }

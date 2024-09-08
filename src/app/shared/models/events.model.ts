@@ -10,4 +10,13 @@ export interface Events {
   views?: string;
   attachments?: string;
   userID?: string;
+  images?: any;
+}
+
+export interface EventImage {
+  id?: number;
+  userID: Number;
+  postID: Number;
+  image: any;
+  path?: string;
 }

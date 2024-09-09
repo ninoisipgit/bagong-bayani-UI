@@ -43,4 +43,18 @@ export class JobService {
         map(response => response.data)
       );
   }
+
+
+  applyForJob(data: any) {
+    return this.http.post<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobApplicant`, data).pipe(
+      map(response => response.data)
+    );
+  }
+
+  getJobApplicants() {
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobApplicant`)
+    .pipe(
+      map(response => response.data)
+    );
+  }
 }

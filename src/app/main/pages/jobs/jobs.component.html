@@ -38,8 +38,9 @@
             {{selectedJob.title}}<br>
             <span>{{selectedJob.hiring_organization_name}}</span>
           </div>
-          <button nbButton status="primary" class="ml-2" (click)="applyForJob()">
-            Apply
+          <button nbButton [status]="getStatus(selectedJob) === 'Applied' ? 'success' : 'primary'"
+          class="ml-2" (click)="applyForJob()"  [disabled]="getStatus(selectedJob) === 'Applied' ? true : false">
+            {{getStatus(selectedJob)}}
           </button>
         </div>
       </nb-card-header>

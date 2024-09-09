@@ -23,6 +23,8 @@ export class ManageApplicantsPerjobComponent implements OnInit {
 
   employerDetails!: EmployerDetails
 
+  jobApplicants!: any[]
+
 
   constructor(
     private route: ActivatedRoute,
@@ -51,11 +53,18 @@ export class ManageApplicantsPerjobComponent implements OnInit {
     );
   }
   ngOnInit(): void {
+    this.getApplicantsList();
     if(this.jobId > 0){
       this.jobService.getJobDetails(this.jobId).subscribe((response) => {
         this.jobDetails = response;
       });
     }
+  }
+
+  getApplicantsList(){
+    this.jobService.getJobApplicants().subscribe((res: any) => {
+      this.jobApplicants = res.filter((x: any) => x.jobID === this.jobId);
+    })
   }
 
 }

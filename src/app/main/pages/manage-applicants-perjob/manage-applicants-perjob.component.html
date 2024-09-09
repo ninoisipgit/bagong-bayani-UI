@@ -48,7 +48,15 @@
           <td>{{ applicant.firstName + ' ' + applicant.lastName}}</td>
           <td>{{ applicant.created_at | date }}</td>
           <td>{{ applicant.birthdate  | date}}</td>
-          <td>{{ applicant.status }}</td>
+          <td class="text-center">
+            <nb-select placeholder="Select Showcase" [(selected)]="applicant.status" fullWidth (selectedChange)="onStatusChange(applicant, $event)" >
+              <nb-option value="applied">applied</nb-option>
+              <nb-option value="interviewed">interviewed</nb-option>
+              <nb-option value="hired">hired</nb-option>
+              <nb-option value="rejected">rejected</nb-option>
+              <nb-option value="withdrawn ">withdrawn </nb-option>
+            </nb-select>
+          </td>
           <td class="text-center">
             <button class="btn btn-success " [routerLink]="['/main/personal-details-view/', applicant.appliedUserID]"  >View Applicants profile</button>
           </td>

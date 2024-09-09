@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -31,6 +32,7 @@ export class ManageApplicantsPerjobComponent implements OnInit {
     private authService : AuthService,
     private jobService:JobService,
     private router: Router,
+    private toastrService: NbToastrService,
     private userDetailsService: UserDetailsService
   ) {
     this.userSub = this.authService.user.subscribe(user => {
@@ -65,6 +67,25 @@ export class ManageApplicantsPerjobComponent implements OnInit {
     this.jobService.getJobApplicants().subscribe((res: any) => {
       this.jobApplicants = res.filter((x: any) => x.jobID === this.jobId);
     })
+  }
+
+  onStatusChange(applicant: any, event: string): void {
+    if(applicant){
+      const  application = {
+        id : applicant.id,
+        jobID : applicant.jobID,
+        appliedUserID : applicant.appliedUserID,
+        status : event
+      }
+      this.jobService.applyForJob(application).subscribe((res: any) => {
+        if(res){
+          this.showToast('Application submitted successfully!', 'Success', 'success');
+        }
+      });
+    }
+  }
+  showToast(message: string, title: string, status: string) {
+    this.toastrService.show('Form submitted successfully!', title, { status });
   }
 
 }

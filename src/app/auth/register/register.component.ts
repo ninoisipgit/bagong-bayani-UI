@@ -34,7 +34,11 @@ export class RegisterComponent implements OnInit {
       const formData = this.signupForm.value;
       this.authService.signUp(formData).subscribe((response) => {
         if(response) {
-          this.router.navigate(['/main/jobs']);
+          if(response.user_type == 1){
+            window.location.href = '/main/company-details';
+          }else{
+            window.location.href = '/main/personal-details';
+          }
         }
       },err => {
         console.log(err);

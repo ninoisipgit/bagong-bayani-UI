@@ -24,4 +24,5 @@ export interface JobDetails {
   job_location_type?: string;
   work_hours?: string;
   tags?: string;
+  status?: number;
 }

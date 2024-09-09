@@ -45,7 +45,7 @@ const routes: Routes = [
         component: EmployerDetailsComponent,
       },
       {
-        path: 'events',
+        path: 'events-management',
         component: EventsComponent,
       },
       {

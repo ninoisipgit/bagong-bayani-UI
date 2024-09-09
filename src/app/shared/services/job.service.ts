@@ -37,7 +37,7 @@ export class JobService {
       );
   }
 
-  getAllJobList(userId: number): Observable<any> {
+  getAllJobList(): Observable<any> {
     return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobs`)
       .pipe(
         map(response => response.data)

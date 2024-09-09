@@ -36,8 +36,10 @@ export class RegisterComponent implements OnInit {
         if(response) {
           if(response.user_type == 1){
             window.location.href = '/main/company-details';
-          }else{
+          }else if(response.user_type == 2){
             window.location.href = '/main/personal-details';
+          }else if(response.user_type == 3){
+            window.location.href = '/main/events-management';
           }
         }
       },err => {

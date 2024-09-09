@@ -39,7 +39,7 @@ export class JobsComponent  implements OnInit{
 
 fetchData(){
   if(this.isAuthenticated){
-    this.jobService.getAllJobList(this.user._id)
+    this.jobService.getAllJobList()
     .subscribe((response) => {
       this.jobListings = response;
       this.selectedJob = this.jobListings[0];

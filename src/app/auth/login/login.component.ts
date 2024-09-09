@@ -35,8 +35,10 @@ export class LoginComponent implements OnInit{
       if(this.isAuthenticated){
         if(this.user._type == 1){
           window.location.href = '/main/manage-jobs-list';
-        }else{
+        }else if(this.user._type == 2){
           window.location.href = '/main/jobs';
+        } else if(this.user._type == 3){
+          window.location.href = '/main/events-management';
         }
       }
     });

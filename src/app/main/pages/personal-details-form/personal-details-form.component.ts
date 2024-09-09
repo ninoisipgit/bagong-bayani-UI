@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -38,6 +39,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
     private locationService: LocationService,
     private authService : AuthService,
     private route: ActivatedRoute,
+    private toastrService : NbToastrService,
     private userDetails:UserDetailsService) {
 
     this.participantProfileForm = this.fb.group({
@@ -212,12 +214,14 @@ export class PersonalDetailsFormComponent implements OnInit  {
       if(userProfile.id){
         this.userDetails.updatePersonalDetails(userProfile).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }else{
         this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
@@ -257,18 +261,25 @@ export class PersonalDetailsFormComponent implements OnInit  {
       if(address.id){
         this.userDetails.updateAddress(address).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }else{
         this.userDetails.saveAddress(address).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }
     }
 
+  }
+
+
+  showToast(message: string, title: string, status: string) {
+    this.toastrService.show('Form submitted successfully!', title, { status });
   }
 
   onSubmitEmploymentDetails(): void {
@@ -296,12 +307,14 @@ export class PersonalDetailsFormComponent implements OnInit  {
       if(value.id){
         this.userDetails.updateEmploymentDetails(value).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }else{
         this.userDetails.saveEmploymentDetails(value).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });

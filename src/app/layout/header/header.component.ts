@@ -72,13 +72,20 @@ export class HeaderComponent implements OnInit {
           this.userMenu = [
             { title: 'Company Details', icon: 'book-outline' },
             { title: 'Manage Jobs', icon: 'briefcase-outline' },
-            { title: 'News and events', icon: 'log-out-outline' },
             { title: 'Logout', icon: 'log-out-outline' },
           ];
         } else if (user._type == 2) {
           //ofw
           this.userMenu = [
             { title: 'Profile', icon: 'person-done-outline' },
+            { title: 'Logout', icon: 'log-out-outline' },
+          ];
+        }
+        else if (user._type == 3) {
+          //admin
+          this.userMenu = [
+            { title: 'News and events', icon: 'browser-outline' },
+            { title: 'Manage Jobs', icon: 'briefcase-outline' },
             { title: 'Logout', icon: 'log-out-outline' },
           ];
         }
@@ -112,7 +119,7 @@ export class HeaderComponent implements OnInit {
       }
 
       if (title.item.title == 'News and events') {
-        this.router.navigate(['/main/events']);
+        this.router.navigate(['/main/events-management']);
       }
     });
   }

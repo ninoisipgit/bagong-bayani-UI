@@ -146,7 +146,7 @@ export class ManageJobsComponent  implements OnInit{
         this.jobService.updateJobDetails(jobDetails).subscribe((response) => {
           if(response) {
             this.showToast('submitted successfully!', 'Success', 'success');
-            console.log(response);
+            this.ngOnInit();
           }
         });
       }else{

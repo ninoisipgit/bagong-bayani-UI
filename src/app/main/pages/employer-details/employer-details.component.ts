@@ -32,11 +32,11 @@ export class EmployerDetailsComponent {
       companyType: ['', [Validators.required, Validators.maxLength(255)]],
       same_as: ['', Validators.pattern('https?://.+')],
       logo: ['', Validators.pattern('https?://.+')],
-      industry: ['', Validators.maxLength(255)],
-      description: [''],
-      mission: [''],
-      vision: [''],
-      addressID: [null],
+      industry: ['', Validators.required],
+      description: ['', Validators.required],
+      mission: ['', Validators.required],
+      vision: ['', Validators.required],
+      addressID: ['', Validators.required],
     });
 
     this.getCompanyDetails();
@@ -127,7 +127,7 @@ export class EmployerDetailsComponent {
      // Helper method to check if a form control is invalid and touched
      isInvalid(controlName: string): boolean {
       const control = this.companyForm.get(controlName);
-      return control !== null && control !== undefined && control.invalid && (control.dirty || control.touched);
+      return control !== null && control !== undefined && control.invalid ;
     }
 
     showToast(message: string, title: string, status: string) {

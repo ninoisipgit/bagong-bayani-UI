@@ -164,7 +164,7 @@ export class ManageJobsComponent  implements OnInit{
    // Helper method to check if a form control is invalid and touched
    isInvalid(controlName: string): boolean {
     const control = this.jobForm.get(controlName);
-    return control !== null && control !== undefined && control.invalid && (control.dirty || control.touched);
+    return control !== null && control !== undefined && control.invalid ;
   }
 
 

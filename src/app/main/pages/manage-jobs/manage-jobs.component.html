@@ -1,10 +1,13 @@
 <div class="row justify-content-end">
   <button class="btn btn-primary btn-sm col-3" routerLink="/main/manage-jobs-list">Job List</button>
 </div>
-<div class="row justify-content-end mt-3">
-  <button class="btn btn-success btn-sm col-3" (click)="onSubmit(true)"  *ngIf="jobId > 0 && user._type == 3">Approved</button>
+<div class="row justify-content-end mt-3 mb-3">
+  <button class="btn btn-success btn-sm col-3" (click)="onSubmit(true)"  *ngIf="jobId > 0 && user._type == 3 && jobForm.get('status')?.value == 0">Approve Job</button>
 </div>
 <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" [ngClass]="readonly? 'readonly-accordion' : ''">
+
+  <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the site.</nb-alert>
+  <nb-alert status="primary" *ngIf="jobForm.get('status')?.value == 1">This job is already approved.</nb-alert>
   <div class="row">
     <!-- Title -->
     <div class="col-lg-12 col-md-12 col-sm-12">

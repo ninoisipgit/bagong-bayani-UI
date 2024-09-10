@@ -141,7 +141,7 @@ export class ManageJobsComponent  implements OnInit{
       const jobDetails: JobDetails = this.jobForm.value;
       if(this.jobId > 0){
         if(forApproved){
-          jobDetails.status = 2;
+          jobDetails.status = 1;
         }
         this.jobService.updateJobDetails(jobDetails).subscribe((response) => {
           if(response) {

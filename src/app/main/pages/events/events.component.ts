@@ -9,6 +9,7 @@ import { NbDialogService } from '@nebular/theme';
 import { EventModalComponent } from './event-modal/event-modal.component';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
 import { UpdateEventModalComponent } from './update-event-modal/update-event-modal.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-events',
@@ -23,7 +24,8 @@ export class EventsComponent {
     private eventService: EventService,
     private authService: AuthService,
     private toastrService: NbToastrService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private http: HttpClient
   ) {
     this.userSub = this.authService.user.subscribe((user) => {
       this.user = user;
@@ -31,14 +33,44 @@ export class EventsComponent {
     });
   }
 
-  events: any = [];
+  posts: any[] = [];
+  page: number = 1;
+  loading: boolean = false;
+  noMoreItems: boolean = false; // Track if there are no more items
 
   ngOnInit(): void {
-    this.loadPosts();
+    this.loadNext();
+    window.addEventListener('scroll', this.onScroll.bind(this));
   }
 
-  loadPosts() {
-    this.eventService.getPosts().subscribe((events) => (this.events = events));
+  loadNext(): void {
+    if (this.loading || this.noMoreItems) return;
+
+    this.loading = true;
+
+    this.eventService.getPosts(this.page).subscribe({
+      next: (response) => {
+        this.posts = [...this.posts, ...response.data]; // Append new data
+
+        this.loading = false;
+        if (this.page <= response.last_page) {
+          this.page++;
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching posts:', error);
+        this.loading = false;
+      },
+    });
+  }
+
+  onScroll(): void {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 500
+    ) {
+      this.loadNext();
+    }
   }
 
   onAdd() {

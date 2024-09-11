@@ -21,7 +21,8 @@ import {
   NbToastrModule,
   NbContextMenuModule,
   NbIconModule,
-  NbAlertModule,
+  NbListModule,
+  NbAlertModule
 } from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -67,6 +68,7 @@ import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjo
     NbSelectModule,
     NbContextMenuModule,
     NbIconModule,
+    NbListModule,
     NbToastrModule.forRoot(),
     NbAlertModule
   ],

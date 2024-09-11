@@ -155,6 +155,7 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
         this.uploadImages(formData);
       } else {
         this.close(); // Close dialog if no images to upload
+        window.location.reload();
       }
     });
   }
@@ -162,6 +163,7 @@ export class AddEventModalComponent implements OnInit, OnDestroy {
   uploadImages(formData: FormData) {
     this.eventService.insertImage(formData).subscribe(() => {
       this.close(); // Close dialog after uploading images
+      window.location.reload();
     });
   }
 }

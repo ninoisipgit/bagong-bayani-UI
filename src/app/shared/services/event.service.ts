@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
@@ -11,13 +11,26 @@ const apiUrl = `${environment.apiUrl}/api/auth`;
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<Events[]> {
+  getPosts(page: number, pageSize: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('pageSize', pageSize.toString());
+    params = params.set('page', page.toString());
+
     return this.http
       .get<{ success: boolean; message: string; data: any }>(
-        `${apiUrl}/information`
+        `${apiUrl}/information`,
+        { params }
       )
-      .pipe(map((response) => response.data));
+      .pipe(map((response) => response));
   }
+
+  // getPosts(): Observable<Events[]> {
+  //   return this.http
+  //     .get<{ success: boolean; message: string; data: any }>(
+  //       `${apiUrl}/information`
+  //     )
+  //     .pipe(map((response) => response.data));
+  // }
 
   getPostByUserId(id: number): Observable<Events> {
     return this.http

@@ -9,6 +9,7 @@ import { NbDialogService } from '@nebular/theme';
 import { EventModalComponent } from './event-modal/event-modal.component';
 import { AddEventModalComponent } from './add-event-modal/add-event-modal.component';
 import { UpdateEventModalComponent } from './update-event-modal/update-event-modal.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-events',
@@ -23,7 +24,8 @@ export class EventsComponent {
     private eventService: EventService,
     private authService: AuthService,
     private toastrService: NbToastrService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private http: HttpClient
   ) {
     this.userSub = this.authService.user.subscribe((user) => {
       this.user = user;
@@ -31,14 +33,26 @@ export class EventsComponent {
     });
   }
 
-  events: any = [];
+  posts: any = [];
+  placeholders: any = [];
+  pageSize = 2;
+  page = 1;
+  loading = false;
 
-  ngOnInit(): void {
-    this.loadPosts();
-  }
+  loadNext() {
+    if (this.loading) {
+      return;
+    }
 
-  loadPosts() {
-    this.eventService.getPosts().subscribe((events) => (this.events = events));
+    this.loading = true;
+    this.placeholders = new Array(this.pageSize);
+    this.eventService.getPosts(this.page, this.pageSize).subscribe((posts) => {
+      console.log(posts);
+      this.placeholders = [];
+      this.posts.push(...posts.data);
+      this.loading = false;
+      this.page++;
+    });
   }
 
   onAdd() {

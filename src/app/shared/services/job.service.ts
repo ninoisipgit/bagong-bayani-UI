@@ -16,7 +16,11 @@ export class JobService {
     );
   }
   updateJobDetails(data: any) {
-    return this.http.put(`${apiUrl}/jobs/${data.id}`, data);
+    return this.http.put<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobs/${data.id}`, data).pipe(
+      map(response => {
+        return response.data
+      })
+    );
   }
 
   getJobDetails(jobId: number): Observable<any> {
@@ -37,7 +41,7 @@ export class JobService {
       );
   }
 
-  getAllJobList(userId: number): Observable<any> {
+  getAllJobList(): Observable<any> {
     return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobs`)
       .pipe(
         map(response => response.data)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -38,6 +39,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
     private locationService: LocationService,
     private authService : AuthService,
     private route: ActivatedRoute,
+    private toastrService : NbToastrService,
     private userDetails:UserDetailsService) {
 
     this.participantProfileForm = this.fb.group({
@@ -46,15 +48,15 @@ export class PersonalDetailsFormComponent implements OnInit  {
       userId: ['', Validators.required],
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
-      MiddleName: [''],
-      suffix: [''],
+      MiddleName: ['', Validators.required],
+      suffix: ['', Validators.required],
       birthdate: ['', Validators.required],
       gender: ['', Validators.required],
       civilstatus: ['', Validators.required],
-      passportNo: [''],
-      foreignaddress: [''],
+      passportNo: ['', Validators.required],
+      foreignaddress: ['', Validators.required],
       country: ['', Validators.required],
-      contactnoabroad: [''],
+      contactnoabroad: ['', Validators.required],
     });
 
     this.addressForm = this.fb.group({
@@ -64,13 +66,13 @@ export class PersonalDetailsFormComponent implements OnInit  {
       provinceID: ['', Validators.required],
       cityID: ['', Validators.required],
       barangayID: ['', Validators.required],
-      zipcode: [''],
-      street: [''],
+      zipcode: ['', Validators.required],
+      street: ['', Validators.required],
       mobileNo: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      religion: [''],
-      education: [''],
-      course: [''],
+      religion: ['', Validators.required],
+      education: ['', Validators.required],
+      course: ['', Validators.required],
     });
 
     this.employmentForm = this.fb.group({
@@ -78,13 +80,13 @@ export class PersonalDetailsFormComponent implements OnInit  {
       id: [0],
       employerName: ['', Validators.required],
       personID: ['', Validators.required],
-      vessel: [''],
-      occupation: [''],
-      monthlySalary: [''],
-      agencyName: [''],
-      contractDuration: [''],
-      ofwType: [''],
-      jobSite: [''],
+      vessel: ['', Validators.required],
+      occupation: ['', Validators.required],
+      monthlySalary: ['', Validators.required],
+      agencyName: ['', Validators.required],
+      contractDuration: ['', Validators.required],
+      ofwType: ['', Validators.required],
+      jobSite: ['', Validators.required],
       // employeraddress: ['', Validators.required],
       // employercontactno: [''],
       // salarycurrency: ['']
@@ -212,12 +214,14 @@ export class PersonalDetailsFormComponent implements OnInit  {
       if(userProfile.id){
         this.userDetails.updatePersonalDetails(userProfile).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }else{
         this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
@@ -257,18 +261,30 @@ export class PersonalDetailsFormComponent implements OnInit  {
       if(address.id){
         this.userDetails.updateAddress(address).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }else{
         this.userDetails.saveAddress(address).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }
     }
 
+  }
+
+
+  showToast(message: string, title: string, status: string) {
+    this.toastrService.show('Form submitted successfully!', title, { status });
+  }
+
+  isInvalid(controlName: string,form : FormGroup): boolean {
+    const control = form.get(controlName);
+    return control !== null && control !== undefined && control.invalid ;
   }
 
   onSubmitEmploymentDetails(): void {
@@ -296,12 +312,14 @@ export class PersonalDetailsFormComponent implements OnInit  {
       if(value.id){
         this.userDetails.updateEmploymentDetails(value).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }else{
         this.userDetails.saveEmploymentDetails(value).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });

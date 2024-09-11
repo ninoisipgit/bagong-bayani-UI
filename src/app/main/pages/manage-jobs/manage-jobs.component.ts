@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -23,14 +24,15 @@ export class ManageJobsComponent  implements OnInit{
   isAuthenticated = false;
 
   employerDetails!: EmployerDetails
-
+  readonly: boolean = false
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private authService : AuthService,
     private jobService:JobService,
     private router: Router,
-    private userDetailsService: UserDetailsService
+    private userDetailsService: UserDetailsService,
+    private toastrService: NbToastrService
   ) {
 
 
@@ -62,10 +64,14 @@ export class ManageJobsComponent  implements OnInit{
       job_location_type: [''],
       work_hours: [''],
       tags: [''],
+      status: [0],
     });
 
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;
+      if(this.user._type == 3){
+        this.readonly = true
+      }
       this.isAuthenticated = !!user;
       this.jobForm.patchValue({
         postedby:  this.user._id
@@ -122,6 +128,7 @@ export class ManageJobsComponent  implements OnInit{
           job_location_type: response.job_location_type,
           work_hours: response.work_hours,
           tags: response.tags,
+          status: response.status,
 
         });
       });
@@ -129,18 +136,23 @@ export class ManageJobsComponent  implements OnInit{
 
   }
 
-  onSubmit(): void {
+  onSubmit(forApproved: boolean = false): void {
     if (this.jobForm.valid) {
       const jobDetails: JobDetails = this.jobForm.value;
       if(this.jobId > 0){
+        if(forApproved){
+          jobDetails.status = 1;
+        }
         this.jobService.updateJobDetails(jobDetails).subscribe((response) => {
           if(response) {
-            console.log(response);
+            this.showToast('submitted successfully!', 'Success', 'success');
+            this.ngOnInit();
           }
         });
       }else{
         this.jobService.saveJobDetails(jobDetails).subscribe((response) => {
           if(response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
             this.router.navigate(['/main/manage-jobs/' + response.id]);
           }
         });
@@ -152,6 +164,11 @@ export class ManageJobsComponent  implements OnInit{
    // Helper method to check if a form control is invalid and touched
    isInvalid(controlName: string): boolean {
     const control = this.jobForm.get(controlName);
-    return control !== null && control !== undefined && control.invalid && (control.dirty || control.touched);
+    return control !== null && control !== undefined && control.invalid ;
+  }
+
+
+  showToast(message: string, title: string, status: string) {
+    this.toastrService.show('Form submitted successfully!', title, { status });
   }
 }

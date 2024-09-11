@@ -28,9 +28,16 @@ export class ManageJobsListComponent implements OnInit{
 
   fetchData(){
     if(this.isAuthenticated){
-      this.jobService.getJobDetailsListByUserId(this.user._id).subscribe((response) => {
-        this.jobListings = response;
-      });
+      if(this.user._type == 3){
+        this.jobService.getAllJobList().subscribe((response) => {
+          this.jobListings = response;
+        });
+      }else{
+        this.jobService.getJobDetailsListByUserId(this.user._id).subscribe((response) => {
+          this.jobListings = response;
+        });
+      }
+
     }
   }
 

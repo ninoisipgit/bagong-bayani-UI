@@ -20,6 +20,7 @@
                           fullWidth
                           id="firstname"
                           formControlName="FirstName"
+                          [status]="isInvalid('FirstName',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="FIRST NAME"
                           class="form-control"
                         >
@@ -34,6 +35,7 @@
                           fullWidth
                           id="lastname"
                           formControlName="LastName"
+                          [status]="isInvalid('LastName',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="LAST NAME"
                           class="form-control"
                         >
@@ -48,6 +50,7 @@
                           fullWidth
                           id="middlename"
                           formControlName="MiddleName"
+                          [status]="isInvalid('MiddleName',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="MIDDLE NAME"
                           class="form-control"
                         >
@@ -62,6 +65,7 @@
                           fullWidth
                           id="suffix"
                           formControlName="suffix"
+                          [status]="isInvalid('suffix',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="SUFFIX"
                           class="form-control"
                         >
@@ -76,6 +80,7 @@
                           fullWidth
                           id="birthdate"
                           formControlName="birthdate"
+                          [status]="isInvalid('birthdate',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="MM/DD/YYYY"
                           class="form-control"
                           type="date"
@@ -126,6 +131,7 @@
                           fullWidth
                           id="passportno"
                           formControlName="passportNo"
+                          [status]="isInvalid('passportNo',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="Passport No."
                           class="form-control"
                         >
@@ -140,6 +146,7 @@
                           fullWidth
                           id="foreignaddress"
                           formControlName="foreignaddress"
+                          [status]="isInvalid('foreignaddress',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="FOREIGN ADDRESS"
                           class="form-control"
                         >
@@ -173,6 +180,7 @@
                           fullWidth
                           id="contactnoabroad"
                           formControlName="contactnoabroad"
+                          [status]="isInvalid('contactnoabroad',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="FOREIGN CONTACT NUMBER"
                           class="form-control"
                         >
@@ -225,6 +233,7 @@
                     fullWidth
                     id="municipality"
                     formControlName="cityID"
+                    [status]="isInvalid('cityID',addressForm) ? 'danger' : 'basic'"
                     placeholder="Municipality/City"
                     class="form-control"
                   >
@@ -239,6 +248,7 @@
                         fullWidth
                         id="barangay"
                         formControlName="barangayID"
+                        [status]="isInvalid('barangayID',addressForm) ? 'danger' : 'basic'"
                         placeholder="Barangay"
                         class="form-control"
                       >
@@ -253,6 +263,7 @@
                       fullWidth
                       id="zipcode"
                       formControlName="zipcode"
+                      [status]="isInvalid('zipcode',addressForm) ? 'danger' : 'basic'"
                       placeholder="ZIPCODE"
                       class="form-control"
                     >
@@ -267,6 +278,7 @@
                       fullWidth
                       id="houseunitno"
                       formControlName="street"
+                      [status]="isInvalid('street',addressForm) ? 'danger' : 'basic'"
                       placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET"
                       class="form-control"
                     >
@@ -281,6 +293,7 @@
                       fullWidth
                       id="mobileno"
                       formControlName="mobileNo"
+                      [status]="isInvalid('mobileNo',addressForm) ? 'danger' : 'basic'"
                       placeholder="9341XXXXXX"
                       class="form-control"
                     >
@@ -295,6 +308,7 @@
                       fullWidth
                       id="emailaddress"
                       formControlName="email"
+                      [status]="isInvalid('email',addressForm) ? 'danger' : 'basic'"
                       placeholder="EMAIL ADDRESS"
                       class="form-control"
                     >
@@ -309,6 +323,7 @@
                       fullWidth
                       id="religion"
                       formControlName="religion"
+                      [status]="isInvalid('religion') ? 'danger' : 'basic'"
                       placeholder="RELIGION"
                       class="form-control"
                     >
@@ -323,6 +338,7 @@
                       fullWidth
                       id="education"
                       formControlName="education"
+                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
                       class="form-control"
                     >
                       <option value="">Select Education</option>
@@ -348,6 +364,7 @@
                       fullWidth
                       id="course"
                       formControlName="course"
+                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
                       placeholder="COURSE"
                       class="form-control"
                     >
@@ -379,6 +396,7 @@
                       fullWidth
                       id="employer"
                       formControlName="employerName"
+                      [status]="isInvalid('employerName',employmentForm) ? 'danger' : 'basic'"
                       placeholder="EMPLOYER NAME"
                       class="form-control"
                     >
@@ -393,6 +411,7 @@
                       fullWidth
                       id="employeraddress"
                       formControlName="employeraddress"
+                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
                       placeholder="EMPLOYER ADDRESS"
                       class="form-control"
                     >
@@ -407,6 +426,7 @@
                       fullWidth
                       id="employercontactno"
                       formControlName="employercontactno"
+                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
                       placeholder="EMPLOYER CONTACT NUMBER"
                       class="form-control"
                     >
@@ -421,6 +441,7 @@
                       fullWidth
                       id="vessel"
                       formControlName="vessel"
+                      [status]="isInvalid('vessel',employmentForm) ? 'danger' : 'basic'"
                       placeholder="VESSEL"
                       class="form-control"
                     >
@@ -435,6 +456,7 @@
                       fullWidth
                       id="position"
                       formControlName="occupation"
+                      [status]="isInvalid('occupation',employmentForm) ? 'danger' : 'basic'"
                       placeholder="POSITION"
                       class="form-control"
                     >
@@ -449,6 +471,7 @@
                       fullWidth
                       id="salary"
                       formControlName="monthlySalary"
+                      [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'"
                       placeholder="SALARY"
                       class="form-control"
                     >
@@ -463,6 +486,7 @@
                       fullWidth
                       id="agency"
                       formControlName="agencyName"
+                      [status]="isInvalid('agencyName',employmentForm) ? 'danger' : 'basic'"
                       placeholder="AGENCY"
                       class="form-control"
                     >
@@ -477,6 +501,7 @@
                       fullWidth
                       id="contractduration"
                       formControlName="contractDuration"
+                      [status]="isInvalid('contractDuration',employmentForm) ? 'danger' : 'basic'"
                       placeholder="CONTRACT DURATION"
                       class="form-control"
                     >
@@ -509,6 +534,7 @@
                       fullWidth
                       id="jobsite"
                       formControlName="jobSite"
+                      [status]="isInvalid('jobSite',employmentForm) ? 'danger' : 'basic'"
                       placeholder="JOB SITE"
                       class="form-control"
                     >
@@ -523,6 +549,7 @@
                       fullWidth
                       id="salarycurrency"
                       formControlName="salarycurrency"
+                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
                       class="form-control"
                     >
                       <option value="">Select Currency</option>

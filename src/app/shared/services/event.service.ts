@@ -11,9 +11,10 @@ const apiUrl = `${environment.apiUrl}/api/auth`;
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  getPosts(page: number): Observable<any> {
-    const params = new HttpParams().set('page', page.toString());
-    // return this.http.get<any>(apiUrl, { params });
+  getPosts(page: number, pageSize: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('pageSize', pageSize.toString());
+    params = params.set('page', page.toString());
 
     return this.http
       .get<{ success: boolean; message: string; data: any }>(

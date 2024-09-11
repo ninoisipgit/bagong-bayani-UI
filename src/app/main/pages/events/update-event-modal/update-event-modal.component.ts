@@ -179,6 +179,8 @@ export class UpdateEventModalComponent {
     };
 
     this.eventService.updatePost(updatedEvent).subscribe();
+    this.close();
+    window.location.reload();
   }
 
   get formData() {

@@ -30,6 +30,7 @@ export class PostCardComponent {
     this.eventService.deletePost(this.event.id).subscribe((e: any) => {
       if (e) {
         this.showToast(e.message, 'Delete', 'success');
+        window.location.reload();
       }
     });
   }

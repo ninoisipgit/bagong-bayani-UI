@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <div class="card mb-4">
+    <div class="card mb-4" style="max-width: 800px;margin:0 auto">
         <div class="card-body">
             <!-- <pre>{{event | json}}</pre> -->
             <!-- Post Header -->
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="text-center">
+    <div class="text-center" style="max-width: 800px;margin:0 auto">
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Events" value="option1">
             <label class="form-check-label" for="Events">Events</label>
@@ -30,16 +30,31 @@
     <app-post-card [event]="event" />
 </div> -->
 
-<div class="post-list">
+<!-- <nb-list nbInfiniteList listenWindowScroll [threshold]="500" (bottomThreshold)="loadNext()">
+    <nb-list-item *ngFor="let post of posts" style="display: none;">
+        <app-post-card [event]="post" />
+    </nb-list-item>
+</nb-list> -->
+
+<nb-list nbInfiniteList listenWindowScroll [threshold]="500" (bottomThreshold)="loadNext()"
+    style="max-width: 800px;margin:0 auto">
+    <nb-list-item *ngFor="let event of posts" style="display: block;">
+        <app-post-card [event]="event" />
+    </nb-list-item>
+
+    <div *ngIf="placeholders.length" class="loading-spinner">
+        <p class="text-center">loading...</p>
+    </div>
+</nb-list>
+
+<!-- <div class="post-list">
     <div *ngFor="let event of posts">
         <app-post-card [event]="event" />
     </div>
     <div *ngIf="loading" class="loading-spinner">
         <p class="text-center">loading...</p>
-        <!-- <nb-spinner></nb-spinner>  -->
-        <!-- Nebular spinner component -->
     </div>
-</div>
+</div> -->
 
 
 <div *ngIf="!posts.length" class="mt-5">

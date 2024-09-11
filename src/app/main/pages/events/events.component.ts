@@ -33,44 +33,26 @@ export class EventsComponent {
     });
   }
 
-  posts: any[] = [];
-  page: number = 1;
-  loading: boolean = false;
-  noMoreItems: boolean = false; // Track if there are no more items
+  posts: any = [];
+  placeholders: any = [];
+  pageSize = 2;
+  page = 1;
+  loading = false;
 
-  ngOnInit(): void {
-    this.loadNext();
-    window.addEventListener('scroll', this.onScroll.bind(this));
-  }
-
-  loadNext(): void {
-    if (this.loading || this.noMoreItems) return;
+  loadNext() {
+    if (this.loading) {
+      return;
+    }
 
     this.loading = true;
-
-    this.eventService.getPosts(this.page).subscribe({
-      next: (response) => {
-        this.posts = [...this.posts, ...response.data]; // Append new data
-
-        this.loading = false;
-        if (this.page <= response.last_page) {
-          this.page++;
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching posts:', error);
-        this.loading = false;
-      },
+    this.placeholders = new Array(this.pageSize);
+    this.eventService.getPosts(this.page, this.pageSize).subscribe((posts) => {
+      console.log(posts);
+      this.placeholders = [];
+      this.posts.push(...posts.data);
+      this.loading = false;
+      this.page++;
     });
-  }
-
-  onScroll(): void {
-    if (
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 500
-    ) {
-      this.loadNext();
-    }
   }
 
   onAdd() {

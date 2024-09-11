@@ -36,10 +36,9 @@
             <div class="row">
                 <div class="col-12">
                     <!-- <img src="https://via.placeholder.com/600x300" alt="Post Image" class="img-fluid rounded w-100"> -->
-
                     <div class="image-preview-container" [ngClass]="{'single-image': event.images?.length === 1}">
                         <div class="image-item" *ngFor="let image of event.images; let i = index">
-                            <img [src]="image" *ngIf="i < 3" alt="Image preview" />
+                            <img [src]="image.path" *ngIf="i < 3" alt="Image preview" />
                             <!-- Display count on the last image if there are more than 3 images -->
                             <div class="more-images" *ngIf="i === 2 && event.images?.length > 3">
                                 +{{ event.images.length - 3 }}

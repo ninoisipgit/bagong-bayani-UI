@@ -1,10 +1,12 @@
 <div class="row">
   <div class="col-12 col-xl-5">
+    <nb-alert status="warning" *ngIf="!userDetails">personal details must be saved before applying for a job.</nb-alert>
+    <nb-alert status="warning" *ngIf="jobListings?.length == 0">No jobs available.</nb-alert>
     <nb-card *ngFor="let job of jobListings">
       <nb-card-body>
           <div class="row">
             <div class="col-2">
-              <img src="assets/images/petron.png" style="height: auto;width:80px;">
+              <img [src]="job.hiring_organization_logo" style="height: auto;width:80px;">
             </div>
             <div class="col-7">
               <h6>{{job.title}}</h6>

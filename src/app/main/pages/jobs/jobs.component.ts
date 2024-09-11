@@ -5,6 +5,7 @@ import { map, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
 import { JobService } from 'src/app/shared/services/job.service';
+import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 
 @Component({
   selector: 'app-jobs',
@@ -20,11 +21,13 @@ export class JobsComponent  implements OnInit{
   private userSub: Subscription;
   user!: UserToken;
   isAuthenticated = false;
+  userDetails:any;
 
   constructor(private jobService: JobService,
      private router:Router,
      private authService: AuthService,
      private toastrService: NbToastrService,
+     private userDetailsService:UserDetailsService
     ){
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;
@@ -33,6 +36,9 @@ export class JobsComponent  implements OnInit{
   }
 
   ngOnInit(): void {
+    this.userDetailsService.getPersonalDetailsByUserId(this.user._id).subscribe((response:any) => {
+      this.userDetails = response;
+    });
     this.fetchData();
     this.getAllApplicants();
 }
@@ -41,9 +47,8 @@ fetchData(){
   if(this.isAuthenticated){
     this.jobService.getAllJobList()
     .subscribe((response) => {
-      this.jobListings = response;
+      this.jobListings = response.filter((job: any) => job.status === 1);
       this.selectedJob = this.jobListings[0];
-
     });
   }
 }

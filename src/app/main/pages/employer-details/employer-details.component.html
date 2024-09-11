@@ -1,6 +1,9 @@
 <nb-card class="auth-card" style="min-width: 100%; width: 100%;">
   <nb-card-header>Company Details</nb-card-header>
   <nb-card-body>
+    <div style="text-align: center;">
+      <img [src]="companyForm.get('logo')?.value" style="height: auto;width:120px;margin: auto;">
+    </div>
     <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <!-- Company Name -->

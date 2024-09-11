@@ -16,6 +16,7 @@ import {
 } from '@nebular/theme';
 import { Subject, takeUntil, map, Subscription, filter } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 
 @Component({
   selector: 'app-header',
@@ -32,7 +33,7 @@ export class HeaderComponent implements OnInit {
   private userSub: Subscription;
 
   userMenu!: any[];
-
+  userDetails:any;
   currentTheme = 'default';
   isExpanded = false;
 
@@ -61,7 +62,8 @@ export class HeaderComponent implements OnInit {
     private sidebarService: NbSidebarService,
     private themeService: NbThemeService,
     private authService: AuthService,
-    private menu: NbMenuService
+    private menu: NbMenuService,
+    private userDetailsService:UserDetailsService
   ) {
     this.userSub = this.authService.user.subscribe((user) => {
       this.user = user;
@@ -77,8 +79,8 @@ export class HeaderComponent implements OnInit {
         } else if (user._type == 2) {
           //ofw
           this.userMenu = [
-            { title: 'Job Lists', icon: 'briefcase-outline' },
             { title: 'Profile', icon: 'person-done-outline' },
+            { title: 'Job Lists', icon: 'briefcase-outline' },
             { title: 'Logout', icon: 'log-out-outline' },
           ];
         }
@@ -91,14 +93,9 @@ export class HeaderComponent implements OnInit {
           ];
         }
 
-        // this.getUserProfile();
-        // this.getOrganizations();
-        // this.authService.getUserOrganization().subscribe((response:UserOrganization) => {
-        //   this.userOrganization = response;
-        // });
-        // this.goalSettingService.updateOrganization.subscribe(() => {
-        //   this.userOrganization = JSON.parse(localStorage.getItem('userOrganization'));
-        // });
+        this.userDetailsService.getPersonalDetailsByUserId(this.user._id).subscribe((response:any) => {
+          this.userDetails = response;
+        });
       }
     });
   }

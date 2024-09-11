@@ -85,9 +85,9 @@ export class ManageJobsComponent  implements OnInit{
     this.userDetailsService.getEmployerDetails(this.user._id).subscribe(
       (details: EmployerDetails) => {
         this.employerDetails = details;
-
         this.jobForm.patchValue({
-          hiring_organization_name:  details.companyName
+          hiring_organization_name:  details.companyName,
+          hiring_organization_logo:  details.logo,
         })
       },
       (error) => {

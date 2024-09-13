@@ -88,6 +88,7 @@ export class ManageJobsComponent  implements OnInit{
         this.jobForm.patchValue({
           hiring_organization_name:  details.companyName,
           hiring_organization_logo:  details.logo,
+          hiring_organization_same_as : details.same_as
         })
       },
       (error) => {

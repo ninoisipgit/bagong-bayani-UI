@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -18,7 +19,12 @@ export class EmployerDetailsComponent {
   user!: UserToken;
   isAuthenticated = false;
   selectedId:number = 0;
-  constructor(private fb: FormBuilder, private userDetailsService:UserDetailsService,private authService : AuthService,private toastrService: NbToastrService) {
+  constructor(private fb: FormBuilder,
+    private userDetailsService:UserDetailsService,
+    private authService : AuthService,
+    private toastrService: NbToastrService,
+    private router : Router
+  ) {
     this.userSub = this.authService.user.subscribe(user => {
       this.user = user;
       this.isAuthenticated = !!user;
@@ -30,8 +36,8 @@ export class EmployerDetailsComponent {
       userId: [this.user._id, Validators.required],
       companyName: ['', [Validators.required, Validators.maxLength(255)]],
       companyType: ['', [Validators.required, Validators.maxLength(255)]],
-      same_as: ['', Validators.pattern('https?://.+')],
-      logo: ['', Validators.pattern('https?://.+')],
+      same_as: ['', Validators.required,Validators.pattern('https?://.+')],
+      logo: ['', Validators.required,Validators.pattern('https?://.+')],
       industry: ['', Validators.required],
       description: ['', Validators.required],
       mission: ['', Validators.required],
@@ -90,6 +96,7 @@ export class EmployerDetailsComponent {
           if(response) {
             this.companyForm.markAsUntouched();
             console.log(response);
+            this.router.navigate(['/main/manage-jobs-list']);
               // Show success toast
             this.showToast('Form submitted successfully!', 'Success', 'success');
           }

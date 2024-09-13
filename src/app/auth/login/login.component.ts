@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbAuthSocialLink } from '@nebular/auth';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
      private authService: AuthService,
-     private router : Router
+     private router : Router,
+     private toastrService: NbToastrService
     ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -55,7 +57,10 @@ export class LoginComponent implements OnInit{
         // this.router.navigate(['/main/jobs']);
         // window.location.href = '/main/jobs';
         }
-      })
+      },
+      error => {
+        this.showToast(error.statusText, 'danger', 'danger');
+      });
       // Handle login logic here, e.g., send data to a server
     } else {
       console.log('Form is invalid');
@@ -65,6 +70,10 @@ export class LoginComponent implements OnInit{
   // Helper method to get form controls
   get f() {
     return this.loginForm.controls;
+  }
+
+  showToast(message: any, title: string, status: string) {
+    this.toastrService.show(message, title, { status });
   }
 
 }

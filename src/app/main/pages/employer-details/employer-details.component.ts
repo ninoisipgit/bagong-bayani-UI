@@ -36,8 +36,8 @@ export class EmployerDetailsComponent {
       userId: [this.user._id, Validators.required],
       companyName: ['', [Validators.required, Validators.maxLength(255)]],
       companyType: ['', [Validators.required, Validators.maxLength(255)]],
-      same_as: ['', Validators.required,Validators.pattern('https?://.+')],
-      logo: ['', Validators.required,Validators.pattern('https?://.+')],
+      same_as: ['', Validators.required],
+      logo: ['', Validators.required],
       industry: ['', Validators.required],
       description: ['', Validators.required],
       mission: ['', Validators.required],
@@ -74,7 +74,7 @@ export class EmployerDetailsComponent {
   }
 
   onSubmit(): void {
-
+    debugger;
     if(this.selectedId > 0){
         this.onUpdate();
     }else{
@@ -94,6 +94,7 @@ export class EmployerDetailsComponent {
         };
         this.userDetailsService.saveUpdateEmployerDetails(this.companyForm.value).subscribe((response) => {
           if(response) {
+            debugger;
             this.companyForm.markAsUntouched();
             console.log(response);
             this.router.navigate(['/main/manage-jobs-list']);
@@ -124,6 +125,10 @@ export class EmployerDetailsComponent {
         if(response) {
           this.companyForm.markAsUntouched();
           console.log(response);
+          debugger;
+          this.companyForm.markAsUntouched();
+          console.log(response);
+          this.router.navigate(['/main/manage-jobs-list']);
             // Show success toast
           this.showToast('Form submitted successfully!', 'Success', 'success');
         }

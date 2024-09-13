@@ -101,6 +101,11 @@ export class ManageJobsComponent  implements OnInit{
   ngOnInit(): void {
     if(this.jobId > 0){
       this.jobService.getJobDetails(this.jobId).subscribe((response) => {
+
+        const skills = response.skills.split(',').map((item: string) => {
+          const trimmedItem = item.trim();
+          return { display: trimmedItem, value: trimmedItem };
+        });
         this.jobForm.patchValue({
           id:  response.id,
           postedby:  response.postedby,
@@ -123,7 +128,7 @@ export class ManageJobsComponent  implements OnInit{
           job_benefits: response.job_benefits,
           responsibilities: response.responsibilities,
           qualifications: response.qualifications,
-          skills: response.skills,
+          skills: skills,
           industry: response.industry,
           applicant_location_requirements: response.applicant_location_requirements,
           job_location_type: response.job_location_type,
@@ -139,7 +144,9 @@ export class ManageJobsComponent  implements OnInit{
 
   onSubmit(forApproved: boolean = false): void {
     if (this.jobForm.valid) {
-      const jobDetails: JobDetails = this.jobForm.value;
+      const skills: string = this.jobForm.value.skills.map((obj: { value: string }) => obj.value).join(', ');
+      let jobDetails: JobDetails = this.jobForm.value;
+      jobDetails.skills = skills;
       if(this.jobId > 0){
         if(forApproved){
           jobDetails.status = 1;

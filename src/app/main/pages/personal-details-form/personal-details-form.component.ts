@@ -57,6 +57,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
       foreignaddress: ['', Validators.required],
       country: ['', Validators.required],
       contactnoabroad: ['', Validators.required],
+      tags: [''],
     });
 
     this.addressForm = this.fb.group({
@@ -110,54 +111,67 @@ export class PersonalDetailsFormComponent implements OnInit  {
   ngOnInit(): void {
 
     this.userDetails.getPersonalDetailsByUserId(this.personID).subscribe((response) => {
-      this.participantProfileForm.patchValue({
-        userId:  this.personID,
-        id:  response.id,
-        FirstName:  response.FirstName,
-        LastName:  response.LastName,
-        MiddleName:  response.MiddleName,
-        suffix:  response.suffix,
-        birthdate:  response.birthdate,
-        gender:  response.gender,
-        civilstatus:  response.civilStatus,
-        passportNo:  response.passportNo,
-        foreignaddress:  response?.foreignaddress,
-        country:  response?.country,
-        contactnoabroad:  response?.contactnoabroad,
-      });
+      if(response){
+        const skills = response.tags?.split(',').map((item: string) => {
+          const trimmedItem = item.trim();
+          return { display: trimmedItem, value: trimmedItem };
+        });
+
+        this.participantProfileForm.patchValue({
+          userId:  this.personID,
+          id:  response.id,
+          FirstName:  response.FirstName,
+          LastName:  response.LastName,
+          MiddleName:  response.MiddleName,
+          suffix:  response.suffix,
+          birthdate:  response.birthdate,
+          gender:  response.gender,
+          civilstatus:  response.civilStatus,
+          passportNo:  response.passportNo,
+          foreignaddress:  response?.foreignaddress,
+          country:  response?.country,
+          contactnoabroad:  response?.contactnoabroad,
+          tags:  skills
+        });
+      }
     });
 
     this.userDetails.getAddressByUserId(this.personID).subscribe((response) => {
-      this.addressForm.patchValue({
-        userId:  this.personID,
-        id:  response.id,
-        provinceID: response.provinceID,
-        cityID: response.cityID,
-        barangayID: response.barangayID,
-        zipcode: response.zipcode,
-        street: response.street,
-        mobileNo: response.mobileNo,
-        email: response.email,
-        religion: response?.religion,
-        education: response?.education,
-        course: response?.course,
-      });
+      if(response){
+        this.addressForm.patchValue({
+          userId:  this.personID,
+          id:  response.id,
+          provinceID: response.provinceID,
+          cityID: response.cityID,
+          barangayID: response.barangayID,
+          zipcode: response.zipcode,
+          street: response.street,
+          mobileNo: response.mobileNo,
+          email: response.email,
+          religion: response?.religion,
+          education: response?.education,
+          course: response?.course,
+        });
+      }
     });
 
     this.userDetails.getEmploymentDetailsByUserId(this.personID).subscribe((response) => {
-      this.employmentForm.patchValue({
-        personId:  this.personID,
-        id:  response[0].id,
-        employerName: response[0].employerName,
-        vessel: response[0].vessel,
-        occupation: response[0].occupation,
-        monthlySalary: response[0].monthlySalary,
-        agencyName: response[0].agencyName,
-        contractDuration: response[0].contractDuration,
-        ofwType: response[0].ofwType,
-        jobSite: response[0].jobSite,
-        status: response[0].status,
-      });
+      if(response.lenght > 0){
+        this.employmentForm.patchValue({
+          personId:  this.personID,
+          id:  response[0].id,
+          employerName: response[0].employerName,
+          vessel: response[0].vessel,
+          occupation: response[0].occupation,
+          monthlySalary: response[0].monthlySalary,
+          agencyName: response[0].agencyName,
+          contractDuration: response[0].contractDuration,
+          ofwType: response[0].ofwType,
+          jobSite: response[0].jobSite,
+          status: response[0].status,
+        });
+      }
+
     });
 
     // Fetch countries
@@ -189,6 +203,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
   }
 
   onSubmitPersonalDetails(): void {
+    const skills: string = this.participantProfileForm.value.tags.map((obj: { value: string }) => obj.value).join(', ');
     const userProfile: UserProfile = {
       userId: this.user._id,
       id: this.participantProfileForm.value.id,
@@ -203,6 +218,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
       foreignaddress:  this.participantProfileForm.value?.foreignaddress,
       country:  this.participantProfileForm.value?.country,
       contactnoabroad:  this.participantProfileForm.value?.contactnoabroad,
+      tags: skills
 
       // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
       // course: this.participantProfileForm.value.course,

@@ -24,6 +24,8 @@
     "@nebular/theme": "^11.0.1",
     "bootstrap": "^5.3.3",
     "eva-icons": "^1.1.3",
+    "ngx-chips": "^3.0.0",
+    "ngx-tags-input": "^2.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

@@ -189,6 +189,11 @@
                   </div>
 
                   <!-- Submit Button -->
+                  <div class="row justify-content-end mt-3" >
+                    <tag-input   formControlName="tags" [maxItems]='5'></tag-input>
+                  </div>
+
+                  <!-- Submit Button -->
                   <div class="row justify-content-end mt-3" *ngIf="!readonly">
                     <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
                     <button nbButton status="primary" type="submit" (click)="onSubmitPersonalDetails()">Submit</button>

@@ -238,8 +238,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="form-group">
         <label for="skills">Skills (Optional)</label>
-        <textarea nbInput fullWidth id="skills" formControlName="skills" placeholder="Skills" class="form-control"
-                  [status]="isInvalid('skills') ? 'danger' : 'basic'"></textarea>
+        <!-- <textarea nbInput fullWidth id="skills" formControlName="skills" placeholder="Skills" class="form-control"
+                  [status]="isInvalid('skills') ? 'danger' : 'basic'"></textarea> -->
+                  <tag-input   formControlName="skills" [maxItems]='5'></tag-input>
       </div>
     </div>
 

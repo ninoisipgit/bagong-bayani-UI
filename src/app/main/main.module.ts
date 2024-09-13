@@ -34,7 +34,7 @@ import { UpdateEventModalComponent } from './pages/events/update-event-modal/upd
 import { AddEventModalComponent } from './pages/events/add-event-modal/add-event-modal.component';
 import { PostCardComponent } from './pages/events/post-card/post-card.component';
 import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
-
+import { TagInputModule } from 'ngx-chips';
 @NgModule({
   declarations: [
     MainComponent,
@@ -70,7 +70,9 @@ import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjo
     NbIconModule,
     NbListModule,
     NbToastrModule.forRoot(),
-    NbAlertModule
+    NbAlertModule,
+    TagInputModule
+
   ],
 })
 export class MainModule {}

@@ -104,19 +104,19 @@
         <!-- Address ID -->
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="addressID">Address ID</label>
+            <label for="addressID">Address</label>
             <input
               nbInput
               fullWidth
-              id="addressID"
-              formControlName="addressID"
-              placeholder="ADDRESS ID"
-              type="number"
+              id="address"
+              formControlName="address"
+              placeholder="ADDRESS"
+              type="text"
               status="basic"
-              [status]="isInvalid('addressID') ? 'danger' : 'basic'"
+              [status]="isInvalid('address') ? 'danger' : 'basic'"
             >
-            <div *ngIf="isInvalid('addressID')" class="invalid-feedback">
-              Address ID must be a number.
+            <div *ngIf="isInvalid('address')" class="invalid-feedback">
+              fill up the address
             </div>
           </div>
         </div>

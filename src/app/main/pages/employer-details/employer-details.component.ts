@@ -42,7 +42,7 @@ export class EmployerDetailsComponent {
       description: ['', Validators.required],
       mission: ['', Validators.required],
       vision: ['', Validators.required],
-      addressID: ['', Validators.required],
+      address: ['', Validators.required],
     });
 
     this.getCompanyDetails();
@@ -64,7 +64,7 @@ export class EmployerDetailsComponent {
           description: details.description,
           mission: details.mission,
           vision: details.vision,
-          addressID: details.addressID,
+          address: details.address,
         });
       },
       (error) => {
@@ -74,7 +74,6 @@ export class EmployerDetailsComponent {
   }
 
   onSubmit(): void {
-    debugger;
     if(this.selectedId > 0){
         this.onUpdate();
     }else{
@@ -90,11 +89,10 @@ export class EmployerDetailsComponent {
           description: this.companyForm.value.description,
           mission: this.companyForm.value.mission,
           vision: this.companyForm.value.vision,
-          addressID: this.companyForm.value.addressID,
+          address: this.companyForm.value.address,
         };
         this.userDetailsService.saveUpdateEmployerDetails(this.companyForm.value).subscribe((response) => {
           if(response) {
-            debugger;
             this.companyForm.markAsUntouched();
             console.log(response);
             this.router.navigate(['/main/manage-jobs-list']);
@@ -119,13 +117,12 @@ export class EmployerDetailsComponent {
         description: this.companyForm.value.description,
         mission: this.companyForm.value.mission,
         vision: this.companyForm.value.vision,
-        addressID: this.companyForm.value.addressID,
+        address: this.companyForm.value.address,
       };
       this.userDetailsService.updateEmployerDetails(this.companyForm.value,this.selectedId).subscribe((response) => {
         if(response) {
           this.companyForm.markAsUntouched();
           console.log(response);
-          debugger;
           this.companyForm.markAsUntouched();
           console.log(response);
           this.router.navigate(['/main/manage-jobs-list']);

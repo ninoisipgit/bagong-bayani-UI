@@ -9,5 +9,5 @@ export interface EmployerDetails {
   description?: string;
   mission?: string;
   vision?: string;
-  addressID?: number;
+  address?: string;
 }

@@ -133,6 +133,7 @@
                           formControlName="passportNo"
                           [status]="isInvalid('passportNo',participantProfileForm) ? 'danger' : 'basic'"
                           placeholder="Passport No."
+                          type="text"
                           class="form-control"
                         >
                       </div>
@@ -440,7 +441,7 @@
                 <!-- Vessel -->
                 <div class="col-lg-3 col-md-6 col-sm-12">
                   <div class="form-group">
-                    <label for="vessel">Vessel</label>
+                    <label for="vessel">Vessel ( employers address)</label>
                     <input
                       nbInput
                       fullWidth

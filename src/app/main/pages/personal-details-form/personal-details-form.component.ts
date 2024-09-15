@@ -49,7 +49,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
       MiddleName: ['', Validators.required],
-      suffix: ['', Validators.required],
+      suffix: [''],
       birthdate: ['', Validators.required],
       gender: ['', Validators.required],
       civilstatus: ['', Validators.required],

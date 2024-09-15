@@ -45,8 +45,9 @@ export class JobsComponent  implements OnInit{
 
 fetchData(){
   if(this.isAuthenticated){
-    this.jobService.getAllJobList()
+    this.jobService.getAllJobListbyUserId(this.user._id)
     .subscribe((response) => {
+      debugger;
       this.jobListings = response.filter((job: any) => job.status === 1);
       this.selectedJob = this.jobListings[0];
     });

@@ -2,6 +2,13 @@
   <nb-card class="auth-card" style="min-width: 100%; width: 100%;">
     <nb-card-header>Employees Personal Details</nb-card-header>
     <nb-card-body>
+      <!-- <nb-select placeholder="Select Showcase" [(selected)]="applicant.status" fullWidth (selectedChange)="onStatusChange(applicant, $event)" >
+        <nb-option value="applied">applied</nb-option>
+        <nb-option value="interviewed">interviewed</nb-option>
+        <nb-option value="hired">hired</nb-option>
+        <nb-option value="rejected">rejected</nb-option>
+        <nb-option value="withdrawn ">withdrawn </nb-option>
+      </nb-select> -->
         <nb-accordion multi  [ngClass]="readonly? 'readonly-accordion' : ''">
 
           <!-- Personal Information Section -->

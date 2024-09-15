@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
 import { UserProfile } from 'src/app/shared/models/user-profile';
+import { JobService } from 'src/app/shared/services/job.service';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 
@@ -40,7 +41,8 @@ export class PersonalDetailsFormComponent implements OnInit  {
     private authService : AuthService,
     private route: ActivatedRoute,
     private toastrService : NbToastrService,
-    private userDetails:UserDetailsService) {
+    private userDetails:UserDetailsService,
+    private jobService:JobService) {
 
     this.participantProfileForm = this.fb.group({
       // Personal Information
@@ -201,6 +203,22 @@ export class PersonalDetailsFormComponent implements OnInit  {
     this.locationService.getBarangays(cityId).subscribe((data) => {
       this.barangays = data;
     });
+  }
+
+  onStatusChange(applicant: any, event: string): void {
+    if(applicant){
+      const  application = {
+        id : applicant.id,
+        jobID : applicant.jobID,
+        appliedUserID : applicant.appliedUserID,
+        status : event
+      }
+      this.jobService.applyForJob(application).subscribe((res: any) => {
+        if(res){
+          this.showToast('Application submitted successfully!', 'Success', 'success');
+        }
+      });
+    }
   }
 
   onSubmitPersonalDetails(): void {

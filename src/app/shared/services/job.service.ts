@@ -48,6 +48,23 @@ export class JobService {
       );
   }
 
+  getAllJobListbyUserId(userId: number): Observable<any> {
+    return this.http.post<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobs/all`,{userId:userId})
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
+  getJobPostsByUser(userId: number): Observable<any> {
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobs/user/${userId}`)
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
+
+
+
 
   applyForJob(data: any) {
     return this.http.post<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobApplicant`, data).pipe(

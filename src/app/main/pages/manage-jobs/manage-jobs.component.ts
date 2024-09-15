@@ -101,8 +101,7 @@ export class ManageJobsComponent  implements OnInit{
   ngOnInit(): void {
     if(this.jobId > 0){
       this.jobService.getJobDetails(this.jobId).subscribe((response) => {
-
-        const skills = response.skills.split(',').map((item: string) => {
+        const skills = response.skills?.split(',').map((item: string) => {
           const trimmedItem = item.trim();
           return { display: trimmedItem, value: trimmedItem };
         });

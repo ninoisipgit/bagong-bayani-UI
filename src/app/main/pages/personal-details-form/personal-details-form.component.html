@@ -138,55 +138,7 @@
                         >
                       </div>
                     </div>
-                    <!-- Foreign Address -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="foreignaddress">OFW's Foreign Address</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="foreignaddress"
-                          formControlName="foreignaddress"
-                          [status]="isInvalid('foreignaddress',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="FOREIGN ADDRESS"
-                          class="form-control"
-                        >
-                      </div>
-                    </div>
-                    <!-- Country -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="country">Country</label>
-                            <select
-                            nbSelect
-                            fullWidth
-                            id="country"
-                            formControlName="country"
-                            [(ngModel)]="selectedCountry"
-                            class="form-control"
-                          >
-                            <option value="">- SELECT COUNTRY -</option>
-                            <option *ngFor="let country of countries" [value]="country">
-                              {{ country }}
-                            </option>
-                        </select>
-                      </div>
-                    </div>
-                    <!-- Contact No. Abroad -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="contactnoabroad">Contact No. Abroad</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="contactnoabroad"
-                          formControlName="contactnoabroad"
-                          [status]="isInvalid('contactnoabroad',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="FOREIGN CONTACT NUMBER"
-                          class="form-control"
-                        >
-                      </div>
-                    </div>
+
                   </div>
 
                   <!-- Submit Button -->
@@ -197,7 +149,7 @@
                   <!-- Submit Button -->
                   <div class="row justify-content-end mt-3" *ngIf="!readonly">
                     <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-                    <button nbButton status="primary" type="submit" (click)="onSubmitPersonalDetails()">Submit</button>
+                    <!-- <button nbButton status="primary" type="submit" (click)="onSubmitPersonalDetails()">Submit</button> -->
                   </div>
               </form>
             </nb-accordion-item-body>
@@ -376,13 +328,63 @@
                     >
                   </div>
                 </div> -->
+
+                  <!-- Foreign Address -->
+                  <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="foreignaddress">OFW's Foreign Address</label>
+                      <input
+                        nbInput
+                        fullWidth
+                        id="foreignaddress"
+                        formControlName="ofwForeignAddress"
+                        [status]="isInvalid('ofwForeignAddress',participantProfileForm) ? 'danger' : 'basic'"
+                        placeholder="FOREIGN ADDRESS"
+                        class="form-control"
+                      >
+                    </div>
+                  </div>
+                  <!-- Country -->
+                  <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="country">Country</label>
+                          <select
+                          nbSelect
+                          fullWidth
+                          id="country"
+                          formControlName="ofwCountry"
+                          [(ngModel)]="selectedCountry"
+                          class="form-control"
+                        >
+                          <option value="">- SELECT COUNTRY -</option>
+                          <option *ngFor="let country of countries" [value]="country">
+                            {{ country }}
+                          </option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Contact No. Abroad -->
+                  <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <label for="ofwContactNo">Contact No. Abroad</label>
+                      <input
+                        nbInput
+                        fullWidth
+                        id="ofwContactNo"
+                        formControlName="ofwContactNo"
+                        [status]="isInvalid('ofwContactNo',participantProfileForm) ? 'danger' : 'basic'"
+                        placeholder="FOREIGN CONTACT NUMBER"
+                        class="form-control"
+                      >
+                    </div>
+                  </div>
               </div>
               </form>
 
               <!-- Submit Button -->
               <div class="row justify-content-end mt-3" *ngIf="!readonly">
                 <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-                <button nbButton status="primary" type="submit" (click)="onSubmitAddress()">Submit</button>
+                <!-- <button nbButton status="primary" type="submit" (click)="onSubmitAddress()">Submit</button> -->
               </div>
             </nb-accordion-item-body>
           </nb-accordion-item>
@@ -567,7 +569,7 @@
               <!-- Submit Button -->
               <div class="row justify-content-end mt-3" *ngIf="!readonly">
                 <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-                <button nbButton status="primary" type="submit" (click)="onSubmitEmploymentDetails()">Submit</button>
+                <button nbButton status="primary" type="submit" (click)="submitAll()">Submit</button>
               </div>
             </nb-accordion-item-body>
           </nb-accordion-item>

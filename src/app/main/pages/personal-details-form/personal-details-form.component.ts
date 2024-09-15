@@ -49,14 +49,12 @@ export class PersonalDetailsFormComponent implements OnInit  {
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
       MiddleName: ['', Validators.required],
-      suffix: [''],
-      birthdate: ['', Validators.required],
+      suffix: ['',Validators.maxLength(10)],
+      birthdate: [new Date(), Validators.required],
       gender: ['', Validators.required],
       civilstatus: ['', Validators.required],
       passportNo: ['', Validators.required],
-      foreignaddress: ['', Validators.required],
-      country: ['', Validators.required],
-      contactnoabroad: ['', Validators.required],
+
       tags: [''],
     });
 
@@ -74,6 +72,9 @@ export class PersonalDetailsFormComponent implements OnInit  {
       religion: ['', Validators.required],
       education: ['', Validators.required],
       course: ['', Validators.required],
+      ofwForeignAddress: ['', Validators.required],
+      ofwCountry: ['', Validators.required],
+      ofwContactNo: ['', Validators.required]
     });
 
     this.employmentForm = this.fb.group({
@@ -84,7 +85,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
       vessel: ['', Validators.required],
       occupation: ['', Validators.required],
       monthlySalary: ['', Validators.required],
-      agencyName: ['', Validators.required],
+      agencyName: [''],
       contractDuration: ['', Validators.required],
       ofwType: ['', Validators.required],
       jobSite: ['', Validators.required],
@@ -124,13 +125,10 @@ export class PersonalDetailsFormComponent implements OnInit  {
           LastName:  response.LastName,
           MiddleName:  response.MiddleName,
           suffix:  response.suffix,
-          birthdate:  response.birthdate,
+          birthdate:  new Date(response?.birthdate),
           gender:  response.gender,
           civilstatus:  response.civilStatus,
           passportNo:  response.passportNo,
-          foreignaddress:  response?.foreignaddress,
-          country:  response?.country,
-          contactnoabroad:  response?.contactnoabroad,
           tags:  skills
         });
       }
@@ -151,12 +149,15 @@ export class PersonalDetailsFormComponent implements OnInit  {
           religion: response?.religion,
           education: response?.education,
           course: response?.course,
+          ofwForeignAddress : response?.ofwForeignAddress,
+          ofwCountry : response?.ofwCountry,
+          ofwContactNo : response?.ofwContactNo,
         });
       }
     });
 
     this.userDetails.getEmploymentDetailsByUserId(this.personID).subscribe((response) => {
-      if(response.lenght > 0){
+      if(response.length > 0){
         this.employmentForm.patchValue({
           personId:  this.personID,
           id:  response[0].id,
@@ -203,7 +204,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
   }
 
   onSubmitPersonalDetails(): void {
-    const skills: string = this.participantProfileForm.value.tags.map((obj: { value: string }) => obj.value).join(', ');
+    const skills: string =this.participantProfileForm.value.tags != ''?  this.participantProfileForm.value.tags?.map((obj: { value: string }) => obj.value).join(', '): "";
     const userProfile: UserProfile = {
       userId: this.user._id,
       id: this.participantProfileForm.value.id,
@@ -215,9 +216,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
       gender: this.participantProfileForm.value.gender,
       civilStatus: this.participantProfileForm.value.civilstatus,
       passportNo:  this.participantProfileForm.value.passportNo,
-      foreignaddress:  this.participantProfileForm.value?.foreignaddress,
-      country:  this.participantProfileForm.value?.country,
-      contactnoabroad:  this.participantProfileForm.value?.contactnoabroad,
+
       tags: skills
 
       // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
@@ -227,21 +226,27 @@ export class PersonalDetailsFormComponent implements OnInit  {
       // tags: this.participantProfileForm.value.tags,
     };
     if(this.user){
-      if(userProfile.id){
-        this.userDetails.updatePersonalDetails(userProfile).subscribe((response) => {
-          if(response) {
-            this.showToast('submitted successfully!', 'Success', 'success');
-            console.log(response);
-          }
-        });
-      }else{
-        this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
-          if(response) {
-            this.showToast('submitted successfully!', 'Success', 'success');
-            console.log(response);
-          }
-        });
-      }
+      this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
+        if(response) {
+          this.showToast('submitted successfully!', 'Success', 'success');
+          console.log(response);
+        }
+      });
+      // if(userProfile.id){
+      //   this.userDetails.updatePersonalDetails(userProfile).subscribe((response) => {
+      //     if(response) {
+      //       this.showToast('submitted successfully!', 'Success', 'success');
+      //       console.log(response);
+      //     }
+      //   });
+      // }else{
+      //   this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
+      //     if(response) {
+      //       this.showToast('submitted successfully!', 'Success', 'success');
+      //       console.log(response);
+      //     }
+      //   });
+      // }
     }
 
 
@@ -266,6 +271,10 @@ export class PersonalDetailsFormComponent implements OnInit  {
       street: this.addressForm.value.street,
       mobileNo: this.addressForm.value.mobileNo,
       email: this.addressForm.value.email,
+
+      ofwForeignAddress: this.addressForm.value.ofwForeignAddress,
+      ofwCountry: this.addressForm.value.ofwCountry,
+      ofwContactNo: this.addressForm.value.ofwContactNo,
 
       // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
       // course: this.participantProfileForm.value.course,
@@ -342,5 +351,10 @@ export class PersonalDetailsFormComponent implements OnInit  {
       }
     }
 
+  }
+  submitAll(){
+    this.onSubmitPersonalDetails();
+    this.onSubmitAddress();
+    this.onSubmitEmploymentDetails();
   }
 }

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -13,9 +14,9 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
 @Component({
   selector: 'app-personal-details-form',
   templateUrl: './personal-details-form.component.html',
-  styleUrls: ['./personal-details-form.component.scss']
+  styleUrls: ['./personal-details-form.component.scss'],
 })
-export class PersonalDetailsFormComponent implements OnInit  {
+export class PersonalDetailsFormComponent implements OnInit {
   participantProfileForm!: FormGroup;
   addressForm!: FormGroup;
   employmentForm!: FormGroup;
@@ -34,24 +35,26 @@ export class PersonalDetailsFormComponent implements OnInit  {
   selectedCity = '';
   selectedBarangay = '';
   readonly: boolean = false;
-  personID:number = 0;
+  personID: number = 0;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private locationService: LocationService,
-    private authService : AuthService,
+    private authService: AuthService,
     private route: ActivatedRoute,
-    private toastrService : NbToastrService,
-    private userDetails:UserDetailsService,
-    private jobService:JobService) {
-
+    private toastrService: NbToastrService,
+    private userDetails: UserDetailsService,
+    private jobService: JobService,
+    private location: Location
+  ) {
     this.participantProfileForm = this.fb.group({
       // Personal Information
       id: [0],
       userId: ['', Validators.required],
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
-      MiddleName: ['', Validators.required],
-      suffix: ['',Validators.maxLength(10)],
+      MiddleName: [''],
+      suffix: ['', Validators.maxLength(10)],
       birthdate: [new Date(), Validators.required],
       gender: ['', Validators.required],
       civilstatus: ['', Validators.required],
@@ -76,7 +79,7 @@ export class PersonalDetailsFormComponent implements OnInit  {
       course: ['', Validators.required],
       ofwForeignAddress: ['', Validators.required],
       ofwCountry: ['', Validators.required],
-      ofwContactNo: ['', Validators.required]
+      ofwContactNo: ['', Validators.required],
     });
 
     this.employmentForm = this.fb.group({
@@ -96,14 +99,14 @@ export class PersonalDetailsFormComponent implements OnInit  {
       // salarycurrency: ['']
     });
 
-    this.userSub = this.authService.user.subscribe(user => {
-      if(user){
+    this.userSub = this.authService.user.subscribe((user) => {
+      if (user) {
         this.user = user;
-        this.personID = user?._id
+        this.personID = user?._id;
         this.isAuthenticated = !!user;
-        if(this.user._type == 1){
-          this.readonly = true
-          this.route.paramMap.subscribe(params => {
+        if (this.user._type == 1) {
+          this.readonly = true;
+          this.route.paramMap.subscribe((params) => {
             this.personID = Number(params.get('userId'));
           });
         }
@@ -112,35 +115,36 @@ export class PersonalDetailsFormComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+    this.userDetails
+      .getPersonalDetailsByUserId(this.personID)
+      .subscribe((response) => {
+        if (response) {
+          const skills = response.tags?.split(',').map((item: string) => {
+            const trimmedItem = item.trim();
+            return { display: trimmedItem, value: trimmedItem };
+          });
 
-    this.userDetails.getPersonalDetailsByUserId(this.personID).subscribe((response) => {
-      if(response){
-        const skills = response.tags?.split(',').map((item: string) => {
-          const trimmedItem = item.trim();
-          return { display: trimmedItem, value: trimmedItem };
-        });
-
-        this.participantProfileForm.patchValue({
-          userId:  this.personID,
-          id:  response.id,
-          FirstName:  response.FirstName,
-          LastName:  response.LastName,
-          MiddleName:  response.MiddleName,
-          suffix:  response.suffix,
-          birthdate:  new Date(response?.birthdate),
-          gender:  response.gender,
-          civilstatus:  response.civilStatus,
-          passportNo:  response.passportNo,
-          tags:  skills
-        });
-      }
-    });
+          this.participantProfileForm.patchValue({
+            userId: this.personID,
+            id: response.id,
+            FirstName: response.FirstName,
+            LastName: response.LastName,
+            MiddleName: response.MiddleName,
+            suffix: response.suffix,
+            birthdate: new Date(response?.birthdate),
+            gender: response.gender,
+            civilstatus: response.civilStatus,
+            passportNo: response.passportNo,
+            tags: skills,
+          });
+        }
+      });
 
     this.userDetails.getAddressByUserId(this.personID).subscribe((response) => {
-      if(response){
+      if (response) {
         this.addressForm.patchValue({
-          userId:  this.personID,
-          id:  response.id,
+          userId: this.personID,
+          id: response.id,
           provinceID: response.provinceID,
           cityID: response.cityID,
           barangayID: response.barangayID,
@@ -151,44 +155,42 @@ export class PersonalDetailsFormComponent implements OnInit  {
           religion: response?.religion,
           education: response?.education,
           course: response?.course,
-          ofwForeignAddress : response?.ofwForeignAddress,
-          ofwCountry : response?.ofwCountry,
-          ofwContactNo : response?.ofwContactNo,
+          ofwForeignAddress: response?.ofwForeignAddress,
+          ofwCountry: response?.ofwCountry,
+          ofwContactNo: response?.ofwContactNo,
         });
       }
     });
 
-    this.userDetails.getEmploymentDetailsByUserId(this.personID).subscribe((response) => {
-      if(response.length > 0){
-        this.employmentForm.patchValue({
-          personId:  this.personID,
-          id:  response[0].id,
-          employerName: response[0].employerName,
-          vessel: response[0].vessel,
-          occupation: response[0].occupation,
-          monthlySalary: response[0].monthlySalary,
-          agencyName: response[0].agencyName,
-          contractDuration: response[0].contractDuration,
-          ofwType: response[0].ofwType,
-          jobSite: response[0].jobSite,
-          status: response[0].status,
-        });
-      }
-
-    });
+    this.userDetails
+      .getEmploymentDetailsByUserId(this.personID)
+      .subscribe((response) => {
+        if (response.length > 0) {
+          this.employmentForm.patchValue({
+            personId: this.personID,
+            id: response[0].id,
+            employerName: response[0].employerName,
+            vessel: response[0].vessel,
+            occupation: response[0].occupation,
+            monthlySalary: response[0].monthlySalary,
+            agencyName: response[0].agencyName,
+            contractDuration: response[0].contractDuration,
+            ofwType: response[0].ofwType,
+            jobSite: response[0].jobSite,
+            status: response[0].status,
+          });
+        }
+      });
 
     // Fetch countries
-      this.locationService.getCountries().subscribe((data) => {
-        this.countries = data.map((country: any) => country.name.common);
-      });
+    this.locationService.getCountries().subscribe((data) => {
+      this.countries = data.map((country: any) => country.name.common);
+    });
 
     // Fetch provinces
     this.locationService.getProvinces().subscribe((data) => {
       this.provinces = data;
     });
-
-
-
   }
 
   onProvinceChange(provinceId: string) {
@@ -206,23 +208,32 @@ export class PersonalDetailsFormComponent implements OnInit  {
   }
 
   onStatusChange(applicant: any, event: string): void {
-    if(applicant){
-      const  application = {
-        id : applicant.id,
-        jobID : applicant.jobID,
-        appliedUserID : applicant.appliedUserID,
-        status : event
-      }
+    if (applicant) {
+      const application = {
+        id: applicant.id,
+        jobID: applicant.jobID,
+        appliedUserID: applicant.appliedUserID,
+        status: event,
+      };
       this.jobService.applyForJob(application).subscribe((res: any) => {
-        if(res){
-          this.showToast('Application submitted successfully!', 'Success', 'success');
+        if (res) {
+          this.showToast(
+            'Application submitted successfully!',
+            'Success',
+            'success'
+          );
         }
       });
     }
   }
 
   onSubmitPersonalDetails(): void {
-    const skills: string =this.participantProfileForm.value.tags != ''?  this.participantProfileForm.value.tags?.map((obj: { value: string }) => obj.value).join(', '): "";
+    const skills: string =
+      this.participantProfileForm.value.tags != ''
+        ? this.participantProfileForm.value.tags
+            ?.map((obj: { value: string }) => obj.value)
+            .join(', ')
+        : '';
     const userProfile: UserProfile = {
       userId: this.user._id,
       id: this.participantProfileForm.value.id,
@@ -233,9 +244,9 @@ export class PersonalDetailsFormComponent implements OnInit  {
       birthdate: this.participantProfileForm.value.birthdate,
       gender: this.participantProfileForm.value.gender,
       civilStatus: this.participantProfileForm.value.civilstatus,
-      passportNo:  this.participantProfileForm.value.passportNo,
+      passportNo: this.participantProfileForm.value.passportNo,
 
-      tags: skills
+      tags: skills,
 
       // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
       // course: this.participantProfileForm.value.course,
@@ -243,13 +254,15 @@ export class PersonalDetailsFormComponent implements OnInit  {
       // employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
       // tags: this.participantProfileForm.value.tags,
     };
-    if(this.user){
-      this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
-        if(response) {
-          this.showToast('submitted successfully!', 'Success', 'success');
-          console.log(response);
-        }
-      });
+    if (this.user) {
+      this.userDetails
+        .savePersonalDetails(userProfile)
+        .subscribe((response) => {
+          if (response) {
+            this.showToast('submitted successfully!', 'Success', 'success');
+            console.log(response);
+          }
+        });
       // if(userProfile.id){
       //   this.userDetails.updatePersonalDetails(userProfile).subscribe((response) => {
       //     if(response) {
@@ -267,8 +280,6 @@ export class PersonalDetailsFormComponent implements OnInit  {
       // }
     }
 
-
-
     // if (this.participantProfileForm.valid) {
     //   console.log('Form Submitted', this.participantProfileForm.value);
     //   // Handle the form submission logic here
@@ -278,7 +289,6 @@ export class PersonalDetailsFormComponent implements OnInit  {
   }
 
   onSubmitAddress(): void {
-
     const address: any = {
       userId: this.user._id,
       id: this.addressForm.value.id,
@@ -300,38 +310,35 @@ export class PersonalDetailsFormComponent implements OnInit  {
       // employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
       // tags: this.participantProfileForm.value.tags,
     };
-    if(this.user){
-      if(address.id){
+    if (this.user) {
+      if (address.id) {
         this.userDetails.updateAddress(address).subscribe((response) => {
-          if(response) {
+          if (response) {
             this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
-      }else{
+      } else {
         this.userDetails.saveAddress(address).subscribe((response) => {
-          if(response) {
+          if (response) {
             this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }
     }
-
   }
-
 
   showToast(message: string, title: string, status: string) {
     this.toastrService.show('Form submitted successfully!', title, { status });
   }
 
-  isInvalid(controlName: string,form : FormGroup): boolean {
+  isInvalid(controlName: string, form: FormGroup): boolean {
     const control = form.get(controlName);
-    return control !== null && control !== undefined && control.invalid ;
+    return control !== null && control !== undefined && control.invalid;
   }
 
   onSubmitEmploymentDetails(): void {
-
     const value: any = {
       personID: this.user._id,
       id: this.employmentForm.value.id,
@@ -351,26 +358,27 @@ export class PersonalDetailsFormComponent implements OnInit  {
       // employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
       // tags: this.participantProfileForm.value.tags,
     };
-    if(this.user){
-      if(value.id){
-        this.userDetails.updateEmploymentDetails(value).subscribe((response) => {
-          if(response) {
-            this.showToast('submitted successfully!', 'Success', 'success');
-            console.log(response);
-          }
-        });
-      }else{
+    if (this.user) {
+      if (value.id) {
+        this.userDetails
+          .updateEmploymentDetails(value)
+          .subscribe((response) => {
+            if (response) {
+              this.showToast('submitted successfully!', 'Success', 'success');
+              console.log(response);
+            }
+          });
+      } else {
         this.userDetails.saveEmploymentDetails(value).subscribe((response) => {
-          if(response) {
+          if (response) {
             this.showToast('submitted successfully!', 'Success', 'success');
             console.log(response);
           }
         });
       }
     }
-
   }
-  submitAll(){
+  submitAll() {
     this.onSubmitPersonalDetails();
     this.onSubmitAddress();
     this.onSubmitEmploymentDetails();

@@ -573,15 +573,21 @@
                 </div> -->
               </div>
             </form>
-              <!-- Submit Button -->
-              <div class="row justify-content-end mt-3" *ngIf="!readonly">
-                <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-                <button nbButton status="primary" type="submit" (click)="submitAll()">Submit</button>
-              </div>
+
             </nb-accordion-item-body>
           </nb-accordion-item>
 
         </nb-accordion>
+              <!-- Submit Button -->
+              <div class="row justify-content-end mt-3" *ngIf="!readonly">
+                <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
+                <div class="col-12 col-md-2">
+                  <button class="w-100" nbButton status="basic" routerLink="/main/jobs" >Back</button>
+                </div>
+                <div class="col-12 col-md-2">
+                  <button class="w-100" nbButton status="primary" type="submit" (click)="submitAll()">Submit</button>
+                </div>
+              </div>
     </nb-card-body>
   </nb-card>
 </div>

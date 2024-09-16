@@ -1,17 +1,26 @@
 <div class="row justify-content-end">
   <button class="btn btn-primary btn-sm col-3" routerLink="/main/manage-jobs-list">Job List</button>
 </div>
+
 <div class="row justify-content-end mt-3 mb-3">
   <button class="btn btn-success btn-sm col-3" (click)="onSubmit(true)"  *ngIf="jobId > 0 && user._type == 3 && jobForm.get('status')?.value == 0">Approve Job</button>
 </div>
 <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" [ngClass]="readonly? 'readonly-accordion' : ''">
 
-  <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the site.</nb-alert>
-  <nb-alert status="primary" *ngIf="jobForm.get('status')?.value == 1">This job is already approved.</nb-alert>
+<div class="row">
+  <div class="col-12 col-md-6">
+    <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the site.</nb-alert>
+    <nb-alert status="primary" *ngIf="jobForm.get('status')?.value == 1">This job is already approved.</nb-alert>
+  </div>
+</div>
+
+  <div style="text-align: left;">
+    <img [src]="jobForm.get('hiring_organization_logo')?.value" style="height: auto;width:120px;margin: auto;">
+  </div>
   <div class="row">
     <!-- Title -->
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="title">Job Title</label>
         <input nbInput fullWidth id="title" formControlName="title" placeholder="Job Title" class="form-control"
                [status]="isInvalid('title') ? 'danger' : 'basic'">
@@ -23,7 +32,7 @@
 
     <!-- Description -->
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="description">Description</label>
         <textarea nbInput fullWidth id="description" formControlName="description" placeholder="Description"
                   class="form-control"
@@ -36,7 +45,7 @@
 
     <!-- Date Posted -->
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="date_posted">Date Posted</label>
         <input nbInput fullWidth id="date_posted" formControlName="date_posted" placeholder="MM/DD/YYYY"
                class="form-control" type="date"
@@ -49,7 +58,7 @@
 
     <!-- Valid Through -->
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="valid_through">Valid Through</label>
         <input nbInput fullWidth id="valid_through" formControlName="valid_through" placeholder="MM/DD/YYYY"
                class="form-control" type="date"
@@ -59,7 +68,7 @@
 
     <!-- Employment Type -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="employment_type">Employment Type</label>
         <input nbInput fullWidth id="employment_type" formControlName="employment_type" placeholder="Employment Type"
                class="form-control"
@@ -72,7 +81,7 @@
 
     <!-- Hiring Organization Name -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="hiring_organization_name">Hiring Organization Name</label>
         <input nbInput fullWidth id="hiring_organization_name" formControlName="hiring_organization_name"
                placeholder="Hiring Organization Name" class="form-control"
@@ -85,7 +94,7 @@
 
     <!-- Hiring Organization Same As -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="hiring_organization_same_as">Hiring Organization Website (Optional)</label>
         <input nbInput fullWidth id="hiring_organization_same_as" formControlName="hiring_organization_same_as"
                placeholder="Hiring Organization Website" class="form-control"
@@ -95,7 +104,7 @@
 
     <!-- Hiring Organization Logo -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="hiring_organization_logo">Hiring Organization Logo URL (Optional)</label>
         <input nbInput fullWidth id="hiring_organization_logo" formControlName="hiring_organization_logo"
                placeholder="Hiring Organization Logo URL" class="form-control"
@@ -105,7 +114,7 @@
 
     <!-- Job Location Street Address -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="job_location_street_address">Job Location Street Address</label>
         <input nbInput fullWidth id="job_location_street_address" formControlName="job_location_street_address"
                placeholder="Street Address" class="form-control"
@@ -118,7 +127,7 @@
 
     <!-- Job Location Address Locality -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="job_location_address_locality">Job Location City</label>
         <input nbInput fullWidth id="job_location_address_locality" formControlName="job_location_address_locality"
                placeholder="City" class="form-control"
@@ -131,7 +140,7 @@
 
     <!-- Job Location Address Region -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="job_location_address_region">Job Location State/Province</label>
         <input nbInput fullWidth id="job_location_address_region" formControlName="job_location_address_region"
                placeholder="State/Province" class="form-control"
@@ -144,7 +153,7 @@
 
     <!-- Job Location Postal Code -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="job_location_postal_code">Job Location Postal Code</label>
         <input nbInput fullWidth id="job_location_postal_code" formControlName="job_location_postal_code"
                placeholder="Postal Code" class="form-control"
@@ -157,7 +166,7 @@
 
     <!-- Job Location Country -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="job_location_address_country">Job Location Country</label>
         <input nbInput fullWidth id="job_location_address_country" formControlName="job_location_address_country"
                placeholder="Country" class="form-control"
@@ -170,10 +179,10 @@
 
     <!-- Base Salary Value -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
-        <label for="base_salary_value">Base Salary</label>
+      <div class="form-group mt-3">
+        <label for="base_salary_value">Base Salary Range</label>
         <input nbInput fullWidth id="base_salary_value" formControlName="base_salary_value" placeholder="Base Salary"
-               class="form-control" type="number"
+               class="form-control" type="text"
                [status]="isInvalid('base_salary_value') ? 'danger' : 'basic'">
         <div *ngIf="isInvalid('base_salary_value')" class="invalid-feedback">
           Base Salary is required and must be a number.
@@ -183,20 +192,20 @@
 
     <!-- Base Salary Currency -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
-        <label for="base_salary_currency">Currency</label>
-        <input nbInput fullWidth id="base_salary_currency" formControlName="base_salary_currency"
-               placeholder="Currency" class="form-control"
+      <div class="form-group mt-3">
+        <label for="base_salary_currency">No. of employees needed</label>
+        <input nbInput fullWidth id="base_salary_currency" formControlName="base_salary_currency" type="number"
+               placeholder="No. of Employees" class="form-control"
                [status]="isInvalid('base_salary_currency') ? 'danger' : 'basic'">
         <div *ngIf="isInvalid('base_salary_currency')" class="invalid-feedback">
-          Currency is required and must be exactly 3 characters.
+          employees needed is required and must be exactly 3 characters.
         </div>
       </div>
     </div>
 
     <!-- Base Salary Unit Text -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="base_salary_unit_text">Salary Unit (Optional)</label>
         <input nbInput fullWidth id="base_salary_unit_text" formControlName="base_salary_unit_text"
                placeholder="Salary Unit" class="form-control"
@@ -205,8 +214,8 @@
     </div>
 
     <!-- Job Benefits -->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="form-group">
+    <div class="col-12 col-md-12">
+      <div class="form-group mt-3">
         <label for="job_benefits">Job Benefits (Optional)</label>
         <textarea nbInput fullWidth id="job_benefits" formControlName="job_benefits" placeholder="Job Benefits"
                   class="form-control"
@@ -215,8 +224,8 @@
     </div>
 
     <!-- Responsibilities -->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="form-group">
+    <div class="col-12 col-md-12">
+      <div class="form-group mt-3">
         <label for="responsibilities">Responsibilities (Optional)</label>
         <textarea nbInput fullWidth id="responsibilities" formControlName="responsibilities"
                   placeholder="Responsibilities" class="form-control"
@@ -225,8 +234,8 @@
     </div>
 
     <!-- Qualifications -->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="form-group">
+    <div class="col-12 col-md-12">
+      <div class="form-group mt-3">
         <label for="qualifications">Qualifications (Optional)</label>
         <textarea nbInput fullWidth id="qualifications" formControlName="qualifications" placeholder="Qualifications"
                   class="form-control"
@@ -235,18 +244,19 @@
     </div>
 
     <!-- Skills -->
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="form-group">
+    <div class="col-12 col-md-12">
+      <div class="form-group mt-3">
         <label for="skills">Skills (Optional)</label>
         <!-- <textarea nbInput fullWidth id="skills" formControlName="skills" placeholder="Skills" class="form-control"
                   [status]="isInvalid('skills') ? 'danger' : 'basic'"></textarea> -->
-                  <tag-input   formControlName="skills" [maxItems]='5'></tag-input>
+                  <tag-input   formControlName="skills" [maxItems]='5' fullWidth ></tag-input>
+                  
       </div>
     </div>
 
     <!-- Industry -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="industry">Industry (Optional)</label>
         <input nbInput fullWidth id="industry" formControlName="industry" placeholder="Industry" class="form-control"
                [status]="isInvalid('industry') ? 'danger' : 'basic'">
@@ -255,7 +265,7 @@
 
     <!-- Applicant Location Requirements -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="applicant_location_requirements">Applicant Location Requirements (Optional)</label>
         <input nbInput fullWidth id="applicant_location_requirements" formControlName="applicant_location_requirements"
                placeholder="Applicant Location Requirements" class="form-control"
@@ -265,7 +275,7 @@
 
     <!-- Job Location Type -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="job_location_type">Job Location Type (Optional)</label>
         <input nbInput fullWidth id="job_location_type" formControlName="job_location_type"
                placeholder="Job Location Type" class="form-control"
@@ -275,7 +285,7 @@
 
     <!-- Work Hours -->
     <div class="col-lg-6 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="work_hours">Work Hours (Optional)</label>
         <input nbInput fullWidth id="work_hours" formControlName="work_hours" placeholder="Work Hours"
                class="form-control"
@@ -285,7 +295,7 @@
 
     <!-- Tags -->
     <div class="col-lg-12 col-md-12 col-sm-12">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="tags">Tags (Optional)</label>
         <textarea nbInput fullWidth id="tags" formControlName="tags" placeholder="Tags" class="form-control"
                   [status]="isInvalid('tags') ? 'danger' : 'basic'"></textarea>
@@ -293,5 +303,10 @@
     </div>
   </div>
 
-  <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid" *ngIf="user?._type == 1">Submit</button>
+
+  <div class="d-flex justify-content-end mt-3">
+   <div class="w-25">
+    <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid" *ngIf="user?._type == 1">Submit</button>
+   </div>
+  </div>
 </form>

@@ -180,7 +180,10 @@
       </div>
 
       <!-- Submit Button -->
-      <button nbButton fullWidth status="primary" type="submit" [disabled]="companyForm.invalid && companyForm.untouched">Submit</button>
+      <div class="text-end">
+        <button class="w-25 me-2" nbButton fullWidth status="basic" type="submit" >Back</button>
+        <button class="w-25" nbButton fullWidth status="primary" type="submit" [disabled]="companyForm.invalid && companyForm.untouched">Submit</button>
+      </div>
     </form>
   </nb-card-body>
 </nb-card>

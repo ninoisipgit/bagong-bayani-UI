@@ -10,6 +10,7 @@ const apiUrl = `${environment.apiUrl}/api/auth`;
 
 
 export interface AuthResponseData{
+  name:	string;
   email:	string;
   localId	:number;
   user_type	:number;
@@ -34,10 +35,10 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
 
-  private handleAuthentication(email: string, userId:number, user_type: number, status: number, token:string, expires_in: number){
+  private handleAuthentication(name: string,email: string, userId:number, user_type: number, status: number, token:string, expires_in: number){
     const expDate = new Date(new Date().getTime() + expires_in * 1000);
 
-    const user = new UserToken(email,userId,user_type, status, token,expDate );
+    const user = new UserToken(name, email,userId,user_type, status, token,expDate );
 
     this.user.next(user);
     this.autoLogout(expires_in * 1000);
@@ -71,7 +72,7 @@ export class AuthService {
           password: password,
           returnSecureToken: true
       }).pipe(tap(res => {
-        this.handleAuthentication(res.email, res.localId, res.user_type, res.status, res.access_token, +res.expires_in);
+        this.handleAuthentication(res.name, res.email, res.localId, res.user_type, res.status, res.access_token, +res.expires_in);
     }));
   }
 
@@ -85,7 +86,7 @@ export class AuthService {
           user_type: value.user_type,
           returnSecureToken: true
       }).pipe(tap(res => {
-          this.handleAuthentication(res.email, res.localId, res.user_type, res.status, res.access_token, +res.expires_in);
+          this.handleAuthentication(res.name,res.email, res.localId, res.user_type, res.status, res.access_token, +res.expires_in);
       }));
   }
 
@@ -107,7 +108,7 @@ export class AuthService {
     if (userDataString !== null) {  // Check if the string is not null
       try {
         const userData: {
-
+          _name:string;
           _email:string;
           _id:number;
           _type:number;
@@ -122,7 +123,7 @@ export class AuthService {
         }
 
         // Proceed with your logic using userData
-        const loadedUser = new UserToken(userData._email, userData._id, userData._type, userData._status,userData._token, new Date(userData._tokenExpirationDate));
+        const loadedUser = new UserToken(userData._name,userData._email, userData._id, userData._type, userData._status,userData._token, new Date(userData._tokenExpirationDate));
 
         if(loadedUser.getToken){
           this.user.next(loadedUser);

@@ -37,7 +37,7 @@ const routes: Routes = [
         component: PersonalDetailsFormComponent,
       },
       {
-        path: 'personal-details-view/:userId',
+        path: 'personal-details-view/:userId/:jobID',
         component: PersonalDetailsFormComponent,
       },
       {

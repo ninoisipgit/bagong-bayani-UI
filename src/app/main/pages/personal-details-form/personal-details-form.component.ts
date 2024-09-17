@@ -10,17 +10,19 @@ import { UserProfile } from 'src/app/shared/models/user-profile';
 import { JobService } from 'src/app/shared/services/job.service';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
-
+import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 @Component({
   selector: 'app-personal-details-form',
   templateUrl: './personal-details-form.component.html',
   styleUrls: ['./personal-details-form.component.scss'],
 })
 export class PersonalDetailsFormComponent implements OnInit {
+  CountryISO = CountryISO; // Assign the enum to a public variable
+  SearchCountryField = SearchCountryField;
   participantProfileForm!: FormGroup;
   addressForm!: FormGroup;
   employmentForm!: FormGroup;
-
+  jobApplicant!: any;
   private userSub: Subscription;
   user!: UserToken;
   isAuthenticated = false;
@@ -36,6 +38,7 @@ export class PersonalDetailsFormComponent implements OnInit {
   selectedBarangay = '';
   readonly: boolean = false;
   personID: number = 0;
+  jobID: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -108,7 +111,9 @@ export class PersonalDetailsFormComponent implements OnInit {
           this.readonly = true;
           this.route.paramMap.subscribe((params) => {
             this.personID = Number(params.get('userId'));
+            this.jobID = Number(params.get('jobID'));
           });
+          this.getApplicantsList();
         }
       }
     });
@@ -228,12 +233,10 @@ export class PersonalDetailsFormComponent implements OnInit {
   }
 
   onSubmitPersonalDetails(): void {
-    const skills: string =
-      this.participantProfileForm.value.tags != ''
-        ? this.participantProfileForm.value.tags
-            ?.map((obj: { value: string }) => obj.value)
-            .join(', ')
-        : '';
+    const tagsValue = this.participantProfileForm.value.tags;
+    const skills: string = Array.isArray(tagsValue)
+      ? tagsValue.map((obj: { value: string }) => obj.value).join(', ')
+      : tagsValue || '';
     const userProfile: UserProfile = {
       userId: this.user._id,
       id: this.participantProfileForm.value.id,
@@ -297,12 +300,12 @@ export class PersonalDetailsFormComponent implements OnInit {
       barangayID: this.addressForm.value.barangayID,
       zipcode: this.addressForm.value.zipcode,
       street: this.addressForm.value.street,
-      mobileNo: this.addressForm.value.mobileNo,
+      mobileNo: this.addressForm.value.mobileNo.number,
       email: this.addressForm.value.email,
 
       ofwForeignAddress: this.addressForm.value.ofwForeignAddress,
       ofwCountry: this.addressForm.value.ofwCountry,
-      ofwContactNo: this.addressForm.value.ofwContactNo,
+      ofwContactNo: this.addressForm.value.ofwContactNo.number,
 
       // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
       // course: this.participantProfileForm.value.course,
@@ -382,5 +385,17 @@ export class PersonalDetailsFormComponent implements OnInit {
     this.onSubmitPersonalDetails();
     this.onSubmitAddress();
     this.onSubmitEmploymentDetails();
+  }
+
+  getCities(provinceId: any) {
+    this.locationService.getCities(provinceId).subscribe((response) => {
+      this.cities = response;
+     });
+  }
+
+  getApplicantsList(){
+    this.jobService.getJobApplicants().subscribe((res: any) => {
+      this.jobApplicant = res.find((x: any) => x.jobID == this.jobID && x.appliedUserID == this.personID);
+    })
   }
 }

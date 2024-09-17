@@ -1,5 +1,6 @@
 export class UserToken {
   constructor(
+    public _name:string,
     public _email:string,
     public _id:number,
     public _type:number,

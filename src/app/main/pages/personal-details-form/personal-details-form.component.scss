@@ -77,3 +77,47 @@
     font-size: 0.9rem;
   }
 }
+
+/* Custom class to make ngx-intl-tel-input look like Nebular inputs, without gray background and border */
+.custom {
+  display: block;
+  width: 100%;
+  // padding: 0.875rem 1rem;
+  min-width: 301px;
+  font-size: 1rem;
+  // line-height: 1.5;
+  color: #4f4f4f;
+  // background-color: transparent; /* Removed background */
+  // background-clip: padding-box;
+  // border: none; /* Removed border */
+  // border-radius: 0.25rem;
+  // transition: box-shadow 0.15s ease-in-out;
+}
+
+.custom:focus-within {
+  box-shadow: none; /* Removed focus border effect */
+}
+
+.custom input {
+  border: none;
+  outline: none;
+  background: transparent; /* Ensure the input itself has no background */
+  width: 100%;
+  padding-left: 0.25rem;
+}
+
+.custom .iti__flag-container {
+  padding-right: 0.75rem;
+}
+
+.custom input::placeholder {
+  color: #a0a0a0;
+}
+
+.custom .iti__selected-flag {
+  border: none;
+}
+
+.custom .iti--separate-dial-code .iti__selected-dial-code {
+  color: #4f4f4f;
+}

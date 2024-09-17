@@ -143,9 +143,14 @@ export class ManageJobsComponent  implements OnInit{
 
   onSubmit(forApproved: boolean = false): void {
     if (this.jobForm.valid) {
-      const skills: string = this.jobForm.value.skills.map((obj: { value: string }) => obj.value).join(', ');
+      const skillsValue = this.jobForm.value.skills;
+      const skills: string = Array.isArray(skillsValue)
+        ? skillsValue.map((obj: { value: string }) => obj.value).join(', ')
+        : skillsValue; // If it's a string, just use it as is
+
       let jobDetails: JobDetails = this.jobForm.value;
       jobDetails.skills = skills;
+      jobDetails.base_salary_currency = jobDetails.base_salary_currency.toString();
       if(this.jobId > 0){
         if(forApproved){
           jobDetails.status = 1;

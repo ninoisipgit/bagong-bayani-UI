@@ -2,6 +2,17 @@
   <nb-card class="auth-card" style="min-width: 100%; width: 100%;">
     <nb-card-header>Employees Personal Details</nb-card-header>
     <nb-card-body>
+      <div class="row justify-content-end">
+        <div class="col-md-4">
+          <nb-select *ngIf="jobApplicant" placeholder="Select Showcase" [(selected)]="jobApplicant.status" fullWidth (selectedChange)="onStatusChange(jobApplicant, $event)" >
+            <nb-option value="applied">applied</nb-option>
+            <nb-option value="interviewed">interviewed</nb-option>
+            <nb-option value="hired">hired</nb-option>
+            <nb-option value="rejected">rejected</nb-option>
+            <nb-option value="withdrawn ">withdrawn </nb-option>
+          </nb-select>
+        </div>
+      </div>
       <!-- <nb-select placeholder="Select Showcase" [(selected)]="applicant.status" fullWidth (selectedChange)="onStatusChange(applicant, $event)" >
         <nb-option value="applied">applied</nb-option>
         <nb-option value="interviewed">interviewed</nb-option>
@@ -249,23 +260,9 @@
                     >
                   </div>
                 </div>
-                <!-- Mobile Number -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="mobileno">Mobile Number</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="mobileno"
-                      formControlName="mobileNo"
-                      [status]="isInvalid('mobileNo',addressForm) ? 'danger' : 'basic'"
-                      placeholder="9341XXXXXX"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
+
                 <!-- Email Address -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                   <div class="form-group">
                     <label for="emailaddress">Email Address</label>
                     <input
@@ -337,7 +334,7 @@
                 </div> -->
 
                   <!-- Foreign Address -->
-                  <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                       <label for="foreignaddress">OFW's Foreign Address</label>
                       <input
@@ -352,7 +349,7 @@
                     </div>
                   </div>
                   <!-- Country -->
-                  <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                       <label for="country">Country</label>
                           <select
@@ -370,11 +367,40 @@
                       </select>
                     </div>
                   </div>
+                                  <!-- Mobile Number -->
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label for="mobileno">Mobile Number</label>
+                    <!-- <input
+                      nbInput
+                      fullWidth
+                      id="mobileno"
+                      formControlName="mobileNo"
+                      [status]="isInvalid('mobileNo',addressForm) ? 'danger' : 'basic'"
+                      placeholder="9341XXXXXX"
+                      class="form-control"
+                    > -->
+                    <ngx-intl-tel-input
+                    [ngClass]="'custom'"
+                    [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]"
+                    [enableAutoCountrySelect]="false"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                    [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.Philippines"
+                    [maxLength]="15"
+                    [phoneValidation]="true"
+                    name="phone"
+                    formControlName="mobileNo"
+                  ></ngx-intl-tel-input>
+                  </div>
+                </div>
                   <!-- Contact No. Abroad -->
-                  <div class="col-lg-3 col-md-6 col-sm-12">
+                  <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="form-group">
                       <label for="ofwContactNo">Contact No. Abroad</label>
-                      <input
+                      <!-- <input
                         nbInput
                         fullWidth
                         id="ofwContactNo"
@@ -382,7 +408,21 @@
                         [status]="isInvalid('ofwContactNo',participantProfileForm) ? 'danger' : 'basic'"
                         placeholder="FOREIGN CONTACT NUMBER"
                         class="form-control"
-                      >
+                      > -->
+                      <ngx-intl-tel-input
+                      [ngClass]="'custom'"
+                      [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]"
+                      [enableAutoCountrySelect]="false"
+                      [enablePlaceholder]="true"
+                      [searchCountryFlag]="true"
+                      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                      [selectFirstCountry]="false"
+                      [selectedCountryISO]="CountryISO.Philippines"
+                      [maxLength]="15"
+                      [phoneValidation]="true"
+                      name="phone"
+                      formControlName="ofwContactNo"
+                    ></ngx-intl-tel-input>
                     </div>
                   </div>
               </div>

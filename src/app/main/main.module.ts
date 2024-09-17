@@ -35,6 +35,7 @@ import { AddEventModalComponent } from './pages/events/add-event-modal/add-event
 import { PostCardComponent } from './pages/events/post-card/post-card.component';
 import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
 import { TagInputModule } from 'ngx-chips';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 @NgModule({
   declarations: [
     MainComponent,
@@ -71,7 +72,8 @@ import { TagInputModule } from 'ngx-chips';
     NbListModule,
     NbToastrModule.forRoot(),
     NbAlertModule,
-    TagInputModule
+    TagInputModule,
+    NgxIntlTelInputModule
 
   ],
 })

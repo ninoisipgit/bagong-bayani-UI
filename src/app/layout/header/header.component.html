@@ -9,7 +9,7 @@
     <nb-actions size="small">
 
       <nb-action [nbContextMenu]="userMenu" *ngIf="isAuthenticated">
-        <nb-user size="medium" name="{{userDetails?.FirstName}} {{userDetails?.LastName}}" title="{{user?._email}}"></nb-user>
+        <nb-user size="medium" name="{{user._name}}" title="{{user?._email}}"></nb-user>
       </nb-action>
     </nb-actions>
   </div>

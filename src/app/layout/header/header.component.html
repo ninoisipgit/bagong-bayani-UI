@@ -5,11 +5,13 @@
     </a>
   </div>
   <div class="col-5 d-flex justify-content-end">
-
-    <nb-actions size="small">
-
+    <button size="small" outline nbButton [nbContextMenu]="items"  class="d-block d-sm-none">
+      <nb-icon icon="menu-outline"></nb-icon>
+    </button>
+    <nb-actions size="small"> 
+        <nb-action   class="d-none d-md-block d-lg-block cursor-pointer" *ngFor="let action of actions" [routerLink]="[action.href]">  {{ action.label }} </nb-action> 
       <nb-action [nbContextMenu]="userMenu" *ngIf="isAuthenticated">
-        <nb-user size="medium" name="{{user._name}}" title="{{user?._email}}"></nb-user>
+        <nb-user size="medium" name="{{ user._name }}" title="{{ user?._email }}"></nb-user>
       </nb-action>
     </nb-actions>
   </div>

@@ -18,7 +18,8 @@ export class ManageJobsListComponent implements OnInit{
   user!: UserToken;
   isAuthenticated = false;
   employerDetails: EmployerDetails | undefined;
-
+  searchTerm: string = ''; // Bound to the search input
+  filteredJobListings: any[] = []; // List to display filtered jobs
   constructor(
     private jobService: JobService,
     private router:Router,
@@ -41,15 +42,28 @@ export class ManageJobsListComponent implements OnInit{
       this.fetchData();
   }
 
+    // Method to filter jobs based on search term
+    filterJobs() {
+      const term = this.searchTerm.toLowerCase();
+      this.filteredJobListings = this.jobListings.filter(job =>
+        job.title.toLowerCase().includes(term) ||
+        job.description.toLowerCase().includes(term) ||
+        job.hiring_organization_name.toLowerCase().includes(term) ||
+        job.employment_type.toLowerCase().includes(term)
+      );
+    }
+
   fetchData(){
     if(this.isAuthenticated){
       if(this.user._type == 3){
         this.jobService.getAllJobListbyUserId(0).subscribe((response) => {
           this.jobListings = response;
+          this.filteredJobListings = response;
         });
       }else{
         this.jobService.getJobPostsByUser(this.user._id).subscribe((response) => {
           this.jobListings = response;
+          this.filteredJobListings = response;
         });
       }
 

@@ -56,6 +56,27 @@ export class JobsComponent implements OnInit {
     }
   }
 
+  SearchJob(event:KeyboardEvent) {
+    if (event.key === 'Enter') {
+      const inputElement = event.target as HTMLTextAreaElement;
+      if (inputElement && inputElement.value != null && inputElement.value.trim() !== '') {
+        if (this.isAuthenticated) {
+          this.jobService
+            .SearchAllJobList(inputElement.value)
+            .subscribe((response) => {
+              this.jobListings = response.filter((job: any) => job.status === 1);
+              this.selectedJob = this.jobListings[0];
+            });
+        }
+      }else{
+        this.fetchData();
+      }
+
+    }
+
+
+  }
+
   displayJobDetails(job: any) {
     this.selectedJob = job;
   }

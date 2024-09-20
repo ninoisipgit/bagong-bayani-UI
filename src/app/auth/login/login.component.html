@@ -1,5 +1,5 @@
  
-  <nb-card class="auth-card my-5">
+  <nb-card class="auth-card">
     <nb-card-header>Login</nb-card-header>
     <nb-card-body>
       <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -27,7 +27,11 @@
             <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
           </div>
         </div>
-        <button nbButton status="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+        <div class="d-flex gap-2">
+          <button nbButton status="primary" type="submit">Login</button>
+          <button nbButton status="basic" type="button" routerLink="/views">Cancel</button> 
+        </div>
+
       </form>
 
       <section class="another-action" aria-label="Register">

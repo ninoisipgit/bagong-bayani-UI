@@ -1,0 +1,49 @@
+.cursor-pointer{
+    cursor: pointer;
+}
+.icon-size{
+    font-size: x-large;
+    text-decoration: none; 
+    padding: 5px 10px;
+}
+.icon-size-lg{
+    font-size: xx-large;
+    text-decoration: none; 
+    padding: 5px 10px;
+}
+.carousel-container {
+    position: relative;
+}
+
+.card-container {
+    position: absolute;  /* Keeps the card container in place */
+    bottom: 10;         /* 45% from the top */
+    left: 50%;        /* Center horizontally */
+    transform: translate(-50%, -50%); /* Centers the container horizontally and vertically */
+    display: flex;    /* Align cards in a row */
+    gap: 10px;        /* Add space between the cards */
+    z-index: 9999;    /* Highest stacking order */
+}
+
+.card {
+    cursor: pointer;
+    width: 244px;
+    height: 248px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Moves the card up slightly */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increases the shadow */
+    background-color: #0038A7; 
+    color: white;
+    border-color: aliceblue;
+}

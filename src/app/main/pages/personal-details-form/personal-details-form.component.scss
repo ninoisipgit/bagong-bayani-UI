@@ -4,7 +4,7 @@
 }
 
 .readonly-accordion select,
-.readonly-accordion nb-select {
+.readonly-accordion nb-select select ngx-intl-tel-input tag-input {
   pointer-events: none;
   background-color: #f7f7f7; /* Optional: To match the disabled input appearance */
 }

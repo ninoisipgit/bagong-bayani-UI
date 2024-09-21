@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     },
     { icon: 'file-text-outline', label: 'Resources', href: '/views/resources' },
     { icon: 'phone-outline', label: 'Contact', href: '/views/contact' },
-    { icon: 'person-outline', label: 'Login', href: '/views/login' },
+    { icon: 'person-outline', label: 'Careers', href: '/views/login' },
   ];
 
   navigateto(link: string) {

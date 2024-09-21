@@ -66,4 +66,35 @@ export class LandingPageComponent {
       link: 'https://owwa.gov.ph/?page_id=1437',
     },
   ];
+
+  faqs = [
+    {
+      question: 'Q. How can I be a member of OWWA?',
+      answer:
+        'Since OWWA is a membership institution, there is a membership contribution worth USD $25.00. This entitles the members to various benefits from OWWA’s programs and services.',
+      list: [
+        'Enrollment upon processing of contract at the POEA',
+        'Voluntary registration of a would-be member at job sites overseas',
+      ],
+    },
+    {
+      question: 'Q. What are the benefits of becoming an OWWA member?',
+      answer:
+        'OWWA members are entitled to an array of Social Benefits, Education & Training, Repatriation and Reintegration Services. They are also entitled to special programs.',
+    },
+    {
+      question: 'Q. When should I renew my OWWA membership?',
+      answer:
+        'The validity for each contribution is two (2) years, regardless of contract duration, change of employer, jobsite or recruitment agency. Thereafter, OWWA membership shall be renewed, provided there is proof of active employment.',
+    },
+    {
+      question: 'Q. How do I renew my OWWA membership?',
+      answer: 'You may renew your OWWA membership by:',
+      list: [
+        'OWWA Mobile App – You may renew your membership via Mobile App by following our step-by-step guide',
+        'Overseas Jobsites – OFWs may renew their membership on select sites and events on your jobsite/host country. You may check the OWWA Directory if available',
+        'If OFW is abroad, they may ask their NOK or relatives to renew at the nearest Regional Welfare Office in their area.',
+      ],
+    },
+  ];
 }

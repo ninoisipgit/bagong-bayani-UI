@@ -11,14 +11,30 @@ const apiUrl = `${environment.apiUrl}/api/auth`;
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  getPosts(page: number, pageSize: number): Observable<any> {
+  getPosts(page: number, pageSize: number, category: string): Observable<any> {
     let params = new HttpParams();
     params = params.set('pageSize', pageSize.toString());
     params = params.set('page', page.toString());
-
+    params = params.set('category', category.toString());
     return this.http
       .get<{ success: boolean; message: string; data: any }>(
         `${apiUrl}/information`,
+        { params }
+      )
+      .pipe(map((response) => response));
+  }
+  getPubPosts(
+    page: number,
+    pageSize: number,
+    category: string
+  ): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('pageSize', pageSize.toString());
+    params = params.set('page', page.toString());
+    params = params.set('category', category.toString());
+    return this.http
+      .get<{ success: boolean; message: string; data: any }>(
+        `${environment.apiUrl}/api/auth/information/pub`,
         { params }
       )
       .pipe(map((response) => response));

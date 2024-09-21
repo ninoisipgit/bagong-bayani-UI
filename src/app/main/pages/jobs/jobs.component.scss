@@ -1,5 +1,19 @@
-
-.text-details{
+.text-details {
   font-size: 14px;
   font-weight: bold;
+}
+.container-custom {
+  height: 80vh; /* 80% of the viewport height */
+  width: 100vw; /* 100% of the viewport width */
+}
+.column-40,
+.column-60 {
+  overflow: auto; /* Enable scroll when content overflows */
+  height: 100%; /* Make sure the column takes full height */
+}
+.column-40 {
+  background-color: #f8f9fa;
+}
+.column-60 {
+  background-color: #e9ecef;
 }

@@ -39,7 +39,6 @@ import { FooterComponent } from './main/layout/footer/footer.component';
     NbButtonModule,
     HttpClientModule,
     NbInputModule,
-    NbLayoutModule,
     NbMenuModule.forRoot(), // This provides the NbMenuService
     NbActionsModule,
     NbContextMenuModule,

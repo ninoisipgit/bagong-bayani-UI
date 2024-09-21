@@ -1,0 +1,74 @@
+<div class="container" style="height: 100%; overflow-y: scroll;">
+    <nb-card>
+        <nb-card-header>
+
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn-close" aria-label="Close" (click)="close(false)"></button>
+
+                <button nbButton size="small" [status]="status === 'Applied' ? 'success' : 'primary'" class="ml-2"
+                    (click)="close(true)" [disabled]="status === 'Applied' ? true : false">
+                    {{status}}
+                </button>
+            </div>
+
+        </nb-card-header>
+        <nb-card-body>
+            <h6>{{job.title}}</h6>
+            <span>{{job.hiring_organization_name}}</span>
+            <h6>Full job description</h6>
+
+            <p>{{job.title}}</p>
+
+            <h6>Job Description:</h6>
+
+            <p>{{job.description}}</p>
+
+            <p>The technologies being deployed for our projects include C#, ASP.NET Web API, RavenDB, AngularJS, HTML 5,
+                jQuery, CSS, SalesForce.com and PowerShell. The team is using Microsoft development technologies (Visual
+                Studio 2017, .NET 4.5, GIT, JIRA) and agile development methodologies.</p>
+
+            <h6>About the Job:</h6>
+
+            <ul>
+                <li>Job Title: {{job.title}}</li>
+                <li>Department: {{job.industry}}</li>
+                <li>Reports to: {{job.hiring_organization_name}}</li>
+                <li>Employment Type: {{job.employment_type}}</li>
+                <li>website: {{job.hiring_organization_same_as}}</li>
+                <li>Location: {{job.job_location_address_region}}</li>
+            </ul>
+
+            <h6>Technical Skills Requirement:</h6>
+
+            <p>{{job.skills}}</p>
+
+
+            <h6>Key Competency and Experience:</h6>
+
+            <p>Minimum:</p>
+
+            <ul>
+                <li>Proven / demonstrable experience working in a Scrum environment as a Scrum Master</li>
+                <li>UML knowledge / understanding essential.</li>
+                <li>Champions the use of systems and processes to drive business performance.</li>
+                <li>Track record of balancing both business and technical priorities and persuading others to make sure
+                    this
+                    balance is maintained.</li>
+                <li>At least 7-8 years relevant experience as a Software Engineer or related role in B2B software
+                    industry
+                </li>
+                <li>Communication Skills: Excellent in Spoken English with a strong customer focus.</li>
+            </ul>
+
+
+
+            <h6>Budget:</h6>
+
+            <p>{{job.base_salary_currency}} {{job.base_salary_value}}</p>
+
+            <h6>{{job.employment_type}}</h6>
+
+            <p>Pay: {{job.base_salary_currency}} {{job.base_salary_value}} per month</p>
+        </nb-card-body>
+    </nb-card>
+</div>

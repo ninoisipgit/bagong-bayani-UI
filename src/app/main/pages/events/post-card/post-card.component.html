@@ -9,8 +9,8 @@
                 <div>
                     <h5 class="mb-0">OWWA</h5>
                     <!-- <small class="text-muted">2 hours ago</small> -->
-                    <small class="text-muted">Created: {{ event.created_at | date:'short' }} || Published: : {{
-                        event.published_date | date:'short' }} {{!event.published_date && 'N/A'}}</small>
+                    <small class="text-muted">Created: {{ event.created_at | date:'short' }} || Published: {{
+                        event.published_date | date:'short' }} </small>
                 </div>
                 <!-- Action Buttons -->
                 <div class="ms-auto">
@@ -19,7 +19,7 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item" (click)="onEdit()">Edit</li>
                             <li class="dropdown-item" (click)="onDelete()">Delete</li>
-                            <li class="dropdown-item" (click)="onPublish()">Publish</li>
+                            <li *ngIf="!event.published_date" class="dropdown-item" (click)="onPublish()">Publish</li>
                         </ul>
                     </div>
                 </div>

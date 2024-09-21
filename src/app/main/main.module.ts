@@ -25,6 +25,7 @@ import {
   NbAlertModule,
   NbActionsModule,
   NbUserModule,
+  NbDialogModule,
 } from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjo
 import { TagInputModule } from 'ngx-chips';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { HeaderComponent } from './layout/header/header.component';
+import { ModalJobDetailsComponent } from './pages/jobs/modal-job-details/modal-job-details.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -54,6 +56,7 @@ import { HeaderComponent } from './layout/header/header.component';
     AddEventModalComponent,
     PostCardComponent,
     ManageApplicantsPerjobComponent,
+    ModalJobDetailsComponent,
   ],
   imports: [
     FormsModule,
@@ -80,6 +83,7 @@ import { HeaderComponent } from './layout/header/header.component';
     NgxIntlTelInputModule,
     NbActionsModule,
     NbUserModule,
+    NbDialogModule.forRoot(),
   ],
 })
 export class MainModule {}

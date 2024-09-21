@@ -161,7 +161,7 @@
 
                   <!-- Submit Button -->
                   <div class="row justify-content-end mt-3" >
-                    <tag-input   formControlName="tags" [maxItems]='5'></tag-input>
+                    <tag-input   formControlName="tags" [maxItems]='5'  [disabled]="readonly"></tag-input>
                   </div>
 
                   <!-- Submit Button -->
@@ -393,6 +393,7 @@
                     [phoneValidation]="true"
                     name="phone"
                     formControlName="mobileNo"
+
                   ></ngx-intl-tel-input>
                   </div>
                 </div>

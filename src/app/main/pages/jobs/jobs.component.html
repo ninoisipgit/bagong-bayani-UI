@@ -1,5 +1,22 @@
 <nb-alert class="text-center"  *ngIf="!userDetails">Personal details must be saved before applying for a job.</nb-alert>
 <nb-alert class="text-center"  *ngIf="jobListings?.length == 0">No jobs available.</nb-alert>
+
+<div class="card mb-4" style="max-width: 800px;margin:0 auto">
+  <div class="card-body">
+      <!-- <pre>{{event | json}}</pre> -->
+      <!-- Post Header -->
+      <div class="d-flex align-items-center">
+          <img src="assets/images/owwa.png" alt="Profile Picture" class=" me-3"
+              style="width: 30px; height: 30px;">
+          <div class="w-100">
+              <input   nbInput
+              fullWidth placeholder="Search Here" id="" class="form-control w-100" rows="1" (keydown)="SearchJob($event)">
+          </div>
+
+      </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-12 col-xl-5">
 

@@ -55,6 +55,13 @@ export class JobService {
       );
   }
 
+  SearchAllJobList(searchValue: string): Observable<any> {
+    return this.http.post<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobs/search`,{search:searchValue})
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
   getJobPostsByUser(userId: number): Observable<any> {
     return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/jobs/user/${userId}`)
       .pipe(

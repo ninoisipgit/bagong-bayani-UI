@@ -67,7 +67,7 @@ export class UserDetailsService {
   getEmployerDetails(userId: number): Observable<EmployerDetails> {
     return this.http.get<{ success: boolean; message: string; data: EmployerDetails }>(`${apiUrl}/employers/${userId}`)
       .pipe(
-        map(response => response.data)
+        map(response => response?.data)
       );
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/shared/services/event.service';
 
 @Component({
@@ -8,13 +8,16 @@ import { EventService } from 'src/app/shared/services/event.service';
 })
 export class InformationComponent {
   constructor(private eventService: EventService) {}
+  ngOnInit() {
+    this.loadNext();
+  }
 
   posts: any = [];
   placeholders: any = [];
   pageSize = 2;
   page = 1;
   loading = false;
-  category = 'Events';
+  category = 'Information';
 
   loadNext() {
     if (this.loading) {

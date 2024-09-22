@@ -1,15 +1,10 @@
-<div class="container mt-5">
-    <div class="card mb-4">
-        <div class="card-body">
-            <!-- <pre>{{event | json}}</pre> -->
+<div class="container my-2">
+    <div class="card ">
+        <div class="card-body"> 
             <!-- Post Header -->
-            <div class="d-flex align-items-center mb-3">
-                <img src="assets/images/owwa.png" alt="Profile Picture" class=" me-3"
-                    style="width: 50px; height: 50px;">
-                <div>
-                    <h5 class="mb-0">OWWA</h5>
-                    <!-- <small class="text-muted">2 hours ago</small> -->
-                    <small class="text-muted">Created: {{ event.created_at | date:'short' }} || Published: {{
+            <div class="d-flex align-items-center mb-3"> 
+                <div> 
+                    <small class="text-muted">Published: {{
                         event.published_date | date:'short' }} </small>
                 </div>
             </div>
@@ -23,17 +18,9 @@
 
             <!-- Responsive Image -->
             <div class="row">
-                <div class="col-12">
-                    <!-- <img src="https://via.placeholder.com/600x300" alt="Post Image" class="img-fluid rounded w-100"> -->
-                    <div class="image-preview-container" [ngClass]="{'single-image': event.images?.length === 1}">
-                        <div class="image-item" *ngFor="let image of event.images; let i = index">
-                            <img [src]="image.path" *ngIf="i < 3" alt="Image preview" />
-                            <!-- Display count on the last image if there are more than 3 images -->
-                            <div class="more-images" *ngIf="i === 2 && event.images?.length > 3">
-                                +{{ event.images.length - 3 }}
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-12"> 
+                     <ng-image-slider [images]="imageObject" [imageSize]="{width: '100%', height: 'auto'}" [manageImageRatio]="true"></ng-image-slider>
+                     
                 </div>
             </div>
 

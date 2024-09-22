@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EventService } from 'src/app/shared/services/event.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -97,4 +98,33 @@ export class LandingPageComponent {
       ],
     },
   ];
+
+  constructor(private eventService: EventService) {}
+  ngOnInit() {
+    this.loadNext();
+  }
+
+  posts: any = [];
+  placeholders: any = [];
+  pageSize = 50;
+  page = 1;
+  loading = false;
+  category = 'Events';
+
+  loadNext() {
+    if (this.loading) {
+      return;
+    }
+
+    this.loading = true;
+    this.placeholders = new Array(this.pageSize);
+    this.eventService
+      .getPubPosts(this.page, this.pageSize, this.category)
+      .subscribe((posts) => {
+        this.placeholders = [];
+        this.posts.push(...posts.data);
+        this.loading = false;
+        this.page++;
+      });
+  }
 }

@@ -5,55 +5,20 @@
 </nb-card-body>
 </nb-card> -->
 
-<div id="carouselExampleDark" class="carousel carousel-dark slide">
+<div id="carouselExampleDark" class="carousel carousel-dark slide" *ngIf="posts.length">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+
+        <button type="button" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i"
+            [ngClass]="{'active': i === 0}" [attr.aria-current]="i === 0 ? 'true' : null"
+            [attr.aria-label]="'Slide ' + (i + 1)" *ngFor="let post of posts; let i = index">
+        </button>
     </div>
     <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="2000">
-            <img src="https://owwa.gov.ph/wp-content/uploads/2023/03/women.jpg" class="d-block" alt="..."
+        <div class="carousel-item active" data-bs-interval="2000" *ngFor="let post of posts; let i = index">
+            <img [src]="post.images[0].path || ''" class="d-block" alt="..."
                 style="width: 100%; max-height: 800px; min-height: 300px; object-fit: cover;filter: blur(2px);">
             <div class="carousel-caption d-none d-md-block " style="--bs-bg-opacity: .2;">
                 <button class="btn btn-danger" style="margin-top: -80px !important;"> Read More</button>
-            </div>
-        </div>
-        <div class="carousel-item " data-bs-interval="2000">
-            <img src="https://owwa.gov.ph/wp-content/uploads/2022/09/301456533_379466977690847_5938256911680200275_n-1.jpg"
-                class="d-block" alt="..."
-                style="width: 100%; max-height: 800px; min-height: 300px; object-fit: cover;filter: blur(2px);">
-            <div class="carousel-caption d-none d-md-block " style="--bs-bg-opacity: .2;">
-                <button class="btn btn-danger"> Read More</button>
-
-            </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="https://assistance.ph/wp-content/uploads/2024/06/parokya-ng-barangay_owwa.png"
-                class="d-block w-100" alt="..."
-                style="width: 100%; max-height: 800px; min-height: 300px; object-fit: cover;filter: blur(2px);">
-            <div class="carousel-caption d-none d-md-block " style="--bs-bg-opacity: .2;">
-                <button class="btn btn-danger"> Read More</button>
-
-            </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="https://owwa.gov.ph/wp-content/uploads/2021/07/DSC_9403.jpg" class="d-block w-100" alt="..."
-                style="width: 100%; max-height: 800px; min-height: 300px; object-fit: cover;filter: blur(2px);">
-            <div class="carousel-caption d-none d-md-block " style="--bs-bg-opacity: .2;">
-                <button class="btn btn-danger"> Read More</button>
-
-            </div>
-        </div>
-        <div class="carousel-item" data-bs-interval="2000">
-            <img src="https://owwa.gov.ph/wp-content/uploads/2022/09/Artboard-4.png" class="d-block w-100" alt="..."
-                style="width: 100%; max-height: 800px; min-height: 300px; object-fit: cover;filter: blur(2px);">
-            <div class="carousel-caption d-none d-md-block " style="--bs-bg-opacity: .2;">
-                <button class="btn btn-danger"> Read More</button>
-
             </div>
         </div>
     </div>
@@ -67,7 +32,7 @@
     </button>
 </div>
 
-<div class="d-none d-sm-block">
+<div class="d-none d-sm-block" *ngIf="posts.length">
     <div class="card-container">
         <a *ngFor="let card of floatingCards" class="card text-decoration-none" [href]="card.link">
             <i [class]="card.icon + ' icon-size-lg'"></i>
@@ -75,29 +40,37 @@
         </a>
     </div>
 </div>
+<div class="row justify-content-center gap-3" style="margin-top: 50px;" *ngIf="!posts.length">
+    <a *ngFor="let card of floatingCards" class="card text-decoration-none" [href]="card.link">
+        <i [class]="card.icon + ' icon-size-lg'"></i>
+        <div class="fw-bold">{{ card.title }}</div>
+    </a>
+</div>
 
-
-<div class="container " style="margin-top: 300px; margin-bottom: 300px;">
-    <h4 class="text-center">Explore Online Services & Resources</h4>
-    <div class="row mt-5">
-        <div class="col-12 col-md-4 mt-3" *ngFor="let card of cards">
-
-            <div class="d-flex gap-2">
-                <i [class]="card.icon" class="my-auto"></i>
-                <span>
-                    <h6> {{ card.title }}</h6>
-                    {{ card.description }}
-                </span>
+<div class="bg-white w-100">
+    <div class="container p-5" style="margin-top: 300px; margin-bottom: 300px;">
+        <h4 class="text-center">Explore Online Services & Resources</h4>
+        <div class="row mt-5" >
+            <div class="col-12 col-md-4 mt-3" *ngFor="let card of cards">
+    
+                <div class="d-flex gap-2">
+                    <i [class]="card.icon" class="my-auto"></i>
+                    <span>
+                        <h6> {{ card.title }}</h6>
+                        {{ card.description }}
+                    </span>
+                </div>
+                <!-- <nb-card style="height: 180px;" class="shadow-lg p-3">
+                    <nb-card-body>
+    
+    
+                    </nb-card-body>
+                </nb-card> -->
             </div>
-            <!-- <nb-card style="height: 180px;" class="shadow-lg p-3">
-                <nb-card-body>
-
-
-                </nb-card-body>
-            </nb-card> -->
         </div>
     </div>
 </div>
+
 <div style="background-color: #0038A7;" class="my-5">
     <div class="container py-5" style="margin-top: 200px; margin-bottom: 200px;">
         <div class="row">
@@ -172,26 +145,28 @@
 </div>
 
 
-<div class="container py-5" style="background-color: #0038A7;margin-top: 200px; margin-bottom: 200px;">
-    <div class="row">
-        <div class="col-12 col-md-3 my-auto">
-            <h2 class="text-white fw-medium fs-2">Frequently Asked Questions</h2>
-            <p class="fst-italic text-white">May katanungan ka ba, kabayan?</p>
-        </div>
-        <div class="col-12 col-md-9">
-            <nb-accordion multi style="border: 1px solid white;">
-                <nb-accordion-item *ngFor="let faq of faqs" style="background-color: #0038A7;">
-                    <nb-accordion-item-header style="color:white">
-                        {{ faq.question }}
-                    </nb-accordion-item-header>
-                    <nb-accordion-item-body class="text-white">
-                        <p *ngIf="!faq.list" class="text-white">{{ faq.answer }}</p>
-                        <ul *ngIf="faq.list">
-                            <li *ngFor="let item of faq.list" class="text-white">{{ item }}</li>
-                        </ul>
-                    </nb-accordion-item-body>
-                </nb-accordion-item>
-            </nb-accordion>
+<div style="background-color: #0038A7;margin-top: 200px; margin-bottom: 200px;">
+    <div class="container py-5" >
+        <div class="row">
+            <div class="col-12 col-md-3 my-auto">
+                <h2 class="text-white fw-medium fs-2">Frequently Asked Questions</h2>
+                <p class="fst-italic text-white">May katanungan ka ba, kabayan?</p>
+            </div>
+            <div class="col-12 col-md-9">
+                <nb-accordion multi style="border: 1px solid white;">
+                    <nb-accordion-item *ngFor="let faq of faqs" style="background-color: #0038A7;">
+                        <nb-accordion-item-header style="color:white">
+                            {{ faq.question }}
+                        </nb-accordion-item-header>
+                        <nb-accordion-item-body class="text-white">
+                            <p *ngIf="!faq.list" class="text-white">{{ faq.answer }}</p>
+                            <ul *ngIf="faq.list">
+                                <li *ngFor="let item of faq.list" class="text-white">{{ item }}</li>
+                            </ul>
+                        </nb-accordion-item-body>
+                    </nb-accordion-item>
+                </nb-accordion>
+            </div>
         </div>
     </div>
 </div>

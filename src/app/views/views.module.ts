@@ -31,6 +31,7 @@ import { ViewsRoutingModule } from './views-routing.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { InformationCardComponent } from './pages/information/information-card/information-card.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { InformationCardComponent } from './pages/information/information-card/i
     NbToastrModule.forRoot(),
     NbAlertModule,
     NbActionsModule,
+    NgImageSliderModule,
   ],
 })
 export class ViewsModule {}

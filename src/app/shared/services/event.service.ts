@@ -34,7 +34,7 @@ export class EventService {
     params = params.set('category', category.toString());
     return this.http
       .get<{ success: boolean; message: string; data: any }>(
-        `${environment.apiUrl}/api/auth/information/pub`,
+        `${environment.apiUrl}/api/auth/pub-information`,
         { params }
       )
       .pipe(map((response) => response));

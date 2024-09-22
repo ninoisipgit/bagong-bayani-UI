@@ -25,7 +25,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './main/layout/header/header.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { FooterComponent } from './main/layout/footer/footer.component';
-
 @NgModule({
   declarations: [AppComponent, AuthComponent, FooterComponent],
   imports: [

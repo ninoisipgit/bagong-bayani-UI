@@ -3,6 +3,18 @@
     <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the
       site.</nb-alert>
     <nb-alert status="primary" *ngIf="jobForm.get('status')?.value == 1">This job is already approved.</nb-alert>
+    <br>
+    <div style="text-align: left;">
+      <img [src]="jobForm.get('hiring_organization_logo')?.value" style="height: auto;width:120px;margin: auto;">
+    </div>
+  </div>
+  <div class="col-6 col-md-6" >
+    <label *ngIf="user?._type == 3" for="comments">Add Comments for the employer to see.</label>
+    <label *ngIf="user?._type == 1" for="comments">Instructions set by the admin.</label>
+    <textarea nbInput fullWidth id="comments" formControlName="comments" placeholder="comments"
+              class="form-control"  rows="8"
+              [status]="isInvalid('comments') ? 'danger' : 'basic'" [readonly]="user?._type == 1"></textarea>
+              <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid" *ngIf="user?._type == 3">Save Comment</button>
   </div>
 </div>
 

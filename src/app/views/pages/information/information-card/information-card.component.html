@@ -1,0 +1,33 @@
+<div class="container my-2">
+    <div class="card ">
+        <div class="card-body"> 
+            <!-- Post Header -->
+            <div class="d-flex align-items-center mb-3"> 
+                <div> 
+                    <small class="text-muted">Published: {{
+                        event.published_date | date:'short' }} </small>
+                </div>
+            </div>
+
+            <!-- Post Content -->
+            <h6>{{event.title}}</h6>
+            <p class="mb-3">
+                {{event.content}}
+            </p>
+
+
+            <!-- Responsive Image -->
+            <div class="row">
+                <div class="col-12"> 
+                     <ng-image-slider [images]="imageObject" [imageSize]="{width: '100%', height: 'auto'}" [manageImageRatio]="true"></ng-image-slider>
+                     
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</div>

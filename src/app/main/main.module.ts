@@ -22,7 +22,10 @@ import {
   NbContextMenuModule,
   NbIconModule,
   NbListModule,
-  NbAlertModule
+  NbAlertModule,
+  NbActionsModule,
+  NbUserModule,
+  NbDialogModule,
 } from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,8 +39,11 @@ import { PostCardComponent } from './pages/events/post-card/post-card.component'
 import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
 import { TagInputModule } from 'ngx-chips';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { HeaderComponent } from './layout/header/header.component';
+import { ModalJobDetailsComponent } from './pages/jobs/modal-job-details/modal-job-details.component';
 @NgModule({
   declarations: [
+    HeaderComponent,
     MainComponent,
     JobsComponent,
     ManageJobsComponent,
@@ -50,6 +56,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     AddEventModalComponent,
     PostCardComponent,
     ManageApplicantsPerjobComponent,
+    ModalJobDetailsComponent,
   ],
   imports: [
     FormsModule,
@@ -73,8 +80,10 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     NbToastrModule.forRoot(),
     NbAlertModule,
     TagInputModule,
-    NgxIntlTelInputModule
-
+    NgxIntlTelInputModule,
+    NbActionsModule,
+    NbUserModule,
+    NbDialogModule.forRoot(),
   ],
 })
 export class MainModule {}

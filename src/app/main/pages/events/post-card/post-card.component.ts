@@ -36,6 +36,9 @@ export class PostCardComponent {
   }
   onPublish() {
     console.log('onPublish');
+    this.event.is_published = true;
+    this.event.published_date = new Date(Date.now()).toISOString();
+    this.eventService.updatePost(this.event).subscribe();
   }
   showToast(message: string, title: string, status: string) {
     this.toastrService.show(message, title, { status });

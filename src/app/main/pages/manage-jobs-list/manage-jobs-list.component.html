@@ -1,12 +1,15 @@
 <div class="container mt-4">
   <h3>Job Listings</h3>
   <div class="row justify-content-end">
-      <nb-alert status="warning" *ngIf="user?._type == 1 && !employerDetails">Company details must be saved before creating a job post.</nb-alert>
-      <button class="btn btn-primary btn-sm col-3" routerLink="/main/manage-jobs" *ngIf="user?._type == 1 && employerDetails">Add Job</button>
+    <nb-alert status="warning" *ngIf="user?._type == 1 && !employerDetails">Company details must be saved before
+      creating a job post.</nb-alert>
+    <button class="btn btn-primary btn-sm col-3" routerLink="/main/manage-jobs"
+      *ngIf="user?._type == 1 && employerDetails">Add Job</button>
   </div>
   <div class="row justify-content-start">
     <div class="col-4">
-      <input type="text" class="form-control " placeholder="Search Jobs" [(ngModel)]="searchTerm" (input)="filterJobs()" />
+      <input type="text" class="form-control " placeholder="Search Jobs" [(ngModel)]="searchTerm"
+        (input)="filterJobs()" />
     </div>
   </div>
 
@@ -20,7 +23,7 @@
         <th scope="col">Employment Type</th>
         <th scope="col">Organization Name</th>
         <th scope="col" *ngIf="user?._type == 1">Edit</th>
-        <th scope="col" >Delete</th>
+        <th scope="col">Delete</th>
         <th scope="col" *ngIf="user?._type == 1"></th>
         <th scope="col" *ngIf="user?._type == 3">Approved</th>
       </tr>
@@ -30,20 +33,23 @@
         <td>{{ job.title }}</td>
         <td>{{ job.description }}</td>
         <td>{{ job.date_posted | date }}</td>
-        <td>{{ job.valid_through  | date}}</td>
+        <td>{{ job.valid_through | date}}</td>
         <td>{{ job.employment_type }}</td>
         <td>{{ job.hiring_organization_name }}</td>
         <td class="text-center" *ngIf="user?._type == 1">
-          <button class="btn btn-info" (click)="editJob(job)">Edit</button>
+          <button class="btn btn-info" (click)="editJob(job)"> <nb-icon icon="edit-2-outline"></nb-icon></button>
         </td>
-        <td class="text-center" >
-          <button class="btn btn-danger" (click)="deleteJob(job)">Delete</button>
+        <td class="text-center">
+          <button class="btn btn-danger" (click)="deleteJob(job)"> <nb-icon icon="trash-2-outline"></nb-icon>
+          </button>
         </td>
         <td class="text-center" *ngIf="user?._type == 1">
-          <button class="btn btn-success " [routerLink]="['/main/manage-applicants-perjob/', job.id]"  >Manage Applicants</button>
+          <button class="btn btn-success " [routerLink]="['/main/manage-applicants-perjob/', job.id]"> <nb-icon
+              icon="people-outline"></nb-icon></button>
         </td>
         <td class="text-center" *ngIf="user?._type == 3">
-          <button class="btn btn-info" (click)="editJob(job)" >Approve Job</button>
+          <button class="btn btn-info" (click)="editJob(job)"> <nb-icon
+              icon="checkmark-circle-2-outline"></nb-icon></button>
         </td>
       </tr>
     </tbody>

@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
   private userSub: Subscription;
 
   userMenu!: any[];
-  userDetails:any;
+  userDetails: any;
   currentTheme = 'default';
   isExpanded = false;
 
@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit {
     private themeService: NbThemeService,
     private authService: AuthService,
     private menu: NbMenuService,
-    private userDetailsService:UserDetailsService
+    private userDetailsService: UserDetailsService
   ) {
     this.userSub = this.authService.user.subscribe((user) => {
       this.user = user;
@@ -83,8 +83,7 @@ export class HeaderComponent implements OnInit {
             { title: 'Job Lists', icon: 'briefcase-outline' },
             { title: 'Logout', icon: 'log-out-outline' },
           ];
-        }
-        else if (user._type == 3) {
+        } else if (user._type == 3) {
           //admin
           this.userMenu = [
             { title: 'News and events', icon: 'browser-outline' },
@@ -93,9 +92,11 @@ export class HeaderComponent implements OnInit {
           ];
         }
 
-        this.userDetailsService.getPersonalDetailsByUserId(this.user._id).subscribe((response:any) => {
-          this.userDetails = response;
-        });
+        this.userDetailsService
+          .getPersonalDetailsByUserId(this.user._id)
+          .subscribe((response: any) => {
+            this.userDetails = response;
+          });
       }
     });
   }
@@ -146,5 +147,24 @@ export class HeaderComponent implements OnInit {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  items = [
+    { title: 'Home' },
+    { title: 'Information' },
+    { title: 'Resources' },
+    { title: 'Contact' },
+    { title: 'Login' },
+  ];
+  actions = [
+    { icon: 'home-outline', label: 'Home', href: '/home' },
+    { icon: 'browser-outline', label: 'Information', href: '/information' },
+    { icon: 'file-text-outline', label: 'Resources', href: '/resources' },
+    { icon: 'phone-outline', label: 'Contact', href: '/contact' },
+    { icon: 'person-outline', label: 'Login', href: '/login' },
+  ];
+
+  navigateto(link: string) {
+    this.router.navigate([link]);
   }
 }

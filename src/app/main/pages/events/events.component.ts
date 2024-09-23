@@ -38,6 +38,7 @@ export class EventsComponent {
   pageSize = 2;
   page = 1;
   loading = false;
+  category = 'Events';
 
   loadNext() {
     if (this.loading) {
@@ -46,15 +47,20 @@ export class EventsComponent {
 
     this.loading = true;
     this.placeholders = new Array(this.pageSize);
-    this.eventService.getPosts(this.page, this.pageSize).subscribe((posts) => {
-      console.log(posts);
-      this.placeholders = [];
-      this.posts.push(...posts.data);
-      this.loading = false;
-      this.page++;
-    });
+    this.eventService
+      .getPosts(this.page, this.pageSize, this.category)
+      .subscribe((posts) => {
+        this.placeholders = [];
+        this.posts.push(...posts.data);
+        this.loading = false;
+        this.page++;
+      });
   }
-
+  onFilter() {
+    this.posts = [];
+    this.page = 1;
+    this.loadNext();
+  }
   onAdd() {
     this.dialogService.open(AddEventModalComponent, {
       context: {

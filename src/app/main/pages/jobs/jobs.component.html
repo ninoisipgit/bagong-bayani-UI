@@ -1,97 +1,111 @@
-<nb-alert class="text-center"  *ngIf="!userDetails">Personal details must be saved before applying for a job.</nb-alert>
-<nb-alert class="text-center"  *ngIf="jobListings?.length == 0">No jobs available.</nb-alert>
+<nb-alert class="text-center" *ngIf="!userDetails">Personal details must be saved before applying for a job.</nb-alert>
+<nb-alert class="text-center" *ngIf="jobListings?.length == 0">No jobs available.</nb-alert>
 
-<div class="card mb-4" style="max-width: 800px;margin:0 auto">
-  <div class="card-body">
-      <!-- <pre>{{event | json}}</pre> -->
-      <!-- Post Header -->
-      <div class="d-flex align-items-center">
-          <img src="assets/images/owwa.png" alt="Profile Picture" class=" me-3"
-              style="width: 30px; height: 30px;">
-          <div class="w-100">
-              <input   nbInput
-              fullWidth placeholder="Search Here" id="" class="form-control w-100" rows="1" (keydown)="SearchJob($event)">
-          </div>
 
-      </div>
-  </div>
-</div>
 
-<div class="row">
+
+
+<div class="row" *ngIf="jobListings.length">
   <div class="col-12 col-xl-5">
-
-    <nb-card *ngFor="let job of jobListings">
-      <nb-card-body>
-          <div class="row">
-            <div class="col-2">
-              <img [src]="job.hiring_organization_logo" style="height: auto;width:80px;">
-            </div>
-            <div class="col-7">
-              <h6>{{job.title}}</h6>
-              <p class="text-details">{{job.hiring_organization_name}}</p>
-              <nb-tag-list>
-                <nb-tag size="tiny" status="basic" appearance="filled" text="basic"></nb-tag>
-                <nb-tag size="tiny" status="primary" appearance="filled" text="primary"></nb-tag>
-                <nb-tag size="tiny" status="success" appearance="filled" text="success"></nb-tag>
-                <nb-tag size="tiny" status="info" appearance="filled" text="info"></nb-tag>
-                <nb-tag size="tiny" status="warning" appearance="filled" text="warning"></nb-tag>
-              </nb-tag-list>
-
-            </div>
-            <div class="col-3 d-flex justify-content-end">
-              <button nbButton
-                appearance="hero"
-                status="danger"
-                size="giant"  (click)="displayJobDetails(job)">
-                LEARN MORE
-              </button>
-            </div>
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="d-flex align-items-center">
+          <img src="assets/images/owwa.png" alt="Profile Picture" class="me-3" style="width: 30px; height: 30px;">
+          <div class="w-100">
+            <input nbInput fullWidth placeholder="Search Here" id="" class="form-control w-100" rows="1"
+              (keydown)="SearchJob($event)">
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-7"></div>
+
+  <div class="col-12 col-md-6 col-xl-5">
+    <nb-card [size]="'large'">
+      <nb-card-body>
+        <nb-card *ngFor="let job of jobListings">
+          <nb-card-body>
+            <div class="row ">
+              <!-- Left: Image -->
+              <div class="col-md-4 col-lg-3">
+                <img [src]="job.hiring_organization_logo" class="rounded-start" style="width: 100px;height: 100px;"
+                  alt="Card Image">
+              </div>
+              <!-- Right: Content -->
+              <div class="col-md-8 col-lg-9">
+                <div class="card-body">
+                  <!-- Name -->
+                  <h5 class="card-title">{{job.title}}</h5>
+                  <!-- Description -->
+                  <p class="card-text">{{job.hiring_organization_name}}</p>
+                  <!-- Tags -->
+                  <div *ngIf="job.tags">
+                    <span class="badge bg-info" *ngFor="let tag of job.tags.split(',').slice(0, 2)">{{ tag }}</span>
+                  </div>
+                  <!-- Learn More Button -->
+                  <div class="mt-3 text-end">
+                    <button class="btn btn-primary text-white btn-sm d-md-none"
+                      (click)="displayJobDetails(job, 'small')">Learn
+                      More</button>
+                    <!-- Button for medium to large screens (btn-primary) -->
+                    <button class="btn btn-primary text-white btn-sm d-none d-md-inline-block"
+                      (click)="displayJobDetails(job, 'big')">Learn More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card> 
       </nb-card-body>
     </nb-card>
+
+
   </div>
-  <div class="col-12 col-xl-7">
-    <nb-card accent="info"  *ngIf="selectedJob">
+  <div class="col-12 col-md-6 col-xl-7 d-none d-sm-block">
+    <nb-card accent="info" *ngIf="selectedJob" [size]="'large'">
       <nb-card-header>
         <div class="d-flex justify-content-between align-items-center">
           <div>
             {{selectedJob.title}}<br>
             <span>{{selectedJob.hiring_organization_name}}</span>
           </div>
-          <button nbButton [status]="getStatus(selectedJob) === 'Applied' ? 'success' : 'primary'"
-          class="ml-2" (click)="applyForJob()"  [disabled]="getStatus(selectedJob) === 'Applied' ? true : false">
+          <button nbButton size="small" [status]="getStatus(selectedJob) === 'Applied' ? 'success' : 'primary'"
+            class="ml-2" (click)="applyForJob()" [disabled]="getStatus(selectedJob) === 'Applied' ? true : false">
             {{getStatus(selectedJob)}}
           </button>
         </div>
       </nb-card-header>
       <nb-card-body>
-        <h2>Full job description</h2>
+        <h6>Full job description</h6>
 
         <p>{{selectedJob.title}}</p>
 
-        <h3>Job Description:</h3>
+        <h6>Job Description:</h6>
 
         <p>{{selectedJob.description}}</p>
 
-        <p>The technologies being deployed for our projects include C#, ASP.NET Web API, RavenDB, AngularJS, HTML 5, jQuery, CSS, SalesForce.com and PowerShell. The team is using Microsoft development technologies (Visual Studio 2017, .NET 4.5, GIT, JIRA) and agile development methodologies.</p>
+        <p>The technologies being deployed for our projects include C#, ASP.NET Web API, RavenDB, AngularJS, HTML 5,
+          jQuery, CSS, SalesForce.com and PowerShell. The team is using Microsoft development technologies (Visual
+          Studio 2017, .NET 4.5, GIT, JIRA) and agile development methodologies.</p>
 
-        <h3>About the Job:</h3>
+        <h6>About the Job:</h6>
 
         <ul>
           <li>Job Title: {{selectedJob.title}}</li>
           <li>Department: {{selectedJob.industry}}</li>
           <li>Reports to: {{selectedJob.hiring_organization_name}}</li>
           <li>Employment Type: {{selectedJob.employment_type}}</li>
-          <li>website:  {{selectedJob.hiring_organization_same_as}}</li>
+          <li>website: {{selectedJob.hiring_organization_same_as}}</li>
           <li>Location: {{selectedJob.job_location_address_region}}</li>
         </ul>
 
-        <h3>Technical Skills Requirement:</h3>
+        <h6>Technical Skills Requirement:</h6>
 
         <p>{{selectedJob.skills}}</p>
 
 
-        <h3>Key Competency and Experience:</h3>
+        <h6>Key Competency and Experience:</h6>
 
         <p>Minimum:</p>
 
@@ -99,18 +113,20 @@
           <li>Proven / demonstrable experience working in a Scrum environment as a Scrum Master</li>
           <li>UML knowledge / understanding essential.</li>
           <li>Champions the use of systems and processes to drive business performance.</li>
-          <li>Track record of balancing both business and technical priorities and persuading others to make sure this balance is maintained.</li>
-          <li>At least 7-8 years relevant experience as a Software Engineer or related role in B2B software industry</li>
+          <li>Track record of balancing both business and technical priorities and persuading others to make sure this
+            balance is maintained.</li>
+          <li>At least 7-8 years relevant experience as a Software Engineer or related role in B2B software industry
+          </li>
           <li>Communication Skills: Excellent in Spoken English with a strong customer focus.</li>
         </ul>
 
 
 
-        <h3>Budget:</h3>
+        <h6>Budget:</h6>
 
         <p>{{selectedJob.base_salary_currency}} {{selectedJob.base_salary_value}}</p>
 
-        <h3>{{selectedJob.employment_type}}</h3>
+        <h6>{{selectedJob.employment_type}}</h6>
 
         <p>Pay: {{selectedJob.base_salary_currency}} {{selectedJob.base_salary_value}} per month</p>
       </nb-card-body>

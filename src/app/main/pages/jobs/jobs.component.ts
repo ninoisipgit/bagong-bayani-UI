@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbToastrService } from '@nebular/theme';
+import {
+  NbDialogService,
+  NbSidebarService,
+  NbToastrService,
+} from '@nebular/theme';
 import { map, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
 import { JobService } from 'src/app/shared/services/job.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
+import { ModalJobDetailsComponent } from './modal-job-details/modal-job-details.component';
 
 @Component({
   selector: 'app-jobs',
@@ -27,7 +32,8 @@ export class JobsComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toastrService: NbToastrService,
-    private userDetailsService: UserDetailsService
+    private userDetailsService: UserDetailsService,
+    private dialogService: NbDialogService
   ) {
     this.userSub = this.authService.user.subscribe((user) => {
       this.user = user;
@@ -56,29 +62,54 @@ export class JobsComponent implements OnInit {
     }
   }
 
-  SearchJob(event:KeyboardEvent) {
+  SearchJob(event: KeyboardEvent) {
     if (event.key === 'Enter') {
       const inputElement = event.target as HTMLTextAreaElement;
-      if (inputElement && inputElement.value != null && inputElement.value.trim() !== '') {
+      if (
+        inputElement &&
+        inputElement.value != null &&
+        inputElement.value.trim() !== ''
+      ) {
         if (this.isAuthenticated) {
           this.jobService
             .SearchAllJobList(inputElement.value)
             .subscribe((response) => {
-              this.jobListings = response.filter((job: any) => job.status === 1);
+              this.jobListings = response.filter(
+                (job: any) => job.status === 1
+              );
               this.selectedJob = this.jobListings[0];
             });
         }
-      }else{
+      } else {
         this.fetchData();
       }
-
     }
-
-
   }
 
-  displayJobDetails(job: any) {
-    this.selectedJob = job;
+  toggleOffcanvas(job: any) {
+    this.dialogService
+      .open(ModalJobDetailsComponent, {
+        hasBackdrop: true,
+        hasScroll: true,
+        autoFocus: true,
+        context: {
+          job: job,
+          status: this.getStatus(job),
+        },
+      })
+      .onClose.subscribe((isApply) => {
+        if (isApply) {
+          this.applyForJob();
+        }
+      });
+  }
+
+  displayJobDetails(job: any, type: string) {
+    if (type === 'small') {
+      this.toggleOffcanvas(job);
+    } else {
+      this.selectedJob = job;
+    }
   }
 
   applyForJob() {

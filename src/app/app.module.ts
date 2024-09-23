@@ -22,11 +22,11 @@ import {
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AuthComponent } from './auth/auth.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HeaderComponent } from './layout/header/header.component';
+import { HeaderComponent } from './main/layout/header/header.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-
+import { FooterComponent } from './main/layout/footer/footer.component';
 @NgModule({
-  declarations: [AppComponent, AuthComponent, HeaderComponent],
+  declarations: [AppComponent, AuthComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,7 +38,6 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     NbButtonModule,
     HttpClientModule,
     NbInputModule,
-    NbLayoutModule,
     NbMenuModule.forRoot(), // This provides the NbMenuService
     NbActionsModule,
     NbContextMenuModule,

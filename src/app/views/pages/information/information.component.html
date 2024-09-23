@@ -1,0 +1,10 @@
+<nb-list nbInfiniteList listenWindowScroll [threshold]="500" (bottomThreshold)="loadNext()"
+    style="max-width: 800px;margin:0 auto">
+    <nb-list-item *ngFor="let event of posts" style="display: block;">
+        <app-information-card [event]="event" />
+    </nb-list-item>
+
+    <div *ngIf="placeholders.length" class="loading-spinner">
+        <p class="text-center">loading...</p>
+    </div>
+</nb-list>

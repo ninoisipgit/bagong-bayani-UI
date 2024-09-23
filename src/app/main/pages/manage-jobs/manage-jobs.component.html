@@ -1,5 +1,5 @@
 
-<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" [ngClass]="readonly? 'readonly-accordion' : ''">
+<form [formGroup]="jobForm" [ngClass]="readonly? 'readonly-accordion' : ''">
 <div class="row">
   <div class="col-12 col-md-12" >
     <label *ngIf="user?._type == 3" for="comments">Add Comments for the employer to see.</label>
@@ -7,7 +7,7 @@
     <textarea nbInput fullWidth id="comments" formControlName="comments" placeholder="comments"
               class="form-control"  rows="8"
               [status]="isInvalid('comments') ? 'danger' : 'basic'" [readonly]="user?._type == 1"></textarea>
-              <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid" *ngIf="user?._type == 3" (click)="onSubmit();sendEmail()">Save Comment</button>
+              <button nbButton status="primary" fullWidth [disabled]="jobForm.invalid" *ngIf="user?._type == 3" (click)="onSubmit();sendEmail()">Save Comment</button>
   </div>
   <div class="col-12 col-md-12 mt-3">
     <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the
@@ -350,7 +350,7 @@
   <div class="d-flex justify-content-end mt-3">
     <div class="w-25">
       <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid"
-        *ngIf="user?._type == 1">Submit</button>
+        *ngIf="user?._type == 1" (click)="onSubmit()">Submit</button>
     </div>
   </div>
 </form>

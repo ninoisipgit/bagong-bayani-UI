@@ -163,7 +163,9 @@ export class ManageJobsComponent  implements OnInit{
             this.ngOnInit();
           }
         });
-        this.sendEmailFromCompanyToAdminUpdate();
+        if(this.user._type == 1){
+          this.sendEmailFromCompanyToAdminUpdate();
+        }
       }else{
         this.jobService.saveJobDetails(jobDetails).subscribe((response) => {
           if(response) {
@@ -171,7 +173,9 @@ export class ManageJobsComponent  implements OnInit{
             this.router.navigate(['/main/manage-jobs/' + response.id]);
           }
         });
-        this.sendEmailFromCompanyToAdmin();
+        if(this.user._type == 1){
+          this.sendEmailFromCompanyToAdmin();
+        }
       }
     }
   }

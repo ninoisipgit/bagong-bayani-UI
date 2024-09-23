@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { EmployerDetails } from '../models/employer-details';
 import { map, Observable } from 'rxjs';
-import { JobDetails } from '../models/job-details';
+import { EmailData, JobDetails } from '../models/job-details';
 
 const apiUrl = `${environment.apiUrl}/api/auth`;
 
@@ -74,4 +74,6 @@ export class UserDetailsService {
   saveJobDetails(data: JobDetails) {
     return this.http.post(`${apiUrl}/jobs`, data);
   }
+
+
 }

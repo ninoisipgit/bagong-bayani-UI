@@ -5,7 +5,7 @@
 
 
 
-<div class="row" *ngIf="jobListings.length">
+<div class="row" *ngIf="jobListings?.length">
   <div class="col-12 col-xl-5">
     <div class="card mb-4">
       <div class="card-body">
@@ -56,7 +56,7 @@
               </div>
             </div>
           </nb-card-body>
-        </nb-card> 
+        </nb-card>
       </nb-card-body>
     </nb-card>
 
@@ -85,9 +85,7 @@
 
         <p>{{selectedJob.description}}</p>
 
-        <p>The technologies being deployed for our projects include C#, ASP.NET Web API, RavenDB, AngularJS, HTML 5,
-          jQuery, CSS, SalesForce.com and PowerShell. The team is using Microsoft development technologies (Visual
-          Studio 2017, .NET 4.5, GIT, JIRA) and agile development methodologies.</p>
+
 
         <h6>About the Job:</h6>
 
@@ -105,30 +103,10 @@
         <p>{{selectedJob.skills}}</p>
 
 
-        <h6>Key Competency and Experience:</h6>
+        <p><b>Empoloyment Type:</b> {{selectedJob.employment_type}}</p>
 
-        <p>Minimum:</p>
-
-        <ul>
-          <li>Proven / demonstrable experience working in a Scrum environment as a Scrum Master</li>
-          <li>UML knowledge / understanding essential.</li>
-          <li>Champions the use of systems and processes to drive business performance.</li>
-          <li>Track record of balancing both business and technical priorities and persuading others to make sure this
-            balance is maintained.</li>
-          <li>At least 7-8 years relevant experience as a Software Engineer or related role in B2B software industry
-          </li>
-          <li>Communication Skills: Excellent in Spoken English with a strong customer focus.</li>
-        </ul>
-
-
-
-        <h6>Budget:</h6>
-
-        <p>{{selectedJob.base_salary_currency}} {{selectedJob.base_salary_value}}</p>
-
-        <h6>{{selectedJob.employment_type}}</h6>
-
-        <p>Pay: {{selectedJob.base_salary_currency}} {{selectedJob.base_salary_value}} per month</p>
+        <p><b>Pay:</b> {{selectedJob.base_salary_value}} per month</p>
+        <p><b>Vacancy:</b> {{selectedJob.base_salary_currency}} </p>
       </nb-card-body>
     </nb-card>
 

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.development';
 import { UserToken } from './models/userToken';
+import { EmailData } from '../shared/models/job-details';
 
 const apiUrl = `${environment.apiUrl}/api/auth`;
 
@@ -149,6 +150,9 @@ export class AuthService {
       {
           email: email,
       });
+  }
+  sendEmail(data: EmailData) {
+    return this.http.post(`${apiUrl}/email`, data);
   }
 
 }

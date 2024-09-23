@@ -1,21 +1,21 @@
+
+<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" [ngClass]="readonly? 'readonly-accordion' : ''">
 <div class="row">
-  <div class="col-12 col-md-6">
-    <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the
-      site.</nb-alert>
-    <nb-alert status="primary" *ngIf="jobForm.get('status')?.value == 1">This job is already approved.</nb-alert>
-    <br>
-    <div style="text-align: left;">
-      <img [src]="jobForm.get('hiring_organization_logo')?.value" style="height: auto;width:120px;margin: auto;">
-    </div>
-  </div>
-  <div class="col-6 col-md-6" >
+  <div class="col-12 col-md-12" >
     <label *ngIf="user?._type == 3" for="comments">Add Comments for the employer to see.</label>
     <label *ngIf="user?._type == 1" for="comments">Instructions set by the admin.</label>
     <textarea nbInput fullWidth id="comments" formControlName="comments" placeholder="comments"
               class="form-control"  rows="8"
               [status]="isInvalid('comments') ? 'danger' : 'basic'" [readonly]="user?._type == 1"></textarea>
-              <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid" *ngIf="user?._type == 3">Save Comment</button>
+              <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid" *ngIf="user?._type == 3" (click)="onSubmit();sendEmail()">Save Comment</button>
   </div>
+  <div class="col-12 col-md-12 mt-3">
+    <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the
+      site.</nb-alert>
+    <nb-alert status="primary" *ngIf="jobForm.get('status')?.value == 1">This job is already approved.</nb-alert>
+    <br>
+  </div>
+
 </div>
 
 <div class="d-flex justify-content-end gap-2 my-3">
@@ -24,7 +24,7 @@
     *ngIf="jobId > 0 && user._type == 3 && jobForm.get('status')?.value == 0">Approve</button>
 </div>
 
-<form [formGroup]="jobForm" (ngSubmit)="onSubmit()" [ngClass]="readonly? 'readonly-accordion' : ''">
+
 
   <!-- <div style="text-align: left;">
     <img [src]="jobForm.get('hiring_organization_logo')?.value" style="height: auto;width:120px;margin: auto;">
@@ -130,7 +130,7 @@
           <div class="form-group mt-3">
             <label for="tags">Tags (Optional)</label>
             <textarea nbInput fieldSize="small" fullWidth id="tags" formControlName="tags" placeholder="Tags"
-              class="form-control" [status]="isInvalid('tags') ? 'danger' : 'basic'"></textarea>
+              class="form-control for-employer" [status]="isInvalid('tags') ? 'danger' : 'basic'"></textarea>
           </div>
         </div>
 
@@ -139,7 +139,7 @@
           <div class="form-group mt-3">
             <label for="description">Description</label>
             <textarea nbInput fieldSize="small" fullWidth id="description" formControlName="description"
-              placeholder="Description" class="form-control"
+              placeholder="Description" class="form-control for-employer"
               [status]="isInvalid('description') ? 'danger' : 'basic'"></textarea>
             <div *ngIf="isInvalid('description')" class="invalid-feedback">
               Description is required.
@@ -152,7 +152,7 @@
           <div class="form-group mt-3">
             <label for="job_benefits">Job Benefits (Optional)</label>
             <textarea nbInput fieldSize="small" fullWidth id="job_benefits" formControlName="job_benefits"
-              placeholder="Job Benefits" class="form-control"
+              placeholder="Job Benefits" class="form-control for-employer"
               [status]="isInvalid('job_benefits') ? 'danger' : 'basic'"></textarea>
           </div>
         </div>
@@ -272,7 +272,7 @@
           <div class="form-group mt-3">
             <label for="responsibilities">Responsibilities (Optional)</label>
             <textarea nbInput fieldSize="small" fullWidth id="responsibilities" formControlName="responsibilities"
-              placeholder="Responsibilities" class="form-control"
+              placeholder="Responsibilities" class="form-control for-employer"
               [status]="isInvalid('responsibilities') ? 'danger' : 'basic'"></textarea>
           </div>
         </div>
@@ -282,7 +282,7 @@
           <div class="form-group mt-3">
             <label for="qualifications">Qualifications (Optional)</label>
             <textarea nbInput fieldSize="small" fullWidth id="qualifications" formControlName="qualifications"
-              placeholder="Qualifications" class="form-control"
+              placeholder="Qualifications" class="form-control for-employer"
               [status]="isInvalid('qualifications') ? 'danger' : 'basic'"></textarea>
           </div>
         </div>

@@ -11,6 +11,7 @@ import { JobService } from 'src/app/shared/services/job.service';
 import { LocationService } from 'src/app/shared/services/location.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
+import { EmailData } from 'src/app/shared/models/job-details';
 @Component({
   selector: 'app-personal-details-form',
   templateUrl: './personal-details-form.component.html',
@@ -229,6 +230,25 @@ export class PersonalDetailsFormComponent implements OnInit {
           );
         }
       });
+      let body = 'your application status has been changed to ' + event + '.';
+      if(event == 'rejected'){
+        body = "we regret to inform you that you have been rejected from this job. Kindly apply for a different job.";
+      }
+      if(event == 'withdrawn'){
+        body = "you withdrawn from this job application";
+      }
+      if(event == 'hired'){
+        body = "Congratulations! You have been hired for this job. Please check your email for more details.";
+      }
+      const emailData: EmailData = {
+        to: this.addressForm.controls['email'].value,
+        from: this.user._email,
+        subject: 'Job application Update',
+        body:  body,
+      }
+      this.authService.sendEmail(emailData).subscribe((response) => {
+        if(response) this.showToast('Email Sent successfully!', 'Success', 'success');
+      })
     }
   }
 

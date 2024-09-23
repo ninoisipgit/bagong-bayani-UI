@@ -65,6 +65,7 @@ export class ManageJobsComponent  implements OnInit{
       work_hours: [''],
       tags: [''],
       status: [0],
+      comments: ['']
     });
 
     this.userSub = this.authService.user.subscribe(user => {
@@ -134,6 +135,7 @@ export class ManageJobsComponent  implements OnInit{
           work_hours: response.work_hours,
           tags: response.tags,
           status: response.status,
+          comments: response.comments
 
         });
       });

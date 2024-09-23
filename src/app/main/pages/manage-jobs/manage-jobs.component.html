@@ -8,15 +8,25 @@
 <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" [ngClass]="readonly? 'readonly-accordion' : ''">
 
 <div class="row">
-  <div class="col-12 col-md-6">
+  <div class="col-6 col-md-6">
     <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the site.</nb-alert>
     <nb-alert status="primary" *ngIf="jobForm.get('status')?.value == 1">This job is already approved.</nb-alert>
+    <br>
+    <div style="text-align: left;">
+      <img [src]="jobForm.get('hiring_organization_logo')?.value" style="height: auto;width:120px;margin: auto;">
+    </div>
+  </div>
+  <div class="col-6 col-md-6" >
+    <label *ngIf="user?._type == 3" for="comments">Add Comments for the employer to see.</label>
+    <label *ngIf="user?._type == 1" for="comments">Instructions set by the admin.</label>
+    <textarea nbInput fullWidth id="comments" formControlName="comments" placeholder="comments"
+              class="form-control"  rows="8"
+              [status]="isInvalid('comments') ? 'danger' : 'basic'" [readonly]="user?._type == 1"></textarea>
+              <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid" *ngIf="user?._type == 3">Save Comment</button>
   </div>
 </div>
 
-  <div style="text-align: left;">
-    <img [src]="jobForm.get('hiring_organization_logo')?.value" style="height: auto;width:120px;margin: auto;">
-  </div>
+
   <div class="row">
     <!-- Title -->
     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -35,7 +45,7 @@
       <div class="form-group mt-3">
         <label for="description">Description</label>
         <textarea nbInput fullWidth id="description" formControlName="description" placeholder="Description"
-                  class="form-control"
+                  class="form-control for-employer"
                   [status]="isInvalid('description') ? 'danger' : 'basic'"></textarea>
         <div *ngIf="isInvalid('description')" class="invalid-feedback">
           Description is required.
@@ -218,7 +228,7 @@
       <div class="form-group mt-3">
         <label for="job_benefits">Job Benefits (Optional)</label>
         <textarea nbInput fullWidth id="job_benefits" formControlName="job_benefits" placeholder="Job Benefits"
-                  class="form-control"
+                  class="form-control for-employer"
                   [status]="isInvalid('job_benefits') ? 'danger' : 'basic'"></textarea>
       </div>
     </div>
@@ -228,7 +238,7 @@
       <div class="form-group mt-3">
         <label for="responsibilities">Responsibilities (Optional)</label>
         <textarea nbInput fullWidth id="responsibilities" formControlName="responsibilities"
-                  placeholder="Responsibilities" class="form-control"
+                  placeholder="Responsibilities" class="form-control  for-employer"
                   [status]="isInvalid('responsibilities') ? 'danger' : 'basic'"></textarea>
       </div>
     </div>
@@ -238,7 +248,7 @@
       <div class="form-group mt-3">
         <label for="qualifications">Qualifications (Optional)</label>
         <textarea nbInput fullWidth id="qualifications" formControlName="qualifications" placeholder="Qualifications"
-                  class="form-control"
+                  class="form-control  for-employer"
                   [status]="isInvalid('qualifications') ? 'danger' : 'basic'"></textarea>
       </div>
     </div>
@@ -249,8 +259,8 @@
         <label for="skills">Skills (Optional)</label>
         <!-- <textarea nbInput fullWidth id="skills" formControlName="skills" placeholder="Skills" class="form-control"
                   [status]="isInvalid('skills') ? 'danger' : 'basic'"></textarea> -->
-                  <tag-input   formControlName="skills" [maxItems]='5' fullWidth ></tag-input>
-                  
+                  <tag-input   formControlName="skills" [maxItems]='5' fullWidth  style="background-color: white;"></tag-input>
+
       </div>
     </div>
 
@@ -297,7 +307,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="form-group mt-3">
         <label for="tags">Tags (Optional)</label>
-        <textarea nbInput fullWidth id="tags" formControlName="tags" placeholder="Tags" class="form-control"
+        <textarea nbInput fullWidth id="tags" formControlName="tags" placeholder="Tags" class="form-control  for-employer"
                   [status]="isInvalid('tags') ? 'danger' : 'basic'"></textarea>
       </div>
     </div>

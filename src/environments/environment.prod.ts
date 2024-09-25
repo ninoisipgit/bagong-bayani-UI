@@ -9,8 +9,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  apiUrl: 'http://127.0.0.1:8000',
+  production: true,
+  apiUrl: 'https://bayaningofw.com/laravel',
   baseUrl: 'https://localhost:4200',
   clientId: 'fdp_spa_local',
 };

@@ -1,8 +1,13 @@
-<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
-  <nb-card class="auth-card" style="min-width: 100%; width: 100%;">
-    <nb-card-header>Employees Personal Details</nb-card-header>
+
+
+ 
+<div class="container-fluid mb-0">
+  <nb-card class="mb-0">
     <nb-card-body>
       <div class="row justify-content-end">
+        <div class="col-sm-12 col-md-8">
+          <h6>OFW Personal Information</h6>
+        </div>
         <div class="col-md-4">
           <nb-select *ngIf="jobApplicant" placeholder="Select Showcase" [(selected)]="jobApplicant.status" fullWidth (selectedChange)="onStatusChange(jobApplicant, $event)" >
             <nb-option value="applied">applied</nb-option>
@@ -13,623 +18,263 @@
           </nb-select>
         </div>
       </div>
-      <!-- <nb-select placeholder="Select Showcase" [(selected)]="applicant.status" fullWidth (selectedChange)="onStatusChange(applicant, $event)" >
-        <nb-option value="applied">applied</nb-option>
-        <nb-option value="interviewed">interviewed</nb-option>
-        <nb-option value="hired">hired</nb-option>
-        <nb-option value="rejected">rejected</nb-option>
-        <nb-option value="withdrawn ">withdrawn </nb-option>
-      </nb-select> -->
-        <nb-accordion multi  [ngClass]="readonly? 'readonly-accordion' : ''">
+    </nb-card-body>
+  </nb-card>
+</div>
+<div class="container-fluid"  [ngClass]="readonly? 'readonly-accordion' : ''">
+ 
+  <nb-card>
+    <nb-card-body>
 
-          <!-- Personal Information Section -->
-          <nb-accordion-item [expanded]="true">
-            <nb-accordion-item-header>Personal Information</nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <form [formGroup]="participantProfileForm">
+      <span>
+        <h6>Personal Information</h6>
+        <a [href]="CVPreview" target="_blank" rel="noopener noreferrer" *ngIf="CVPreview">View curriculum vitae</a>
+      </span>
+      <hr>
+      <form [formGroup]="participantProfileForm">
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-3" *ngIf="!jobApplicant">
 
-                  <div class="row">
-                    <!-- First Name -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="firstname">First Name</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="firstname"
-                          formControlName="FirstName"
-                          [status]="isInvalid('FirstName',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="FIRST NAME"
-                          class="form-control"
-                        >
-                      </div>
-                    </div>
-                    <!-- Last Name -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="lastname">Last Name</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="lastname"
-                          formControlName="LastName"
-                          [status]="isInvalid('LastName',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="LAST NAME"
-                          class="form-control"
-                        >
-                      </div>
-                    </div>
-                    <!-- Middle Name -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="middlename">Middle Name</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="middlename"
-                          formControlName="MiddleName"
-                          [status]="isInvalid('MiddleName',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="MIDDLE NAME"
-                          class="form-control"
-                        >
-                      </div>
-                    </div>
-                    <!-- Suffix -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="suffix">Suffix</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="suffix"
-                          formControlName="suffix"
-                          [status]="isInvalid('suffix',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="SUFFIX"
-                          class="form-control"
-                          maxlength="2"
-                        >
-                      </div>
-                    </div>
-                    <!-- Birthdate -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="birthdate">Birthdate</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="birthdate"
-                          formControlName="birthdate"
-                          [status]="isInvalid('birthdate',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="MM/DD/YYYY"
-                          class="form-control"
-                          type="date"
-                        >
-                      </div>
-                    </div>
-                    <!-- Gender -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select
-                          nbSelect
-                          fullWidth
-                          id="gender"
-                          formControlName="gender"
-                          class="form-control"
-                        >
-                          <option value="">Select Gender</option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                        </select>
-                      </div>
-                    </div>
-                    <!-- Civil Status -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="civilstatus">Civil Status</label>
-                        <select
-                          nbSelect
-                          fullWidth
-                          id="civilstatus"
-                          formControlName="civilstatus"
-                          class="form-control"
-                        >
-                          <option value="">Select Civil Status</option>
-                          <option value="single">Single</option>
-                          <option value="married">Married</option>
-                          <option value="divorced">Divorced</option>
-                        </select>
-                      </div>
-                    </div>
-                    <!-- Passport No. -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label for="passportno">Passport No.</label>
-                        <input
-                          nbInput
-                          fullWidth
-                          id="passportno"
-                          formControlName="passportNo"
-                          [status]="isInvalid('passportNo',participantProfileForm) ? 'danger' : 'basic'"
-                          placeholder="Passport No."
-                          type="text"
-                          class="form-control"
-                        >
-                      </div>
-                    </div>
+            <div>
+              <label for="cv">CV Upload</label>
+              <input type="file" id="cv" (change)="onFileChange($event)" class="form-control" accept=".pdf">
+            </div>
 
-                  </div>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="firstname">First Name</label>
+            <input nbInput fullWidth id="firstname" formControlName="FirstName"
+              [status]="isInvalid('FirstName',participantProfileForm) ? 'danger' : 'basic'" placeholder="FIRST NAME"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="lastname">Last Name</label>
+            <input nbInput fullWidth id="lastname" formControlName="LastName"
+              [status]="isInvalid('LastName',participantProfileForm) ? 'danger' : 'basic'" placeholder="LAST NAME"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="middlename">Middle Name</label>
+            <input nbInput fullWidth id="middlename" formControlName="MiddleName"
+              [status]="isInvalid('MiddleName',participantProfileForm) ? 'danger' : 'basic'" placeholder="MIDDLE NAME"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="suffix">Suffix</label>
+            <input nbInput fullWidth id="suffix" formControlName="suffix"
+              [status]="isInvalid('suffix',participantProfileForm) ? 'danger' : 'basic'" placeholder="SUFFIX"
+              class="form-control" maxlength="2">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="birthdate">Birthdate</label>
+            <input nbInput fullWidth id="birthdate" formControlName="birthdate"
+              [status]="isInvalid('birthdate',participantProfileForm) ? 'danger' : 'basic'" placeholder="MM/DD/YYYY"
+              class="form-control" type="date">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="gender">Gender</label>
+            <select nbSelect fullWidth id="gender" formControlName="gender" class="form-control">
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="civilstatus">Civil Status</label>
+            <select nbSelect fullWidth id="civilstatus" formControlName="civilstatus" class="form-control">
+              <option value="">Select Civil Status</option>
+              <option value="single">Single</option>
+              <option value="married">Married</option>
+              <option value="divorced">Divorced</option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="passportno">Passport No.</label>
+            <input nbInput fullWidth id="passportno" formControlName="passportNo"
+              [status]="isInvalid('passportNo',participantProfileForm) ? 'danger' : 'basic'" placeholder="Passport No."
+              type="text" class="form-control">
+          </div>
+          <div class="col-sm-12 ">
+            <tag-input formControlName="tags" [maxItems]='5' [disabled]="readonly" class="border "></tag-input>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
 
-                  <!-- Submit Button -->
-                  <div class="row justify-content-end mt-3" >
-                    <tag-input   formControlName="tags" [maxItems]='5'  [disabled]="readonly"></tag-input>
-                  </div>
+          </div>
+        </div>
+      </form>
 
-                  <!-- Submit Button -->
-                  <div class="row justify-content-end mt-3" *ngIf="!readonly">
-                    <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-                    <!-- <button nbButton status="primary" type="submit" (click)="onSubmitPersonalDetails()">Submit</button> -->
-                  </div>
-              </form>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
 
-          <!-- Philippine Address Section -->
-          <nb-accordion-item [expanded]="true">
-            <nb-accordion-item-header>Philippine Address</nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <form [formGroup]="addressForm">
+    </nb-card-body>
+  </nb-card>
 
-              <div class="row">
-                <!-- Province -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="province">Province</label>
-                    <select
-                    nbSelect
-                    fullWidth
-                    id="province"
-                    formControlName="provinceID"
-                    [(ngModel)]="selectedProvince"
-                    class="form-control"
-                  >
-                    <option value="">- SELECT PROVINCE -</option>
-                    <option *ngFor="let province of provinces" [value]="province.name">
-                      {{ province.name }}
-                    </option>
-                </select>
 
-                  </div>
-                </div>
-                <!-- Municipality -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="municipality">Municipality/City</label>
-                    <input
-                    nbInput
-                    fullWidth
-                    id="municipality"
-                    formControlName="cityID"
-                    [status]="isInvalid('cityID',addressForm) ? 'danger' : 'basic'"
-                    placeholder="Municipality/City"
-                    class="form-control"
-                  >
-                  </div>
-                </div>
-                <!-- Barangay -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="barangay">Barangay</label>
-                        <input
-                        nbInput
-                        fullWidth
-                        id="barangay"
-                        formControlName="barangayID"
-                        [status]="isInvalid('barangayID',addressForm) ? 'danger' : 'basic'"
-                        placeholder="Barangay"
-                        class="form-control"
-                      >
-                  </div>
-                </div>
-                <!-- Zipcode -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="zipcode">Zipcode</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="zipcode"
-                      formControlName="zipcode"
-                      [status]="isInvalid('zipcode',addressForm) ? 'danger' : 'basic'"
-                      placeholder="ZIPCODE"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- House/Unit No. -->
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="form-group">
-                    <label for="houseunitno">House/Unit No, Lot No., Block No., Street</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="houseunitno"
-                      formControlName="street"
-                      [status]="isInvalid('street',addressForm) ? 'danger' : 'basic'"
-                      placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
+  <!-- Philippine Address Section -->
+  <nb-card>
+    <nb-card-body>
+      <h6>Philippine Address</h6>
+      <hr>
+      <form [formGroup]="addressForm">
 
-                <!-- Email Address -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="emailaddress">Email Address</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="emailaddress"
-                      formControlName="email"
-                      [status]="isInvalid('email',addressForm) ? 'danger' : 'basic'"
-                      placeholder="EMAIL ADDRESS"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Religion -->
-                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="religion">Religion</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="religion"
-                      formControlName="religion"
-                      [status]="isInvalid('religion') ? 'danger' : 'basic'"
-                      placeholder="RELIGION"
-                      class="form-control"
-                    >
-                  </div>
-                </div> -->
-                <!-- Education -->
-                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="education">Highest Education Attained</label>
-                    <select
-                      nbSelect
-                      fullWidth
-                      id="education"
-                      formControlName="education"
-                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
-                      class="form-control"
-                    >
-                      <option value="">Select Education</option>
-                      <option value="">Vocational Level</option>
-                      <option value="">Vocational Graduate</option>
-                      <option value="">Elementary Level</option>
-                      <option value="">Elementary Graduate</option>
-                      <option value="">High School Level</option>
-                      <option value="">High School Graduate</option>
-                      <option value="">College Level</option>
-                      <option value="">Bachelors Degree</option>
-                      <option value="">Masters Degree</option>
-                      <option value="">Doctorate Degree</option>
-                    </select>
-                  </div>
-                </div> -->
-                <!-- Course -->
-                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="course">Course (If Graduate)</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="course"
-                      formControlName="course"
-                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
-                      placeholder="COURSE"
-                      class="form-control"
-                    >
-                  </div>
-                </div> -->
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="province">Province</label>
+            <select nbSelect fullWidth id="province" formControlName="provinceID" [(ngModel)]="selectedProvince"
+              class="form-control">
+              <option value="">- SELECT PROVINCE -</option>
+              <option *ngFor="let province of provinces" [value]="province.name">
+                {{ province.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="municipality">Municipality/City</label>
+            <input nbInput fullWidth id="municipality" formControlName="cityID"
+              [status]="isInvalid('cityID',addressForm) ? 'danger' : 'basic'" placeholder="Municipality/City"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="barangay">Barangay</label>
+            <input nbInput fullWidth id="barangay" formControlName="barangayID"
+              [status]="isInvalid('barangayID',addressForm) ? 'danger' : 'basic'" placeholder="Barangay"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="zipcode">Zipcode</label>
+            <input nbInput fullWidth id="zipcode" formControlName="zipcode"
+              [status]="isInvalid('zipcode',addressForm) ? 'danger' : 'basic'" placeholder="ZIPCODE"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="houseunitno">House/Unit No, Lot No., Block No., Street</label>
+            <input nbInput fullWidth id="houseunitno" formControlName="street"
+              [status]="isInvalid('street',addressForm) ? 'danger' : 'basic'"
+              placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET" class="form-control">
+          </div>
+          <!-- <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="emailaddress">Email Address</label>
+            <input nbInput fullWidth id="emailaddress" formControlName="email"
+              [status]="isInvalid('email',addressForm) ? 'danger' : 'basic'" placeholder="EMAIL ADDRESS"
+              class="form-control">
+          </div> -->
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="foreignaddress">OFW's Foreign Address</label>
+            <input nbInput fullWidth id="foreignaddress" formControlName="ofwForeignAddress"
+              [status]="isInvalid('ofwForeignAddress',participantProfileForm) ? 'danger' : 'basic'"
+              placeholder="FOREIGN ADDRESS" class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="country">Country</label>
+            <select nbSelect fullWidth id="country" formControlName="ofwCountry" [(ngModel)]="selectedCountry"
+              class="form-control">
+              <option value="">- SELECT COUNTRY -</option>
+              <option *ngFor="let country of countries" [value]="country">
+                {{ country }}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="mobileno">Mobile Number</label>
+            <ngx-intl-tel-input [ngClass]="'custom'"
+              [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]" [enableAutoCountrySelect]="false"
+              [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.Philippines" [maxLength]="15" [phoneValidation]="true" name="phone"
+              formControlName="mobileNo"></ngx-intl-tel-input>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="ofwContactNo">Contact No. Abroad</label>
+            <ngx-intl-tel-input [ngClass]="'custom'"
+              [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]" [enableAutoCountrySelect]="false"
+              [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.Philippines" [maxLength]="15" [phoneValidation]="true" name="phone"
+              formControlName="ofwContactNo"></ngx-intl-tel-input>
+          </div>
+        </div>
+      </form>
 
-                  <!-- Foreign Address -->
-                  <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="form-group">
-                      <label for="foreignaddress">OFW's Foreign Address</label>
-                      <input
-                        nbInput
-                        fullWidth
-                        id="foreignaddress"
-                        formControlName="ofwForeignAddress"
-                        [status]="isInvalid('ofwForeignAddress',participantProfileForm) ? 'danger' : 'basic'"
-                        placeholder="FOREIGN ADDRESS"
-                        class="form-control"
-                      >
-                    </div>
-                  </div>
-                  <!-- Country -->
-                  <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="form-group">
-                      <label for="country">Country</label>
-                          <select
-                          nbSelect
-                          fullWidth
-                          id="country"
-                          formControlName="ofwCountry"
-                          [(ngModel)]="selectedCountry"
-                          class="form-control"
-                        >
-                          <option value="">- SELECT COUNTRY -</option>
-                          <option *ngFor="let country of countries" [value]="country">
-                            {{ country }}
-                          </option>
-                      </select>
-                    </div>
-                  </div>
-                                  <!-- Mobile Number -->
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="mobileno">Mobile Number</label>
-                    <!-- <input
-                      nbInput
-                      fullWidth
-                      id="mobileno"
-                      formControlName="mobileNo"
-                      [status]="isInvalid('mobileNo',addressForm) ? 'danger' : 'basic'"
-                      placeholder="9341XXXXXX"
-                      class="form-control"
-                    > -->
-                    <ngx-intl-tel-input
-                    [ngClass]="'custom'"
-                    [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]"
-                    [enableAutoCountrySelect]="false"
-                    [enablePlaceholder]="true"
-                    [searchCountryFlag]="true"
-                    [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                    [selectFirstCountry]="false"
-                    [selectedCountryISO]="CountryISO.Philippines"
-                    [maxLength]="15"
-                    [phoneValidation]="true"
-                    name="phone"
-                    formControlName="mobileNo"
+    </nb-card-body>
+  </nb-card>
 
-                  ></ngx-intl-tel-input>
-                  </div>
-                </div>
-                  <!-- Contact No. Abroad -->
-                  <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="form-group">
-                      <label for="ofwContactNo">Contact No. Abroad</label>
-                      <!-- <input
-                        nbInput
-                        fullWidth
-                        id="ofwContactNo"
-                        formControlName="ofwContactNo"
-                        [status]="isInvalid('ofwContactNo',participantProfileForm) ? 'danger' : 'basic'"
-                        placeholder="FOREIGN CONTACT NUMBER"
-                        class="form-control"
-                      > -->
-                      <ngx-intl-tel-input
-                      [ngClass]="'custom'"
-                      [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]"
-                      [enableAutoCountrySelect]="false"
-                      [enablePlaceholder]="true"
-                      [searchCountryFlag]="true"
-                      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                      [selectFirstCountry]="false"
-                      [selectedCountryISO]="CountryISO.Philippines"
-                      [maxLength]="15"
-                      [phoneValidation]="true"
-                      name="phone"
-                      formControlName="ofwContactNo"
-                    ></ngx-intl-tel-input>
-                    </div>
-                  </div>
-              </div>
-              </form>
 
-              <!-- Submit Button -->
-              <div class="row justify-content-end mt-3" *ngIf="!readonly">
-                <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-                <!-- <button nbButton status="primary" type="submit" (click)="onSubmitAddress()">Submit</button> -->
-              </div>
-            </nb-accordion-item-body>
-          </nb-accordion-item>
 
-          <!-- Employment Details Section -->
-          <nb-accordion-item [expanded]="true">
-            <nb-accordion-item-header>Employment Details</nb-accordion-item-header>
-            <nb-accordion-item-body>
-              <form [formGroup]="employmentForm">
-              <div class="row">
-                <!-- Employer Name -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="employer">Principal/Employer</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="employer"
-                      formControlName="employerName"
-                      [status]="isInvalid('employerName',employmentForm) ? 'danger' : 'basic'"
-                      placeholder="EMPLOYER NAME"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Employer Address -->
-                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="employeraddress">Employer Address</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="employeraddress"
-                      formControlName="employeraddress"
-                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
-                      placeholder="EMPLOYER ADDRESS"
-                      class="form-control"
-                    >
-                  </div>
-                </div> -->
-                <!-- Employer Contact No. -->
-                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="employercontactno">Employer Contact No.</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="employercontactno"
-                      formControlName="employercontactno"
-                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
-                      placeholder="EMPLOYER CONTACT NUMBER"
-                      class="form-control"
-                    >
-                  </div>
-                </div> -->
-                <!-- Vessel -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="vessel">Vessel ( employers address)</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="vessel"
-                      formControlName="vessel"
-                      [status]="isInvalid('vessel',employmentForm) ? 'danger' : 'basic'"
-                      placeholder="VESSEL"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Position -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="position">Position</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="position"
-                      formControlName="occupation"
-                      [status]="isInvalid('occupation',employmentForm) ? 'danger' : 'basic'"
-                      placeholder="POSITION"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Salary -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="salary">Salary</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="salary"
-                      formControlName="monthlySalary"
-                      [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'"
-                      placeholder="SALARY"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Agency -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="agency">Agency</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="agency"
-                      formControlName="agencyName"
-                      [status]="isInvalid('agencyName',employmentForm) ? 'danger' : 'basic'"
-                      placeholder="AGENCY"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Contract Duration -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="contractduration">Contract Duration</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="contractduration"
-                      formControlName="contractDuration"
-                      [status]="isInvalid('contractDuration',employmentForm) ? 'danger' : 'basic'"
-                      placeholder="CONTRACT DURATION"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- OFW Type -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="ofwtype">OFW Type</label>
-                    <select
-                      nbSelect
-                      fullWidth
-                      id="ofwtype"
-                      formControlName="ofwType"
-                      class="form-control"
-                    >
-                      <option value="">Select OFW Type</option>
-                      <option value="Land-Based">Land-Based</option>
-                      <option value="Sea-Based">Sea-Based</option>
-                      <!-- Add OFW Type options here -->
-                    </select>
-                  </div>
-                </div>
-                <!-- Job Site -->
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="jobsite">Job Site</label>
-                    <input
-                      nbInput
-                      fullWidth
-                      id="jobsite"
-                      formControlName="jobSite"
-                      [status]="isInvalid('jobSite',employmentForm) ? 'danger' : 'basic'"
-                      placeholder="JOB SITE"
-                      class="form-control"
-                    >
-                  </div>
-                </div>
-                <!-- Salary Currency -->
-                <!-- <div class="col-lg-3 col-md-6 col-sm-12">
-                  <div class="form-group">
-                    <label for="salarycurrency">Salary Currency</label>
-                    <select
-                      nbSelect
-                      fullWidth
-                      id="salarycurrency"
-                      formControlName="salarycurrency"
-                      [status]="isInvalid('companyName') ? 'danger' : 'basic'"
-                      class="form-control"
-                    >
-                      <option value="">Select Currency</option>
-                    </select>
-                  </div>
-                </div> -->
-              </div>
-            </form>
 
-            </nb-accordion-item-body>
-          </nb-accordion-item>
 
-        </nb-accordion>
-              <!-- Submit Button -->
-              <div class="row justify-content-end mt-3" *ngIf="!readonly">
-                <!-- <button nbButton status="primary" type="submit" [disabled]="participantProfileForm.invalid">Submit</button> -->
-                <div class="col-12 col-md-2">
-                  <button class="w-100" nbButton status="basic" routerLink="/main/jobs" >Back</button>
-                </div>
-                <div class="col-12 col-md-2">
-                  <button class="w-100" nbButton status="primary" type="submit" (click)="submitAll()">Submit</button>
-                </div>
-              </div>
+
+
+  <nb-card>
+    <nb-card-body>
+      <h6>Employment Details</h6>
+      <hr>
+      <form [formGroup]="employmentForm">
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="employer">Principal/Employer</label>
+            <input nbInput fullWidth id="employer" formControlName="employerName"
+              [status]="isInvalid('employerName',employmentForm) ? 'danger' : 'basic'" placeholder="EMPLOYER NAME"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="vessel">Vessel ( employers address)</label>
+            <input nbInput fullWidth id="vessel" formControlName="vessel"
+              [status]="isInvalid('vessel',employmentForm) ? 'danger' : 'basic'" placeholder="VESSEL"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="position">Position</label>
+            <input nbInput fullWidth id="position" formControlName="occupation"
+              [status]="isInvalid('occupation',employmentForm) ? 'danger' : 'basic'" placeholder="POSITION"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="salary">Salary</label>
+            <input nbInput fullWidth id="salary" formControlName="monthlySalary"
+              [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'" placeholder="SALARY"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="agency">Agency</label>
+            <input nbInput fullWidth id="agency" formControlName="agencyName"
+              [status]="isInvalid('agencyName',employmentForm) ? 'danger' : 'basic'" placeholder="AGENCY"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="contractduration">Contract Duration</label>
+            <input nbInput fullWidth id="contractduration" formControlName="contractDuration"
+              [status]="isInvalid('contractDuration',employmentForm) ? 'danger' : 'basic'"
+              placeholder="CONTRACT DURATION" class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="ofwtype">OFW Type</label>
+            <select nbSelect fullWidth id="ofwtype" formControlName="ofwType" class="form-control">
+              <option value="">Select OFW Type</option>
+              <option value="Land-Based">Land-Based</option>
+              <option value="Sea-Based">Sea-Based</option>
+              <!-- Add OFW Type options here -->
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="jobsite">Job Site</label>
+            <input nbInput fullWidth id="jobsite" formControlName="jobSite"
+              [status]="isInvalid('jobSite',employmentForm) ? 'danger' : 'basic'" placeholder="JOB SITE"
+              class="form-control">
+          </div>
+        </div>
+      </form>
+
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card *ngIf="!readonly">
+    <nb-card-body>
+      <div class="row justify-content-end " >
+        <div class="col-12 col-md-2 mt-1">
+          <button class="w-100" nbButton status="basic" routerLink="/main/jobs">Back</button>
+        </div>
+        <div class="col-12 col-md-2 mt-1">
+          <button class="w-100" nbButton status="primary" type="submit" (click)="submitAll()">Submit</button>
+        </div>
+      </div>
     </nb-card-body>
   </nb-card>
 </div>

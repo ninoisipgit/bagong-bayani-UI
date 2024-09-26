@@ -1,102 +1,107 @@
-<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
-  <nb-card class="auth-card" style="min-width: 50%; width: 50%;">
-  <nb-card-header>Sign Up</nb-card-header>
-  <nb-card-body>
-    <form [formGroup]="signupForm" (ngSubmit)="signup()">
-      <div class="row">
-        <div class="col-6">
-          <div class="form-group">
-            <label for="firstname">First Name</label>
-            <input
-              nbInput
-              fullWidth
-              fieldSize="giant"
-              id="firstname"
-              formControlName="firstname"
-              placeholder="Enter your first name"
-              [class.is-invalid]="signupForm.get('firstname')?.invalid && signupForm.get('firstname')?.touched"
-              class="form-control"
-            >
-            <div *ngIf="signupForm.get('firstname')?.invalid && signupForm.get('firstname')?.touched" class="invalid-feedback">
-              First name is required.
-            </div>
-          </div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-12 col-lg-5">
+      <nb-card>
+        <nb-card-header>
+          Sign Up
+        </nb-card-header>
+        <nb-card-body>
+          <form [formGroup]="signupForm" (ngSubmit)="verifyEmail()">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 my-3">
+                  <label for="firstname">First Name</label>
+                  <input
+                    nbInput
+                    fullWidth
+                    fieldSize="giant"
+                    id="firstname"
+                    formControlName="firstname"
+                    placeholder="Enter your first name"
+                    [class.is-invalid]="signupForm.get('firstname')?.invalid && signupForm.get('firstname')?.touched"
+                    class="form-control"
+                  >
+                  <div *ngIf="signupForm.get('firstname')?.invalid && signupForm.get('firstname')?.touched" class="invalid-feedback">
+                    First name is required.
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6 my-3">
+                  <label for="lastname">Last Name</label>
+                  <input
+                    nbInput
+                    fullWidth
+                    fieldSize="giant"
+                    id="lastname"
+                    formControlName="lastname"
+                    placeholder="Enter your last name"
+                    [class.is-invalid]="signupForm.get('lastname')?.invalid && signupForm.get('lastname')?.touched"
+                    class="form-control"
+                  >
+                  <div *ngIf="signupForm.get('lastname')?.invalid && signupForm.get('lastname')?.touched" class="invalid-feedback">
+                    Last name is required.
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <label for="email">Email</label>
+                  <input
+                    nbInput
+                    fullWidth
+                    fieldSize="giant"
+                    id="email"
+                    formControlName="email"
+                    placeholder="Enter your email"
+                    [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+                    class="form-control"
+                  >
+                  <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="invalid-feedback">
+                    <div *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</div>
+                    <div *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format.</div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="text-center">
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input
+                        nbInput
+                        fullWidth
+                        fieldSize="giant"
+                        id="password"
+                        type="password"
+                        formControlName="password"
+                        placeholder="Enter your password"
+                        [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+                        class="form-control"
+                      >
+                    </div>
+          
+                    <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="invalid-feedback">
+                      Password is required.
+                    </div>
+                    <button nbButton status="primary" type="button" class="w-50 mt-3" (click)="verifyVerificationCode()">SAVE</button>
+                  </div>
+                </div>
+                <div class="col-sm-12  text-center mt-3">
+                  <button nbButton status="primary" type="submit" class="w-50" >Sign Up</button>
+                </div>
+                <div class="col-sm-12  text-center mt-3">
+                  Already have an account? <a class="text-link" routerLink="../login">Login</a>
+                </div>
+              </div>  
+          </form> 
+
+
+        <div class="text-center">
+          <input type="text" class="form-control" placeholder="verification code"  [(ngModel)]="verificationCode"
+          nbInput
+          fullWidth
+          fieldSize="giant">
+          <button nbButton status="primary" type="submit" class="w-50 mt-3" (click)="verifyVerificationCode()">Verify</button>
         </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="lastname">Last Name</label>
-            <input
-              nbInput
-              fullWidth
-              fieldSize="giant"
-              id="lastname"
-              formControlName="lastname"
-              placeholder="Enter your last name"
-              [class.is-invalid]="signupForm.get('lastname')?.invalid && signupForm.get('lastname')?.touched"
-              class="form-control"
-            >
-            <div *ngIf="signupForm.get('lastname')?.invalid && signupForm.get('lastname')?.touched" class="invalid-feedback">
-              Last name is required.
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              nbInput
-              fullWidth
-              fieldSize="giant"
-              id="email"
-              formControlName="email"
-              placeholder="Enter your email"
-              [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
-              class="form-control"
-            >
-            <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="invalid-feedback">
-              <div *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</div>
-              <div *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format.</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input
-              nbInput
-              fullWidth
-              fieldSize="giant"
-              id="password"
-              type="password"
-              formControlName="password"
-              placeholder="Enter your password"
-              [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
-              class="form-control"
-            >
-            <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="invalid-feedback">
-              Password is required.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-end  mt-3">
-        <div class="col-12">
-          <div class="form-group">
-            <label for="password">Choose your type</label>
-            <nb-radio-group class="d-flex " formControlName="user_type" name="reactive-forms-group">
-              <nb-radio [value]="1">Employer</nb-radio>
-              <nb-radio [value]="2">Ofw</nb-radio>
-            </nb-radio-group>
-          </div>
-        </div>
-      </div>
-      <div class="row justify-content-end mt-3">
-        <button nbButton status="primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
-      </div>
-      <section class="another-action" aria-label="Register">
-        Already have an account? <a class="text-link" routerLink="../login">Login</a>
-      </section>
-    </form>
-  </nb-card-body>
-</nb-card>
+
+
+
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
 </div>

@@ -192,4 +192,10 @@ export class AuthService {
   sendEmail(data: EmailData) {
     return this.http.post(`${apiUrl}/email`, data);
   }
+  verifyEmail(data: any) {
+    return this.http.post(`${apiUrl}/emailverification`, data);
+  }
+  verifyVerificationCode(data: any) {
+    return this.http.post(`${apiUrl}/verifyCode`, data);
+  }
 }

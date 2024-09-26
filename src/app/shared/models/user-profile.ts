@@ -18,4 +18,5 @@ export interface UserProfile {
   addressID?: number; // Optional
   employmentDetailsID?: string; // Optional
   tags?: string; // Optional
+  cv?: any;
 }

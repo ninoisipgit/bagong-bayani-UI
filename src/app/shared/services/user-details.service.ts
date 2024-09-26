@@ -75,4 +75,17 @@ export class UserDetailsService {
   saveJobDetails(data: JobDetails) {
     return this.http.post(`${apiUrl}/jobs`, data);
   }
+  getEmployersList(): Observable<any> {
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/employers`)
+      .pipe(
+        map(response => response?.data)
+      );
+  }
+  getOfwList(): Observable<any> {
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/persons`)
+      .pipe(
+        map(response => response?.data)
+      );
+  }
+
 }

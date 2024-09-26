@@ -41,6 +41,8 @@ import { TagInputModule } from 'ngx-chips';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { HeaderComponent } from './layout/header/header.component';
 import { ModalJobDetailsComponent } from './pages/jobs/modal-job-details/modal-job-details.component';
+import { OfwListComponent } from './pages/ofw-list/ofw-list.component';
+import { CompanyListComponent } from './pages/company-list/company-list.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -57,6 +59,8 @@ import { ModalJobDetailsComponent } from './pages/jobs/modal-job-details/modal-j
     PostCardComponent,
     ManageApplicantsPerjobComponent,
     ModalJobDetailsComponent,
+    OfwListComponent,
+    CompanyListComponent,
   ],
   imports: [
     FormsModule,

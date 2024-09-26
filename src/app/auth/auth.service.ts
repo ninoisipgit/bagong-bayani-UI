@@ -103,6 +103,8 @@ export class AuthService {
   signUp(value: any) {
     return this.http
       .post<AuthResponseData>(`${apiUrl}/register`, {
+        firstname: value.firstname,
+        lastname: value.lastname,
         name: value.firstname + ' ' + value.lastname,
         email: value.email,
         password: value.password,

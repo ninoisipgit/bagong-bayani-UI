@@ -116,6 +116,13 @@ export class PersonalDetailsFormComponent implements OnInit {
           });
           this.getApplicantsList();
         }
+        if (this.user._type == 3) {
+          this.readonly = true;
+          this.route.paramMap.subscribe((params) => {
+            this.personID = Number(params.get('userId'));
+            this.jobID = Number(params.get('jobID'));
+          });
+        }
       }
     });
   }

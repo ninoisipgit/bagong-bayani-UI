@@ -88,6 +88,8 @@ export class HeaderComponent implements OnInit {
           this.userMenu = [
             { title: 'News and events', icon: 'browser-outline' },
             { title: 'Manage Jobs', icon: 'briefcase-outline' },
+            { title: 'Manage Ofw\'s', icon: 'people-outline' },
+            { title: 'Manage Companies', icon: 'grid-outline' },
             { title: 'Logout', icon: 'log-out-outline' },
           ];
         }
@@ -123,6 +125,14 @@ export class HeaderComponent implements OnInit {
 
       if (title.item.title == 'Job Lists') {
         this.router.navigate(['/main/jobs']);
+      }
+
+      if (title.item.title == 'Manage Ofw\'s') {
+        this.router.navigate(['/main/ofw-list']);
+      }
+
+      if (title.item.title == 'Manage Companies') {
+        this.router.navigate(['/main/company-list']);
       }
     });
   }

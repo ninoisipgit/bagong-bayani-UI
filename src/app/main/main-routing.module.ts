@@ -10,6 +10,8 @@ import { EmployerDetailsComponent } from './pages/employer-details/employer-deta
 import { ManageJobsListComponent } from './pages/manage-jobs-list/manage-jobs-list.component';
 import { EventsComponent } from './pages/events/events.component';
 import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
+import { OfwListComponent } from './pages/ofw-list/ofw-list.component';
+import { CompanyListComponent } from './pages/company-list/company-list.component';
 
 const routes: Routes = [
   {
@@ -51,6 +53,14 @@ const routes: Routes = [
       {
         path: 'manage-applicants-perjob/:jobId',
         component: ManageApplicantsPerjobComponent,
+      },
+      {
+        path: 'ofw-list',
+        component: OfwListComponent,
+      },
+      {
+        path: 'company-list',
+        component: CompanyListComponent,
       },
       // {
       //   path: 'reset-password',

@@ -103,6 +103,8 @@ export class AuthService {
   signUp(value: any) {
     return this.http
       .post<AuthResponseData>(`${apiUrl}/register`, {
+        firstname: value.firstname,
+        lastname: value.lastname,
         name: value.firstname + ' ' + value.lastname,
         email: value.email,
         password: value.password,
@@ -191,5 +193,11 @@ export class AuthService {
   }
   sendEmail(data: EmailData) {
     return this.http.post(`${apiUrl}/email`, data);
+  }
+  verifyEmail(data: any) {
+    return this.http.post(`${apiUrl}/emailverification`, data);
+  }
+  verifyVerificationCode(data: any) {
+    return this.http.post(`${apiUrl}/verifyCode`, data);
   }
 }

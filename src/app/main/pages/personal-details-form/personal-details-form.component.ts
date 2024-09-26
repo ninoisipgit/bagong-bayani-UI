@@ -12,6 +12,7 @@ import { LocationService } from 'src/app/shared/services/location.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 import { EmailData } from 'src/app/shared/models/job-details';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-personal-details-form',
   templateUrl: './personal-details-form.component.html',
@@ -21,6 +22,8 @@ export class PersonalDetailsFormComponent implements OnInit {
   CountryISO = CountryISO; // Assign the enum to a public variable
   SearchCountryField = SearchCountryField;
   participantProfileForm!: FormGroup;
+  cvFile: File | null = null; // Variable to hold the file
+  CVPreview: any = null;
   addressForm!: FormGroup;
   employmentForm!: FormGroup;
   jobApplicant!: any;
@@ -49,7 +52,8 @@ export class PersonalDetailsFormComponent implements OnInit {
     private toastrService: NbToastrService,
     private userDetails: UserDetailsService,
     private jobService: JobService,
-    private location: Location
+    private location: Location,
+    private sanitizer: DomSanitizer
   ) {
     this.participantProfileForm = this.fb.group({
       // Personal Information
@@ -137,6 +141,7 @@ export class PersonalDetailsFormComponent implements OnInit {
             return { display: trimmedItem, value: trimmedItem };
           });
 
+          const date = new Date(response.birthdate);
           this.participantProfileForm.patchValue({
             userId: this.personID,
             id: response.id,
@@ -144,12 +149,13 @@ export class PersonalDetailsFormComponent implements OnInit {
             LastName: response.LastName,
             MiddleName: response.MiddleName,
             suffix: response.suffix,
-            birthdate: new Date(response?.birthdate),
+            birthdate: date.toISOString().split('T')[0],
             gender: response.gender,
             civilstatus: response.civilStatus,
             passportNo: response.passportNo,
             tags: skills,
           });
+          this.CVPreview = response.cvPath;
         }
       });
 
@@ -238,24 +244,27 @@ export class PersonalDetailsFormComponent implements OnInit {
         }
       });
       let body = 'your application status has been changed to ' + event + '.';
-      if(event == 'rejected'){
-        body = "we regret to inform you that you have been rejected from this job. Kindly apply for a different job.";
+      if (event == 'rejected') {
+        body =
+          'we regret to inform you that you have been rejected from this job. Kindly apply for a different job.';
       }
-      if(event == 'withdrawn'){
-        body = "you withdrawn from this job application";
+      if (event == 'withdrawn') {
+        body = 'you withdrawn from this job application';
       }
-      if(event == 'hired'){
-        body = "Congratulations! You have been hired for this job. Please check your email for more details.";
+      if (event == 'hired') {
+        body =
+          'Congratulations! You have been hired for this job. Please check your email for more details.';
       }
       const emailData: EmailData = {
         to: this.addressForm.controls['email'].value,
         from: this.user._email,
         subject: 'Job application Update',
-        body:  body,
-      }
+        body: body,
+      };
       this.authService.sendEmail(emailData).subscribe((response) => {
-        if(response) this.showToast('Email Sent successfully!', 'Success', 'success');
-      })
+        if (response)
+          this.showToast('Email Sent successfully!', 'Success', 'success');
+      });
     }
   }
 
@@ -264,6 +273,7 @@ export class PersonalDetailsFormComponent implements OnInit {
     const skills: string = Array.isArray(tagsValue)
       ? tagsValue.map((obj: { value: string }) => obj.value).join(', ')
       : tagsValue || '';
+
     const userProfile: UserProfile = {
       userId: this.user._id,
       id: this.participantProfileForm.value.id,
@@ -275,47 +285,35 @@ export class PersonalDetailsFormComponent implements OnInit {
       gender: this.participantProfileForm.value.gender,
       civilStatus: this.participantProfileForm.value.civilstatus,
       passportNo: this.participantProfileForm.value.passportNo,
-
       tags: skills,
-
-      // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
-      // course: this.participantProfileForm.value.course,
-      // addressID: this.participantProfileForm.value.addressID,
-      // employmentDetailsID: this.participantProfileForm.value.employmentDetailsID,
-      // tags: this.participantProfileForm.value.tags,
     };
-    if (this.user) {
-      this.userDetails
-        .savePersonalDetails(userProfile)
-        .subscribe((response) => {
-          if (response) {
-            this.showToast('submitted successfully!', 'Success', 'success');
-            console.log(response);
-          }
-        });
-      // if(userProfile.id){
-      //   this.userDetails.updatePersonalDetails(userProfile).subscribe((response) => {
-      //     if(response) {
-      //       this.showToast('submitted successfully!', 'Success', 'success');
-      //       console.log(response);
-      //     }
-      //   });
-      // }else{
-      //   this.userDetails.savePersonalDetails(userProfile).subscribe((response) => {
-      //     if(response) {
-      //       this.showToast('submitted successfully!', 'Success', 'success');
-      //       console.log(response);
-      //     }
-      //   });
-      // }
-    }
 
-    // if (this.participantProfileForm.valid) {
-    //   console.log('Form Submitted', this.participantProfileForm.value);
-    //   // Handle the form submission logic here
-    // } else {
-    //   console.error('Form Invalid');
-    // }
+    if (this.user) {
+      const formData = new FormData();
+
+      // Append userProfile properties to FormData
+      for (const key in userProfile) {
+        if (userProfile.hasOwnProperty(key)) {
+          formData.append(
+            key as keyof UserProfile,
+            userProfile[key as keyof UserProfile]
+          );
+        }
+      }
+
+      // Append the cvFile if it exists
+      if (this.cvFile) {
+        formData.append('cvPath', this.cvFile, this.cvFile.name);
+      }
+
+      // Now send the formData
+      this.userDetails.savePersonalDetails(formData).subscribe((response) => {
+        if (response) {
+          this.showToast('submitted successfully!', 'Success', 'success');
+          console.log(response);
+        }
+      });
+    }
   }
 
   onSubmitAddress(): void {
@@ -417,12 +415,42 @@ export class PersonalDetailsFormComponent implements OnInit {
   getCities(provinceId: any) {
     this.locationService.getCities(provinceId).subscribe((response) => {
       this.cities = response;
-     });
+    });
   }
 
-  getApplicantsList(){
+  getApplicantsList() {
     this.jobService.getJobApplicants().subscribe((res: any) => {
-      this.jobApplicant = res.find((x: any) => x.jobID == this.jobID && x.appliedUserID == this.personID);
-    })
+      this.jobApplicant = res.find(
+        (x: any) => x.jobID == this.jobID && x.appliedUserID == this.personID
+      );
+    });
+  }
+
+  // // Method to handle file input
+  // onFileChange(event: any) {
+  //   const file = event.target.files[0]; // Get the first file
+  //   if (file) {
+  //     this.cvFile = file; // Store the file reference
+  //   }
+  // }
+
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.cvFile = input.files[0];
+
+      // Create a URL for previewing the file
+      this.CVPreview = URL.createObjectURL(this.cvFile);
+    }
+  }
+
+  getIframeSrc(url: string): SafeResourceUrl {
+    // If the URL is a PDF
+    if (url.endsWith('.pdf')) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+    // For Word documents, you can convert them to PDF or provide a link to download
+    // Word documents can't be displayed directly in an iframe, but you can provide a message or a download option.
+    return this.sanitizer.bypassSecurityTrustResourceUrl(''); // Return empty for unsupported formats
   }
 }

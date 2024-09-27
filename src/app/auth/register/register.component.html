@@ -112,7 +112,7 @@
           nbInput
           fullWidth
           fieldSize="giant">
-          <span class="mt-2" *ngIf="timer > 0">Resend verification in {{timer }}s</span>
+          <span class="mt-2 d-flex" *ngIf="timer > 0">Resend verification in {{timer }}s</span>
           <button nbButton status="primary" type="button" class="w-50 mt-3" (click)="verifyVerificationCode()" [disabled]="isLoading" *ngIf="timer > 0">Verify
             <span *ngIf="isLoading" class="ms-3 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           </button>

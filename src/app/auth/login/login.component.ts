@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
           }
         },
         (error) => {
-          this.showToast(error.statusText, 'danger', 'danger');
+          this.showToast(error.error.error, 'danger', 'danger');
         }
       );
       // Handle login logic here, e.g., send data to a server

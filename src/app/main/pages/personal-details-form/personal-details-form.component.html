@@ -1,6 +1,6 @@
 
 
- 
+
 <div class="container-fluid mb-0">
   <nb-card class="mb-0">
     <nb-card-body>
@@ -22,7 +22,7 @@
   </nb-card>
 </div>
 <div class="container-fluid"  [ngClass]="readonly? 'readonly-accordion' : ''">
- 
+
   <nb-card>
     <nb-card-body>
 
@@ -31,7 +31,7 @@
         <a [href]="CVPreview" target="_blank" rel="noopener noreferrer" *ngIf="CVPreview">View curriculum vitae</a>
       </span>
       <hr>
-      <form [formGroup]="participantProfileForm">
+      <form [formGroup]="participantProfileForm" (keydown.enter)="$event.preventDefault()">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-3" *ngIf="!jobApplicant">
 
@@ -114,7 +114,7 @@
     <nb-card-body>
       <h6>Philippine Address</h6>
       <hr>
-      <form [formGroup]="addressForm">
+      <form [formGroup]="addressForm" (keydown.enter)="$event.preventDefault()">
 
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-3">
@@ -207,7 +207,7 @@
     <nb-card-body>
       <h6>Employment Details</h6>
       <hr>
-      <form [formGroup]="employmentForm">
+      <form [formGroup]="employmentForm" (keydown.enter)="$event.preventDefault()">
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="employer">Principal/Employer</label>

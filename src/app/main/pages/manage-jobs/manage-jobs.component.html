@@ -1,5 +1,5 @@
 
-<form [formGroup]="jobForm" [ngClass]="readonly? 'readonly-accordion' : ''">
+<form [formGroup]="jobForm" [ngClass]="readonly? 'readonly-accordion' : ''" (keydown.enter)="$event.preventDefault()">
 <div class="row">
   <div class="col-12 col-md-12" >
     <label *ngIf="user?._type == 3" for="comments">Add Comments for the employer to see.</label>
@@ -68,7 +68,7 @@
         <div class="col-12 col-md-4 col-lg-3">
           <div class="form-group mt-3">
             <label for="title">Job Title</label>
-            <input nbInput fieldSize="small" fullWidth id="title" formControlName="title" placeholder="Job Title"
+            <input nbInput fieldSize="small" type="text" fullWidth id="title" formControlName="title" placeholder="Job Title"
               class="form-control" [status]="isInvalid('title') ? 'danger' : 'basic'">
             <div *ngIf="isInvalid('title')" class="invalid-feedback">
               Job Title is required and must be less than 255 characters.
@@ -349,7 +349,7 @@
 
   <div class="d-flex justify-content-end mt-3">
     <div class="w-25">
-      <button nbButton status="primary" fullWidth type="submit" [disabled]="jobForm.invalid"
+      <button nbButton status="primary" fullWidth  [disabled]="jobForm.invalid"
         *ngIf="user?._type == 1" (click)="onSubmit()">Submit</button>
     </div>
   </div>

@@ -5,7 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { NbLayoutModule, NbCardModule, NbButtonModule, NbInputModule, NbIconModule, NbRadioModule, NbToastrModule } from '@nebular/theme';
+import { NbLayoutModule, NbCardModule, NbButtonModule, NbInputModule, NbIconModule, NbRadioModule, NbToastrModule, NbFormFieldModule } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NbIconModule,
     NbRadioModule,
     NbToastrModule.forRoot(),
+    NbFormFieldModule
   ]
 })
 export class AuthModule { }

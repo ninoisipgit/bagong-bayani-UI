@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   socialLinks!: NbAuthSocialLink[];
   user: any;
   isAuthenticated = false;
+  showPassword: boolean = false;
+
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +29,10 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   ngOnInit() {
@@ -58,7 +64,7 @@ export class LoginComponent implements OnInit {
           }
         },
         (error) => {
-          this.showToast(error.statusText, 'danger', 'danger');
+          this.showToast(error.error.error, 'danger', 'danger');
         }
       );
       // Handle login logic here, e.g., send data to a server

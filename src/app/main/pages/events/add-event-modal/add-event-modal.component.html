@@ -1,4 +1,4 @@
-<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
   <nb-card>
 
     <nb-card-header>{{ title }}</nb-card-header>

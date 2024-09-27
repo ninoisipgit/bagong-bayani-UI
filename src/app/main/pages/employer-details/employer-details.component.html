@@ -4,7 +4,7 @@
     <div style="text-align: center;">
       <img [src]="companyForm.get('logo')?.value" style="height: auto;width:120px;margin: auto;">
     </div>
-    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()"  (keydown.enter)="$event.preventDefault()">
       <div class="row">
         <!-- Company Name -->
         <div class="col-lg-4 col-md-6 col-sm-12">

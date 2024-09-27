@@ -31,7 +31,7 @@
     <tbody>
       <tr *ngFor="let job of filteredJobListings">
         <td>{{ job.title }}</td>
-        <td>{{ job.description }}</td>
+        <td>{{ job.description | slice:0:100 }}{{ job.description.length > 100 ? '...' : '' }}</td>
         <td>{{ job.date_posted | date }}</td>
         <td>{{ job.valid_through | date}}</td>
         <td>{{ job.employment_type }}</td>

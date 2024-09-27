@@ -59,7 +59,7 @@
                   </div>
                 </div>
                 <div class="col-sm-12 my-3">
-                  <div class="text-center"> 
+                  <div class="text-center">
                     <nb-radio-group class="d-flex justify-content-center" formControlName="user_type" name="reactive-forms-group">
                       <nb-radio [value]="1">Employer</nb-radio>
                       <nb-radio [value]="2">Ofw</nb-radio>
@@ -76,32 +76,35 @@
                 <div class="col-sm-12  text-center mt-3">
                   Already have an account? <a class="text-link" routerLink="../login">Login</a>
                 </div>
-              </div>  
+              </div>
               <div class="row">
                 <div class="col-sm-12" *ngIf="step === 3">
-                  <div class="text-center">  
+                  <div class="text-center">
+                    <nb-form-field>
                       <input
                         nbInput
                         fullWidth
                         fieldSize="giant"
                         id="password"
-                        type="password"
+                        [type]="showPassword ? 'text' : 'password'"
                         formControlName="password"
                         placeholder="Enter your password"
                         [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
                         class="form-control"
-                      > 
-          
-                    <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="invalid-feedback">
-                      Password is required.
-                    </div>
-                    <button nbButton status="primary" type="button" class="w-50 mt-3" (click)="signup()" [disabled]="isLoading">SAVE
-                      <span *ngIf="isLoading" class="ms-3 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    </button>
+                      >
+
+                      <!-- Eye icon to toggle password visibility -->
+                      <button nbSuffix nbButton ghost type="button" (click)="togglePasswordVisibility()">
+                        <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+                                 pack="eva"
+                                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+                        </nb-icon>
+                      </button>
+                    </nb-form-field>
                   </div>
                 </div>
               </div>
-          </form> 
+          </form>
 
 
         <div class="text-center"  *ngIf="step === 2">

@@ -215,7 +215,7 @@ export class ManageJobsComponent  implements OnInit{
   sendEmailFromCompanyToAdmin(){
     var body = 'A Company submitted a new post for Job Id number ' + this.jobId +'with a title of' + this.jobForm?.controls['title'].value;
     const emailData: EmailData = {
-      to: "bayaningofw@bayaningofw.com",
+      to: "0",
       from: this.user._email,
       subject: 'new job post submitted',
       body:
@@ -236,7 +236,7 @@ export class ManageJobsComponent  implements OnInit{
 
     var body = 'A Company submitted a changes for Job Id number ' + this.jobId +'with a title of' + this.jobForm.controls['title'].value;
     const emailData: EmailData = {
-      to: "bayaningofw@bayaningofw.com",
+      to: "0",
       from: this.user._email,
       subject: 'post Changes submitted by a company',
       body:

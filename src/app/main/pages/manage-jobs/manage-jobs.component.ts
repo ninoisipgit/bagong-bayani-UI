@@ -197,7 +197,17 @@ export class ManageJobsComponent  implements OnInit{
       to: this.jobForm.controls['postedby'].value,
       from: this.user._email,
       subject: 'Comments from Admin',
-      body:  this.jobForm.controls['comments'].value,
+      body:  `
+      <html>
+        <body>
+          <p>Hello,</p>
+          <p>I hope this message finds you well.</p>
+          <p>${this.jobForm.controls['comments'].value}</p>
+          <p>If you have any questions or need further clarification, feel free to reach out.</p>
+          <p>Best regards</p>
+        </body>
+      </html>
+      `
     }
     this.authService.sendEmail(emailData).subscribe((response) => {
       if(response) this.showToast('Email Sent successfully!', 'Success', 'success');
@@ -205,11 +215,22 @@ export class ManageJobsComponent  implements OnInit{
   }
 
   sendEmailFromCompanyToAdmin(){
+    var body = 'A Company submitted a new post for Job Id number ' + this.jobId +'with a title of' + this.jobForm?.controls['title'].value;
     const emailData: EmailData = {
       to: "admin@gmail.com",
       from: this.user._email,
       subject: 'new job post submitted',
-      body:  'A Company submitted a new post for Job Id number ' + this.jobId +'with a title of' + this.jobForm.controls['title'].value
+      body:
+      `
+      <html>
+        <body>
+          <p>Hello,</p>
+          <p>I hope this message finds you well.</p>
+          <p>${body}</p>
+          <p>If you have any questions or need further clarification, feel free to reach out.</p>
+          <p>Best regards</p>
+        </body>
+      </html>`
     }
     this.authService.sendEmail(emailData).subscribe((response) => {
       if(response) this.showToast('Email Sent successfully!', 'Success', 'success');
@@ -217,11 +238,24 @@ export class ManageJobsComponent  implements OnInit{
   }
 
   sendEmailFromCompanyToAdminUpdate(){
+
+    var body = 'A Company submitted a changes for Job Id number ' + this.jobId +'with a title of' + this.jobForm.controls['title'].value;
     const emailData: EmailData = {
       to: "admin@gmail.com",
       from: this.user._email,
       subject: 'post Changes submitted by a company',
-      body:  'A Company submitted a changes for Job Id number ' + this.jobId +'with a title of' + this.jobForm.controls['title'].value
+      body:
+      `
+      <html>
+        <body>
+          <p>Hello,</p>
+          <p>I hope this message finds you well.</p>
+          <p>${body}</p>
+          <p>If you have any questions or need further clarification, feel free to reach out.</p>
+          <p>Best regards</p>
+        </body>
+      </html>
+      `
     }
     this.authService.sendEmail(emailData).subscribe((response) => {
       if(response) this.showToast('Email Sent successfully!', 'Success', 'success');

@@ -261,15 +261,12 @@ export class PersonalDetailsFormComponent implements OnInit {
         subject: 'Job application Update',
         body:
         `
-        <html>
-          <body>
             <p>Hello,</p>
             <p>I hope this message finds you well.</p>
             <p>${body}</p>
             <p>If you have any questions or need further clarification, feel free to reach out.</p>
             <p>Best regards</p>
-          </body>
-        </html>`
+      `
       };
       this.authService.sendEmail(emailData).subscribe((response) => {
         if (response)

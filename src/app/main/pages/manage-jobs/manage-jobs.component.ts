@@ -198,15 +198,13 @@ export class ManageJobsComponent  implements OnInit{
       from: this.user._email,
       subject: 'Comments from Admin',
       body:  `
-      <html>
-        <body>
+
           <p>Hello,</p>
           <p>I hope this message finds you well.</p>
           <p>${this.jobForm.controls['comments'].value}</p>
           <p>If you have any questions or need further clarification, feel free to reach out.</p>
           <p>Best regards</p>
-        </body>
-      </html>
+
       `
     }
     this.authService.sendEmail(emailData).subscribe((response) => {
@@ -222,15 +220,12 @@ export class ManageJobsComponent  implements OnInit{
       subject: 'new job post submitted',
       body:
       `
-      <html>
-        <body>
           <p>Hello,</p>
           <p>I hope this message finds you well.</p>
           <p>${body}</p>
           <p>If you have any questions or need further clarification, feel free to reach out.</p>
           <p>Best regards</p>
-        </body>
-      </html>`
+   `
     }
     this.authService.sendEmail(emailData).subscribe((response) => {
       if(response) this.showToast('Email Sent successfully!', 'Success', 'success');
@@ -246,15 +241,11 @@ export class ManageJobsComponent  implements OnInit{
       subject: 'post Changes submitted by a company',
       body:
       `
-      <html>
-        <body>
           <p>Hello,</p>
           <p>I hope this message finds you well.</p>
           <p>${body}</p>
           <p>If you have any questions or need further clarification, feel free to reach out.</p>
           <p>Best regards</p>
-        </body>
-      </html>
       `
     }
     this.authService.sendEmail(emailData).subscribe((response) => {

@@ -19,8 +19,6 @@ export class RegisterComponent implements OnInit {
   verificationCode: string = '';
   step: number = 1;
   isLoading: boolean = false;
-
-  showPassword: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -35,10 +33,6 @@ export class RegisterComponent implements OnInit {
       password: [''],
       user_type: [null, Validators.required],
     });
-  }
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
   }
 
   ngOnInit(): void {

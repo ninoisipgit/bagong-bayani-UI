@@ -80,27 +80,24 @@
               <div class="row">
                 <div class="col-sm-12" *ngIf="step === 3">
                   <div class="text-center">
-                    <nb-form-field>
                       <input
                         nbInput
                         fullWidth
                         fieldSize="giant"
                         id="password"
-                        [type]="showPassword ? 'text' : 'password'"
+                        type="password"
                         formControlName="password"
                         placeholder="Enter your password"
                         [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
                         class="form-control"
                       >
 
-                      <!-- Eye icon to toggle password visibility -->
-                      <button nbSuffix nbButton ghost type="button" (click)="togglePasswordVisibility()">
-                        <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
-                                 pack="eva"
-                                 [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
-                        </nb-icon>
+                    <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="invalid-feedback">
+                      Password is required.
+                    </div>
+                    <button nbButton status="primary" type="button" class="w-50 mt-3" (click)="signup()" [disabled]="isLoading">SAVE
+                      <span *ngIf="isLoading" class="ms-3 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       </button>
-                    </nb-form-field>
                   </div>
                 </div>
               </div>

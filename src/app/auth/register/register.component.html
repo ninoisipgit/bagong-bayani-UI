@@ -90,6 +90,7 @@
                         placeholder="Enter your password"
                         [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
                         class="form-control"
+                        (keyup.enter)="signup()"
                       >
 
                     <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="invalid-feedback">

@@ -31,23 +31,9 @@ export class RegisterComponent implements OnInit {
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: [''],
-      confirmPassword: ['', [Validators.required]],
       user_type: [null, Validators.required],
-    }, { validator: this.passwordsMatchValidator });
+    });
   }
-
-    // Custom validator to check if passwords match
-    passwordsMatchValidator(form: FormGroup) {
-      const password = form.get('password')?.value;
-      const confirmPassword = form.get('confirmPassword')?.value;
-
-      if (password !== confirmPassword) {
-        form.get('confirmPassword')?.setErrors({ passwordsMismatch: true });
-      } else {
-        form.get('confirmPassword')?.setErrors(null);
-      }
-      return null;
-    }
 
   ngOnInit(): void {
     // Any initialization logic can go here

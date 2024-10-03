@@ -85,7 +85,6 @@ export class ManageJobsComponent implements OnInit {
       tags: [''],
       status: [0],
       comments: [''],
-      user_email: [''],
     });
 
     this.userSub = this.authService.user.subscribe((user) => {
@@ -165,7 +164,6 @@ export class ManageJobsComponent implements OnInit {
           tags: response.tags,
           status: response.status,
           comments: response.comments,
-          user_email: response.user_email,
         });
       });
     }
@@ -221,15 +219,17 @@ export class ManageJobsComponent implements OnInit {
 
   sendEmail() {
     const emailData: EmailData = {
-      to: this.jobForm.controls['user_email'].value,
+      to: this.jobForm.controls['postedby'].value,
       from: this.user._email,
       subject: 'Comments from Admin',
-      body: ` 
+      body: `
+
           <p>Hello,</p>
           <p>I hope this message finds you well.</p>
           <p>${this.jobForm.controls['comments'].value}</p>
           <p>If you have any questions or need further clarification, feel free to reach out.</p>
-          <p>Best regards</p> 
+          <p>Best regards</p>
+
       `,
     };
     this.authService.sendEmail(emailData).subscribe((response) => {
@@ -240,14 +240,14 @@ export class ManageJobsComponent implements OnInit {
 
   sendEmailFromCompanyToAdmin() {
     var body =
-      'A Company submitted a new post for Job Id ' +
+      'A Company submitted a new post for Job Id number ' +
       this.jobId +
-      ' with a title of ' +
+      'with a title of' +
       this.jobForm?.controls['title'].value;
     const emailData: EmailData = {
       to: '0',
       from: this.user._email,
-      subject: 'New job post submitted',
+      subject: 'new job post submitted',
       body: `
           <p>Hello,</p>
           <p>I hope this message finds you well.</p>
@@ -264,14 +264,14 @@ export class ManageJobsComponent implements OnInit {
 
   sendEmailFromCompanyToAdminUpdate() {
     var body =
-      'A Company submitted a changes for Job Id ' +
+      'A Company submitted a changes for Job Id number ' +
       this.jobId +
-      'with a title of ' +
+      'with a title of' +
       this.jobForm.controls['title'].value;
     const emailData: EmailData = {
       to: '0',
       from: this.user._email,
-      subject: 'Post Changes submitted by a company',
+      subject: 'post Changes submitted by a company',
       body: `
           <p>Hello,</p>
           <p>I hope this message finds you well.</p>

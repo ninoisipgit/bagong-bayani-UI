@@ -1,15 +1,13 @@
 <div class="header-container row justify-content-between align-items-center">
-  <div class="logo-container col-7">
+  <div class="logo-container col-7 d-flex align-items-center">
     <a class="logo" role="button">
       <img src="assets/images/owwa.png" style="height: auto;width:80px;">
     </a>
+    <!-- Added text after the logo -->
+    <span class="ms-3" style="font-size: 1.5rem; font-weight: bold;">Overseas Workers Welfare Administration</span>
   </div>
   <div class="col-5 d-flex justify-content-end">
-    <!-- <button size="small" outline nbButton [nbContextMenu]="items" class="d-block d-sm-none">
-      <nb-icon icon="menu-outline"></nb-icon>
-    </button> -->
     <nb-actions size="small">
-      <!-- <nb-action   class="d-none d-md-block d-lg-block cursor-pointer" *ngFor="let action of actions" [routerLink]="[action.href]">  {{ action.label }} </nb-action>  -->
       <nb-action [nbContextMenu]="userMenu" *ngIf="isAuthenticated">
         <nb-user size="medium" name="{{ user._name }}" title="{{ user?._email }}"></nb-user>
       </nb-action>

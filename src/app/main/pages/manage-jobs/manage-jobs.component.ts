@@ -18,7 +18,7 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
 export class ManageJobsComponent implements OnInit {
   jobForm!: FormGroup;
   jobId: number = 0;
-
+  salaryRanges: string[] = [];
   private userSub: Subscription;
   user!: UserToken;
   isAuthenticated = false;
@@ -116,8 +116,17 @@ export class ManageJobsComponent implements OnInit {
         console.error('Error fetching company details', error);
       }
     );
-  }
 
+    this.generateSalaryRanges();
+  }
+  generateSalaryRanges() {
+    const step = 10000;
+    const max = 200000;
+    for (let i = 10000; i < max; i += step) {
+      const range = `${i.toLocaleString()} - ${(i + step).toLocaleString()}`;
+      this.salaryRanges.push(range);
+    }
+  }
   ngOnInit(): void {
     if (this.jobId > 0) {
       this.jobService.getJobDetails(this.jobId).subscribe((response) => {

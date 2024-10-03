@@ -26,13 +26,28 @@ export class ResetPasswordComponent implements OnInit {
     this.resetForm = this.fb.group({
       otp: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+      password: ['', Validators.required],
+      confirmPassword: ['', [Validators.required]],
+    }, { validator: this.passwordsMatchValidator });
   }
 
   ngOnInit() {
 
   }
+
+      // Custom validator to check if passwords match
+      passwordsMatchValidator(form: FormGroup) {
+        const password = form.get('password')?.value;
+        const confirmPassword = form.get('confirmPassword')?.value;
+
+        if (password !== confirmPassword) {
+          form.get('confirmPassword')?.setErrors({ passwordsMismatch: true });
+        } else {
+          form.get('confirmPassword')?.setErrors(null);
+        }
+        return null;
+      }
+
 
   resetPassword() {
     if (this.resetPasswordForm.valid) {

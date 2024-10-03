@@ -244,9 +244,9 @@ export class PersonalDetailsFormComponent implements OnInit {
         }
       });
       let body = 'your application status has been changed to ' + event + '.';
-      if (event == 'declined') {
+      if (event == 'rejected') {
         body =
-          'we regret to inform you that you have been declined from this job. Kindly apply for a different job.';
+          'we regret to inform you that you have been rejected from this job. Kindly apply for a different job.';
       }
       if (event == 'withdrawn') {
         body = 'you withdrawn from this job application';

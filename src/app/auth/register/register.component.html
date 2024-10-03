@@ -95,7 +95,23 @@
                     <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="invalid-feedback">
                       Password is required.
                     </div>
-                    <button nbButton status="primary" type="button" class="w-50 mt-3" (click)="signup()" [disabled]="isLoading">SAVE
+                    <!-- Confirm Password Input -->
+                    <input
+                      nbInput
+                      fullWidth
+                      fieldSize="giant"
+                      id="confirmPassword"
+                      type="password"
+                      formControlName="confirmPassword"
+                      placeholder="Confirm your password"
+                      [class.is-invalid]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched"
+                      class="form-control mt-3"
+                    >
+                    <div *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched" class="invalid-feedback">
+                      <span *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Confirm password is required.</span>
+                      <span *ngIf="signupForm.get('confirmPassword')?.errors?.['passwordsMismatch']">Passwords do not match.</span>
+                    </div>
+                    <button nbButton status="primary" type="button" class="w-50 mt-3" (click)="signup()" [disabled]="isLoading || signupForm.invalid">SAVE
                       <span *ngIf="isLoading" class="ms-3 spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                       </button>
                   </div>

@@ -7,7 +7,7 @@
     <textarea nbInput fullWidth id="comments" formControlName="comments" placeholder="comments"
               class="form-control"  rows="8"
               [status]="isInvalid('comments') ? 'danger' : 'basic'" [readonly]="user._type == 1"></textarea>
-              <button nbButton status="primary" fullWidth [disabled]="jobForm.invalid" *ngIf="user?._type == 3" (click)="onSubmit();sendEmail()">Save Comment</button>
+              <button nbButton status="primary"  [disabled]="jobForm.invalid" *ngIf="user?._type == 3" (click)="onSubmit();sendEmail()">Save Comment</button>
   </div>
   <div class="col-12 col-md-12 mt-3">
     <nb-alert status="warning" *ngIf="jobForm.get('status')?.value == 0">Job needs to be approved to be display on the
@@ -310,9 +310,14 @@
         <div class="col-12 col-md-4 col-lg-3">
           <div class="form-group mt-3">
             <label for="base_salary_value">Base Salary Range</label>
-            <input nbInput fieldSize="small" fullWidth id="base_salary_value" formControlName="base_salary_value"
+            <!-- <input nbInput fieldSize="small" fullWidth id="base_salary_value" formControlName="base_salary_value"
               placeholder="Base Salary" class="form-control" type="text"
-              [status]="isInvalid('base_salary_value') ? 'danger' : 'basic'">
+              [status]="isInvalid('base_salary_value') ? 'danger' : 'basic'"> -->
+              <select nbSelect fullWidth id="base_salary_value" formControlName="base_salary_value" class="form-control"
+              >
+                <option value="">Select Base Salary Range</option>
+                <option *ngFor="let range of salaryRanges" [value]="range">{{ range }}</option>
+              </select>
             <div *ngIf="isInvalid('base_salary_value')" class="invalid-feedback">
               Base Salary is required and must be a number.
             </div>

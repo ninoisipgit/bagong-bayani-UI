@@ -229,9 +229,15 @@
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="salary">Salary</label>
-            <input nbInput fullWidth id="salary" formControlName="monthlySalary"
+            <select nbSelect fullWidth id="salary" formControlName="monthlySalary" class="form-control form-select"
+            >
+              <option value="">Select Base Salary Range</option>
+              <option *ngFor="let range of salaryRanges" [value]="range">{{ range }}</option>
+            </select>
+
+            <!-- <input nbInput fullWidth id="salary" formControlName="monthlySalary"
               [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'" placeholder="SALARY"
-              class="form-control">
+              class="form-control"> -->
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="agency">Agency</label>

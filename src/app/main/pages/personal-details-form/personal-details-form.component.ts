@@ -31,6 +31,7 @@ export class PersonalDetailsFormComponent implements OnInit {
   user!: UserToken;
   isAuthenticated = false;
 
+  salaryRanges: string[] = [];
   countries: any[] = [];
   provinces: any[] = [];
   cities: any[] = [];
@@ -210,6 +211,7 @@ export class PersonalDetailsFormComponent implements OnInit {
     this.locationService.getProvinces().subscribe((data) => {
       this.provinces = data;
     });
+    this.generateSalaryRanges();
   }
 
   onProvinceChange(provinceId: string) {
@@ -224,6 +226,15 @@ export class PersonalDetailsFormComponent implements OnInit {
     this.locationService.getBarangays(cityId).subscribe((data) => {
       this.barangays = data;
     });
+  }
+
+  generateSalaryRanges() {
+    const step = 10000;
+    const max = 200000;
+    for (let i = 10000; i < max; i += step) {
+      const range = `${i.toLocaleString()} - ${(i + step).toLocaleString()}`;
+      this.salaryRanges.push(range);
+    }
   }
 
   onStatusChange(applicant: any, event: string): void {
@@ -259,14 +270,13 @@ export class PersonalDetailsFormComponent implements OnInit {
         to: this.addressForm.controls['email'].value,
         from: this.user._email,
         subject: 'Job application Update',
-        body:
-        `
+        body: `
             <p>Hello,</p>
             <p>I hope this message finds you well.</p>
             <p>${body}</p>
             <p>If you have any questions or need further clarification, feel free to reach out.</p>
             <p>Best regards</p>
-      `
+      `,
       };
       this.authService.sendEmail(emailData).subscribe((response) => {
         if (response)

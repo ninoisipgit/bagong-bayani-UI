@@ -230,7 +230,7 @@ export class PersonalDetailsFormComponent implements OnInit {
 
   generateSalaryRanges() {
     const step = 10000;
-    const max = 200000;
+    const max = 100000;
     for (let i = 10000; i < max; i += step) {
       const range = `${i.toLocaleString()} - ${(i + step).toLocaleString()}`;
       this.salaryRanges.push(range);

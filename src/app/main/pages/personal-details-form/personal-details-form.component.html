@@ -108,7 +108,6 @@
     </nb-card-body>
   </nb-card>
 
-
   <!-- Philippine Address Section -->
   <nb-card>
     <nb-card-body>
@@ -133,6 +132,13 @@
               [status]="isInvalid('cityID',addressForm) ? 'danger' : 'basic'" placeholder="Municipality/City"
               class="form-control">
           </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="houseunitno">House/Unit No, Lot No., Block No., Street</label>
+            <input nbInput fullWidth id="houseunitno" formControlName="street"
+              [status]="isInvalid('street',addressForm) ? 'danger' : 'basic'"
+              placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET" class="form-control">
+          </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="barangay">Barangay</label>
             <input nbInput fullWidth id="barangay" formControlName="barangayID"
@@ -145,34 +151,7 @@
               [status]="isInvalid('zipcode',addressForm) ? 'danger' : 'basic'" placeholder="ZIPCODE"
               class="form-control">
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-3">
-            <label for="houseunitno">House/Unit No, Lot No., Block No., Street</label>
-            <input nbInput fullWidth id="houseunitno" formControlName="street"
-              [status]="isInvalid('street',addressForm) ? 'danger' : 'basic'"
-              placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET" class="form-control">
-          </div>
-          <!-- <div class="col-sm-12 col-md-4 col-lg-3">
-            <label for="emailaddress">Email Address</label>
-            <input nbInput fullWidth id="emailaddress" formControlName="email"
-              [status]="isInvalid('email',addressForm) ? 'danger' : 'basic'" placeholder="EMAIL ADDRESS"
-              class="form-control">
-          </div> -->
-          <div class="col-sm-12 col-md-4 col-lg-3">
-            <label for="foreignaddress">OFW's Foreign Address</label>
-            <input nbInput fullWidth id="foreignaddress" formControlName="ofwForeignAddress"
-              [status]="isInvalid('ofwForeignAddress',participantProfileForm) ? 'danger' : 'basic'"
-              placeholder="FOREIGN ADDRESS" class="form-control">
-          </div>
-          <div class="col-sm-12 col-md-4 col-lg-3">
-            <label for="country">Country</label>
-            <select nbSelect fullWidth id="country" formControlName="ofwCountry" [(ngModel)]="selectedCountry"
-              class="form-control">
-              <option value="">- SELECT COUNTRY -</option>
-              <option *ngFor="let country of countries" [value]="country">
-                {{ country }}
-              </option>
-            </select>
-          </div>
+
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="mobileno">Mobile Number</label>
             <ngx-intl-tel-input [ngClass]="'custom'"
@@ -182,20 +161,59 @@
               [selectedCountryISO]="CountryISO.Philippines" [maxLength]="15" [phoneValidation]="true" name="phone"
               formControlName="mobileNo"></ngx-intl-tel-input>
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-3">
-            <label for="ofwContactNo">Contact No. Abroad</label>
-            <ngx-intl-tel-input [ngClass]="'custom'"
-              [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]" [enableAutoCountrySelect]="false"
-              [enablePlaceholder]="true" [searchCountryFlag]="true"
-              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-              [selectedCountryISO]="CountryISO.Philippines" [maxLength]="15" [phoneValidation]="true" name="phone"
-              formControlName="ofwContactNo"></ngx-intl-tel-input>
-          </div>
         </div>
       </form>
 
     </nb-card-body>
   </nb-card>
+
+    <!-- Philippine Address Section -->
+    <nb-card>
+      <nb-card-body>
+        <h6>Foreign Address</h6>
+        <hr>
+        <form [formGroup]="addressForm" (keydown.enter)="$event.preventDefault()">
+
+          <div class="row">
+
+            <!-- <div class="col-sm-12 col-md-4 col-lg-3">
+              <label for="emailaddress">Email Address</label>
+              <input nbInput fullWidth id="emailaddress" formControlName="email"
+                [status]="isInvalid('email',addressForm) ? 'danger' : 'basic'" placeholder="EMAIL ADDRESS"
+                class="form-control">
+            </div> -->
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label for="foreignaddress">City</label>
+              <input nbInput fullWidth id="foreignaddress" formControlName="ofwForeignAddress"
+                [status]="isInvalid('ofwForeignAddress',participantProfileForm) ? 'danger' : 'basic'"
+                placeholder="FOREIGN ADDRESS" class="form-control">
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label for="country">Country</label>
+              <select nbSelect fullWidth id="country" formControlName="ofwCountry" [(ngModel)]="selectedCountry"
+                class="form-control">
+                <option value="">- SELECT COUNTRY -</option>
+                <option *ngFor="let country of countries" [value]="country">
+                  {{ country }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label for="ofwContactNo">Contact No. Abroad</label>
+              <ngx-intl-tel-input [ngClass]="'custom'"
+                [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]" [enableAutoCountrySelect]="false"
+                [enablePlaceholder]="true" [searchCountryFlag]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.Philippines" [maxLength]="15" [phoneValidation]="true" name="phone"
+                formControlName="ofwContactNo"></ngx-intl-tel-input>
+            </div>
+          </div>
+        </form>
+
+      </nb-card-body>
+    </nb-card>
+
 
 
 
@@ -233,6 +251,7 @@
             >
               <option value="">Select Base Salary Range</option>
               <option *ngFor="let range of salaryRanges" [value]="range">{{ range }}</option>
+              <option  [value]="'100,000 and up'">100,000 and up</option>
             </select>
 
             <!-- <input nbInput fullWidth id="salary" formControlName="monthlySalary"
@@ -279,9 +298,34 @@
           <button class="w-100" nbButton status="basic" routerLink="/main/jobs">Back</button>
         </div>
         <div class="col-12 col-md-2 mt-1">
-          <button class="w-100" nbButton status="primary" type="submit" (click)="submitAll()">Submit</button>
+          <!-- <button class="w-100" nbButton status="primary" type="submit" (click)="submitAll()">Submit</button> -->
+          <button class="w-100" nbButton status="primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
         </div>
       </div>
     </nb-card-body>
   </nb-card>
+</div>
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to submit?</p>
+        <p>Please double check your Information before submitting.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+        <button type="button" class="btn btn-primary"  (click)="submitAll()" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

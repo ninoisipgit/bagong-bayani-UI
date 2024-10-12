@@ -245,7 +245,13 @@
               [status]="isInvalid('occupation',employmentForm) ? 'danger' : 'basic'" placeholder="POSITION"
               class="form-control">
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-3">
+          <div class="col-sm-12 col-md-4 col-lg-1">
+            <label for="position">Currency</label>
+            <input nbInput fullWidth id="position" formControlName="currency"
+              [status]="isInvalid('currency',employmentForm) ? 'danger' : 'basic'" placeholder="currency"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-2">
             <label for="salary">Salary</label>
             <select nbSelect fullWidth id="salary" formControlName="monthlySalary" class="form-control form-select"
             >

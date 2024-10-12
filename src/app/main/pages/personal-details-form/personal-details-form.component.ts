@@ -103,6 +103,7 @@ export class PersonalDetailsFormComponent implements OnInit {
       contractDuration: ['', Validators.required],
       ofwType: ['', Validators.required],
       jobSite: ['', Validators.required],
+      currency: ['', Validators.required],
       // employeraddress: ['', Validators.required],
       // employercontactno: [''],
       // salarycurrency: ['']
@@ -186,13 +187,16 @@ export class PersonalDetailsFormComponent implements OnInit {
       .getEmploymentDetailsByUserId(this.personID)
       .subscribe((response) => {
         if (response.length > 0) {
+          const str = response[0].monthlySalary;
+          const parts = str.split("%");
           this.employmentForm.patchValue({
             personId: this.personID,
             id: response[0].id,
             employerName: response[0].employerName,
             vessel: response[0].vessel,
             occupation: response[0].occupation,
-            monthlySalary: response[0].monthlySalary,
+            currency: parts[0],
+            monthlySalary: parts[1],
             agencyName: response[0].agencyName,
             contractDuration: response[0].contractDuration,
             ofwType: response[0].ofwType,
@@ -390,7 +394,7 @@ export class PersonalDetailsFormComponent implements OnInit {
       employerName: this.employmentForm.value.employerName,
       vessel: this.employmentForm.value.vessel,
       occupation: this.employmentForm.value.occupation,
-      monthlySalary: this.employmentForm.value.monthlySalary,
+      monthlySalary: this.employmentForm.value.currency +'%'+ this.employmentForm.value.monthlySalary,
       agencyName: this.employmentForm.value.agencyName,
       contractDuration: this.employmentForm.value.contractDuration,
       ofwType: this.employmentForm.value.ofwType,

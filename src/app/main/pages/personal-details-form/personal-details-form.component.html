@@ -13,7 +13,7 @@
             <nb-option value="applied">applied</nb-option>
             <nb-option value="interviewed">interviewed</nb-option>
             <nb-option value="hired">hired</nb-option>
-            <nb-option value="declined">declined</nb-option>
+            <nb-option value="rejected">rejected</nb-option>
             <nb-option value="withdrawn ">withdrawn </nb-option>
           </nb-select>
         </div>
@@ -32,38 +32,38 @@
       </span>
       <hr>
       <form [formGroup]="participantProfileForm" (keydown.enter)="$event.preventDefault()">
-
         <div class="row">
-          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
-            <label for="lastname">Last Name</label>
-            <input nbInput fullWidth id="lastname" formControlName="LastName"
-              [status]="isInvalid('LastName',participantProfileForm) ? 'danger' : 'basic'" placeholder="LAST NAME"
-              class="form-control">
+          <div class="col-sm-12 col-md-4 col-lg-3" *ngIf="!jobApplicant">
+
+            <div>
+              <label for="cv">CV Upload</label>
+              <input type="file" id="cv" (change)="onFileChange($event)" class="form-control" accept=".pdf">
+            </div>
+
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+          <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="firstname">First Name</label>
             <input nbInput fullWidth id="firstname" formControlName="FirstName"
               [status]="isInvalid('FirstName',participantProfileForm) ? 'danger' : 'basic'" placeholder="FIRST NAME"
               class="form-control">
           </div>
-
-          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="lastname">Last Name</label>
+            <input nbInput fullWidth id="lastname" formControlName="LastName"
+              [status]="isInvalid('LastName',participantProfileForm) ? 'danger' : 'basic'" placeholder="LAST NAME"
+              class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="middlename">Middle Name</label>
             <input nbInput fullWidth id="middlename" formControlName="MiddleName"
               [status]="isInvalid('MiddleName',participantProfileForm) ? 'danger' : 'basic'" placeholder="MIDDLE NAME"
               class="form-control">
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-1">
+          <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="suffix">Suffix</label>
             <input nbInput fullWidth id="suffix" formControlName="suffix"
               [status]="isInvalid('suffix',participantProfileForm) ? 'danger' : 'basic'" placeholder="SUFFIX"
               class="form-control" maxlength="2">
-          </div>
-          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2" *ngIf="!jobApplicant">
-            <div>
-              <label for="cv">CV Upload</label>
-              <input type="file" id="cv" (change)="onFileChange($event)" class="form-control" accept=".pdf">
-            </div>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="birthdate">Birthdate</label>

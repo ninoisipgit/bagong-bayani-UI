@@ -107,6 +107,8 @@ export class PersonalDetailsFormComponent implements OnInit {
       // employeraddress: ['', Validators.required],
       // employercontactno: [''],
       // salarycurrency: ['']
+      coe_attachment: ['', Validators.required],//status,
+      passport_attachment: ['', Validators.required]//year contract finished,
     });
 
     this.userSub = this.authService.user.subscribe((user) => {
@@ -197,6 +199,8 @@ export class PersonalDetailsFormComponent implements OnInit {
             occupation: response[0].occupation,
             currency: parts[0],
             monthlySalary: parts[1],
+            coe_attachment : response[0].coe_attachment,
+            passport_attachment : response[0].passport_attachment,
             agencyName: response[0].agencyName,
             contractDuration: response[0].contractDuration,
             ofwType: response[0].ofwType,
@@ -400,6 +404,8 @@ export class PersonalDetailsFormComponent implements OnInit {
       ofwType: this.employmentForm.value.ofwType,
       jobSite: this.employmentForm.value.jobSite,
       status: this.employmentForm.value.status,
+      coe_attachment: this.employmentForm.value.coe_attachment,
+      passport_attachment: this.employmentForm.value.passport_attachment,
 
       // educationalAttainment: this.participantProfileForm.value.educationalAttainment,
       // course: this.participantProfileForm.value.course,

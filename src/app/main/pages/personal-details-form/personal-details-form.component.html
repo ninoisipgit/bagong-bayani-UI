@@ -277,6 +277,24 @@
               placeholder="CONTRACT DURATION" class="form-control">
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="coe_attachment">Employment Status</label>
+            <select nbSelect fullWidth id="coe_attachment" formControlName="coe_attachment" class="form-control form-select"
+            >
+              <option  [value]="'Currently Employed'">Currently Employed</option>
+              <option  [value]="'Finished Contract'">Finished Contract</option>
+            </select>
+
+            <!-- <input nbInput fullWidth id="salary" formControlName="monthlySalary"
+              [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'" placeholder="SALARY"
+              class="form-control"> -->
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3" *ngIf="employmentForm.get('coe_attachment')?.value === 'Finished Contract'">
+            <label for="passport_attachment">Contract Year Ended</label>
+            <input nbInput fullWidth id="passport_attachment" formControlName="passport_attachment"
+              [status]="isInvalid('passport_attachment',employmentForm) ? 'danger' : 'basic'"
+              placeholder="CONTRACT Year ended" class="form-control">
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="ofwtype">OFW Type</label>
             <select nbSelect fullWidth id="ofwtype" formControlName="ofwType" class="form-control">
               <option value="">Select OFW Type</option>

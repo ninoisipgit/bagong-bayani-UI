@@ -33,11 +33,13 @@ export class PersonalDetailsFormComponent implements OnInit {
 
   salaryRanges: string[] = [];
   countries: any[] = [];
+  regions: any[] = [];
   provinces: any[] = [];
   cities: any[] = [];
   barangays: any[] = [];
 
   selectedCountry = '';
+  selectedRegion = '';
   selectedProvince = '';
   selectedCity = '';
   selectedBarangay = '';
@@ -77,6 +79,7 @@ export class PersonalDetailsFormComponent implements OnInit {
       id: [0],
       userId: ['', Validators.required],
       provinceID: ['', Validators.required],
+      regionID: ['', Validators.required],
       cityID: ['', Validators.required],
       barangayID: ['', Validators.required],
       zipcode: ['', Validators.required],
@@ -107,8 +110,8 @@ export class PersonalDetailsFormComponent implements OnInit {
       // employeraddress: ['', Validators.required],
       // employercontactno: [''],
       // salarycurrency: ['']
-      coe_attachment: ['', Validators.required],//status,
-      passport_attachment: ['', Validators.required]//year contract finished,
+      coe_attachment: ['', Validators.required], //status,
+      passport_attachment: ['', Validators.required], //year contract finished,
     });
 
     this.userSub = this.authService.user.subscribe((user) => {
@@ -169,6 +172,7 @@ export class PersonalDetailsFormComponent implements OnInit {
           userId: this.personID,
           id: response.id,
           provinceID: response.provinceID,
+          regionID: response.regionID,
           cityID: response.cityID,
           barangayID: response.barangayID,
           zipcode: response.zipcode,
@@ -190,7 +194,7 @@ export class PersonalDetailsFormComponent implements OnInit {
       .subscribe((response) => {
         if (response.length > 0) {
           const str = response[0].monthlySalary;
-          const parts = str.split("%");
+          const parts = str.split('%');
           this.employmentForm.patchValue({
             personId: this.personID,
             id: response[0].id,
@@ -199,8 +203,8 @@ export class PersonalDetailsFormComponent implements OnInit {
             occupation: response[0].occupation,
             currency: parts[0],
             monthlySalary: parts[1],
-            coe_attachment : response[0].coe_attachment,
-            passport_attachment : response[0].passport_attachment,
+            coe_attachment: response[0].coe_attachment,
+            passport_attachment: response[0].passport_attachment,
             agencyName: response[0].agencyName,
             contractDuration: response[0].contractDuration,
             ofwType: response[0].ofwType,
@@ -215,27 +219,85 @@ export class PersonalDetailsFormComponent implements OnInit {
       this.countries = data.map((country: any) => country.name.common);
     });
 
-    // Fetch provinces
-    this.locationService.getProvinces().subscribe((data) => {
-      this.provinces = data;
+    this.locationService.getRegions().subscribe((data) => {
+      this.regions = data;
+      if (this.addressForm.controls['regionID'].value) {
+        this.locationService
+          .getProvinces(this.addressForm.controls['regionID'].value)
+          .subscribe((data) => {
+            this.provinces = data;
+          });
+        // Check if provinceID is selected and fetch cities
+        if (this.addressForm.controls['provinceID'].value) {
+          this.locationService
+            .getCities(this.addressForm.controls['provinceID'].value)
+            .subscribe((data) => {
+              this.cities = data;
+
+              // Check if cityID is selected after fetching cities
+              const cityId = this.addressForm.controls['cityID'].value;
+              if (cityId) {
+                const selectedCity =
+                  this.cities.find((city) => city.code === cityId) || {};
+                const cityCode = selectedCity.isCity === 1 ? cityId : '';
+                const municipalityCode =
+                  selectedCity.isMunicipality === 1 ? cityId : '';
+
+                // Only call getBarangays if at least one code is valid
+                if (cityCode || municipalityCode) {
+                  const payload = {
+                    cityCode: cityCode,
+                    municipalityCode: municipalityCode,
+                  };
+
+                  this.locationService
+                    .getBarangays(payload)
+                    .subscribe((data) => {
+                      this.barangays = data;
+                    });
+                }
+              }
+            });
+        }
+      }
     });
+
     this.generateSalaryRanges();
   }
 
-  onProvinceChange(provinceId: string) {
+  onSelectRegion(event: any) {
+    const regiondID = event.target.value;
+    // Fetch provinces
+    this.locationService.getProvinces(regiondID).subscribe((data) => {
+      this.provinces = data;
+    });
+  }
+
+  onProvinceChange(event: any) {
     // Fetch cities based on selected province
+    const provinceId = event.target.value;
     this.locationService.getCities(provinceId).subscribe((data) => {
       this.cities = data;
     });
   }
 
-  onCityChange(cityId: string) {
+  onCityChange(event: any) {
     // Fetch barangays based on selected city
-    this.locationService.getBarangays(cityId).subscribe((data) => {
+    const cityId = event.target.value;
+    const selectedCity = this.cities.find((city) => city.code === cityId) || {};
+    const payload = {
+      cityCode: selectedCity.isCity === 1 ? cityId : '',
+      municipalityCode: selectedCity.isMunicipality === 1 ? cityId : '',
+    };
+
+    this.locationService.getBarangays(payload).subscribe((data) => {
       this.barangays = data;
     });
   }
 
+  isBarangayDisabled() {
+    return !this.addressForm.get('cityID')?.value; // Disable if cityID is null or empty
+  }
   generateSalaryRanges() {
     const step = 10000;
     const max = 100000;
@@ -346,6 +408,7 @@ export class PersonalDetailsFormComponent implements OnInit {
       userId: this.user._id,
       id: this.addressForm.value.id,
       provinceID: this.addressForm.value.provinceID,
+      regionID: this.addressForm.value.regionID,
       cityID: this.addressForm.value.cityID,
       barangayID: this.addressForm.value.barangayID,
       zipcode: this.addressForm.value.zipcode,
@@ -398,7 +461,10 @@ export class PersonalDetailsFormComponent implements OnInit {
       employerName: this.employmentForm.value.employerName,
       vessel: this.employmentForm.value.vessel,
       occupation: this.employmentForm.value.occupation,
-      monthlySalary: this.employmentForm.value.currency +'%'+ this.employmentForm.value.monthlySalary,
+      monthlySalary:
+        this.employmentForm.value.currency +
+        '%' +
+        this.employmentForm.value.monthlySalary,
       agencyName: this.employmentForm.value.agencyName,
       contractDuration: this.employmentForm.value.contractDuration,
       ofwType: this.employmentForm.value.ofwType,

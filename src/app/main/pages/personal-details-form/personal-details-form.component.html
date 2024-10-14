@@ -1,6 +1,3 @@
-
-
-
 <div class="container-fluid mb-0">
   <nb-card class="mb-0">
     <nb-card-body>
@@ -9,7 +6,13 @@
           <h6>OFW Personal Information</h6>
         </div>
         <div class="col-md-4">
-          <nb-select *ngIf="jobApplicant" placeholder="Select Showcase" [(selected)]="jobApplicant.status" fullWidth (selectedChange)="onStatusChange(jobApplicant, $event)" >
+          <nb-select
+            *ngIf="jobApplicant"
+            placeholder="Select Showcase"
+            [(selected)]="jobApplicant.status"
+            fullWidth
+            (selectedChange)="onStatusChange(jobApplicant, $event)"
+          >
             <nb-option value="applied">applied</nb-option>
             <nb-option value="interviewed">interviewed</nb-option>
             <nb-option value="hired">hired</nb-option>
@@ -21,59 +24,130 @@
     </nb-card-body>
   </nb-card>
 </div>
-<div class="container-fluid"  [ngClass]="readonly? 'readonly-accordion' : ''">
-
+<div class="container-fluid" [ngClass]="readonly ? 'readonly-accordion' : ''">
   <nb-card>
     <nb-card-body>
-
       <span>
         <h6>Personal Information</h6>
-        <a [href]="CVPreview" target="_blank" rel="noopener noreferrer" *ngIf="CVPreview">View curriculum vitae</a>
+        <a
+          [href]="CVPreview"
+          target="_blank"
+          rel="noopener noreferrer"
+          *ngIf="CVPreview"
+          >View curriculum vitae</a
+        >
       </span>
-      <hr>
-      <form [formGroup]="participantProfileForm" (keydown.enter)="$event.preventDefault()">
-
+      <hr />
+      <form
+        [formGroup]="participantProfileForm"
+        (keydown.enter)="$event.preventDefault()"
+      >
         <div class="row">
           <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
             <label for="lastname">Last Name</label>
-            <input nbInput fullWidth id="lastname" formControlName="LastName"
-              [status]="isInvalid('LastName',participantProfileForm) ? 'danger' : 'basic'" placeholder="LAST NAME"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="lastname"
+              formControlName="LastName"
+              [status]="
+                isInvalid('LastName', participantProfileForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="LAST NAME"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
             <label for="firstname">First Name</label>
-            <input nbInput fullWidth id="firstname" formControlName="FirstName"
-              [status]="isInvalid('FirstName',participantProfileForm) ? 'danger' : 'basic'" placeholder="FIRST NAME"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="firstname"
+              formControlName="FirstName"
+              [status]="
+                isInvalid('FirstName', participantProfileForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="FIRST NAME"
+              class="form-control"
+            />
           </div>
 
           <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
             <label for="middlename">Middle Name</label>
-            <input nbInput fullWidth id="middlename" formControlName="MiddleName"
-              [status]="isInvalid('MiddleName',participantProfileForm) ? 'danger' : 'basic'" placeholder="MIDDLE NAME"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="middlename"
+              formControlName="MiddleName"
+              [status]="
+                isInvalid('MiddleName', participantProfileForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="MIDDLE NAME"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-6 col-lg-3 col-xl-1">
             <label for="suffix">Suffix</label>
-            <input nbInput fullWidth id="suffix" formControlName="suffix"
-              [status]="isInvalid('suffix',participantProfileForm) ? 'danger' : 'basic'" placeholder="SUFFIX"
-              class="form-control" maxlength="2">
+            <input
+              nbInput
+              fullWidth
+              id="suffix"
+              formControlName="suffix"
+              [status]="
+                isInvalid('suffix', participantProfileForm) ? 'danger' : 'basic'
+              "
+              placeholder="SUFFIX"
+              class="form-control"
+              maxlength="2"
+            />
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2" *ngIf="!jobApplicant">
+          <div
+            class="col-sm-12 col-md-6 col-lg-3 col-xl-2"
+            *ngIf="!jobApplicant"
+          >
             <div>
               <label for="cv">CV Upload</label>
-              <input type="file" id="cv" (change)="onFileChange($event)" class="form-control" accept=".pdf">
+              <input
+                type="file"
+                id="cv"
+                (change)="onFileChange($event)"
+                class="form-control"
+                accept=".pdf"
+              />
             </div>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="birthdate">Birthdate</label>
-            <input nbInput fullWidth id="birthdate" formControlName="birthdate"
-              [status]="isInvalid('birthdate',participantProfileForm) ? 'danger' : 'basic'" placeholder="MM/DD/YYYY"
-              class="form-control" type="date">
+            <input
+              nbInput
+              fullWidth
+              id="birthdate"
+              formControlName="birthdate"
+              [status]="
+                isInvalid('birthdate', participantProfileForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="MM/DD/YYYY"
+              class="form-control"
+              type="date"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="gender">Gender</label>
-            <select nbSelect fullWidth id="gender" formControlName="gender" class="form-control">
+            <select
+              nbSelect
+              fullWidth
+              id="gender"
+              formControlName="gender"
+              class="form-control"
+            >
               <option value="">Select Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -81,7 +155,13 @@
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="civilstatus">Civil Status</label>
-            <select nbSelect fullWidth id="civilstatus" formControlName="civilstatus" class="form-control">
+            <select
+              nbSelect
+              fullWidth
+              id="civilstatus"
+              formControlName="civilstatus"
+              class="form-control"
+            >
               <option value="">Select Civil Status</option>
               <option value="single">Single</option>
               <option value="married">Married</option>
@@ -90,21 +170,33 @@
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="passportno">Passport No.</label>
-            <input nbInput fullWidth id="passportno" formControlName="passportNo"
-              [status]="isInvalid('passportNo',participantProfileForm) ? 'danger' : 'basic'" placeholder="Passport No."
-              type="text" class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="passportno"
+              formControlName="passportNo"
+              [status]="
+                isInvalid('passportNo', participantProfileForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="Passport No."
+              type="text"
+              class="form-control"
+            />
           </div>
-          <div class="col-sm-12 ">
+          <div class="col-sm-12">
             <label for="passportno">Skills</label>
-            <tag-input formControlName="tags" [maxItems]='5' [disabled]="readonly" class="border "></tag-input>
+            <tag-input
+              formControlName="tags"
+              [maxItems]="5"
+              [disabled]="readonly"
+              class="border"
+            ></tag-input>
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-3">
-
-          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3"></div>
         </div>
       </form>
-
-
     </nb-card-body>
   </nb-card>
 
@@ -112,152 +204,319 @@
   <nb-card>
     <nb-card-body>
       <h6>Philippine Address</h6>
-      <hr>
+      <hr />
       <form [formGroup]="addressForm" (keydown.enter)="$event.preventDefault()">
-
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="province">Regions</label>
+            <select
+              nbSelect
+              fullWidth
+              id="province"
+              formControlName="regionID"
+              [(ngModel)]="selectedRegion"
+              class="form-select"
+              [ngClass]="
+                isInvalid('regionID', addressForm) ? 'danger' : 'basic'
+              "
+              (change)="onSelectRegion($event)"
+            >
+              <option value="null">- SELECT REGION -</option>
+              <option *ngFor="let region of regions" [value]="region.code">
+                {{ region.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="province">Province</label>
-            <select nbSelect fullWidth id="province" formControlName="provinceID" [(ngModel)]="selectedProvince"
-              class="form-control">
-              <option value="">- SELECT PROVINCE -</option>
-              <option *ngFor="let province of provinces" [value]="province.name">
+            <select
+              nbSelect
+              fullWidth
+              id="province"
+              formControlName="provinceID"
+              [(ngModel)]="selectedProvince"
+              class="form-select"
+              [ngClass]="
+                isInvalid('provinceID', addressForm) ? 'danger' : 'basic'
+              "
+              (change)="onProvinceChange($event)"
+            >
+              <option value="null">- SELECT PROVINCE -</option>
+              <option
+                *ngFor="let province of provinces"
+                [value]="province.code"
+              >
                 {{ province.name }}
               </option>
             </select>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="municipality">Municipality/City</label>
-            <input nbInput fullWidth id="municipality" formControlName="cityID"
-              [status]="isInvalid('cityID',addressForm) ? 'danger' : 'basic'" placeholder="Municipality/City"
-              class="form-control">
+            <!-- <input
+              nbInput
+              fullWidth
+              id="municipality"
+              formControlName="cityID"
+              [status]="isInvalid('cityID', addressForm) ? 'danger' : 'basic'"
+              placeholder="Municipality/City"
+              class="form-control"
+            /> -->
+            <select
+              nbSelect
+              fullWidth
+              id="municipality"
+              formControlName="cityID"
+              class="form-select"
+              [ngClass]="isInvalid('cityID', addressForm) ? 'danger' : 'basic'"
+              (change)="onCityChange($event)"
+            >
+              <option value="null">- PLEASE SELECT -</option>
+              <option *ngFor="let city of cities" [value]="city.code">
+                {{ city.name }}
+              </option>
+            </select>
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-3">
-            <label for="houseunitno">House/Unit No, Lot No., Block No., Street</label>
-            <input nbInput fullWidth id="houseunitno" formControlName="street"
-              [status]="isInvalid('street',addressForm) ? 'danger' : 'basic'"
-              placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET" class="form-control">
-          </div>
-          <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="barangay">Barangay</label>
-            <input nbInput fullWidth id="barangay" formControlName="barangayID"
-              [status]="isInvalid('barangayID',addressForm) ? 'danger' : 'basic'" placeholder="Barangay"
-              class="form-control">
+            <!-- <input
+              nbInput
+              fullWidth
+              id="barangay"
+              formControlName="barangayID"
+              [status]="
+                isInvalid('barangayID', addressForm) ? 'danger' : 'basic'
+              "
+              placeholder="Barangay"
+              class="form-control"
+            /> -->
+            <select
+              id="barangay"
+              formControlName="barangayID"
+              class="form-select"
+              [ngClass]="
+                isInvalid('barangayID', addressForm) ? 'danger' : 'basic'
+              "
+            >
+              <option value="null">- PLEASE SELECT -</option>
+              <option
+                *ngFor="let barangay of barangays"
+                [value]="barangay.code"
+              >
+                {{ barangay.name }}
+              </option>
+            </select>
           </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="houseunitno"
+              >House/Unit No, Lot No., Block No., Street</label
+            >
+            <input
+              nbInput
+              fullWidth
+              id="houseunitno"
+              formControlName="street"
+              [status]="isInvalid('street', addressForm) ? 'danger' : 'basic'"
+              placeholder="HOUSE NO, LOT NO, BLOCK NO, STREET"
+              class="form-control"
+            />
+          </div>
+
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="zipcode">Zipcode</label>
-            <input nbInput fullWidth id="zipcode" formControlName="zipcode"
-              [status]="isInvalid('zipcode',addressForm) ? 'danger' : 'basic'" placeholder="ZIPCODE"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="zipcode"
+              formControlName="zipcode"
+              [status]="isInvalid('zipcode', addressForm) ? 'danger' : 'basic'"
+              placeholder="ZIPCODE"
+              class="form-control"
+            />
           </div>
 
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="mobileno">Mobile Number</label>
-            <ngx-intl-tel-input [ngClass]="'custom'"
-              [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]" [enableAutoCountrySelect]="false"
-              [enablePlaceholder]="true" [searchCountryFlag]="true"
-              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-              [selectedCountryISO]="CountryISO.Philippines" [maxLength]="15" [phoneValidation]="true" name="phone"
-              formControlName="mobileNo"></ngx-intl-tel-input>
+            <ngx-intl-tel-input
+              [ngClass]="'custom'"
+              [preferredCountries]="[
+                CountryISO.UnitedStates,
+                CountryISO.Philippines
+              ]"
+              [enableAutoCountrySelect]="false"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="[
+                SearchCountryField.Iso2,
+                SearchCountryField.Name
+              ]"
+              [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.Philippines"
+              [maxLength]="15"
+              [phoneValidation]="true"
+              name="phone"
+              formControlName="mobileNo"
+            ></ngx-intl-tel-input>
           </div>
         </div>
       </form>
-
     </nb-card-body>
   </nb-card>
 
-    <!-- Philippine Address Section -->
-    <nb-card>
-      <nb-card-body>
-        <h6>Foreign Address</h6>
-        <hr>
-        <form [formGroup]="addressForm" (keydown.enter)="$event.preventDefault()">
-
-          <div class="row">
-
-            <!-- <div class="col-sm-12 col-md-4 col-lg-3">
+  <!-- Philippine Address Section -->
+  <nb-card>
+    <nb-card-body>
+      <h6>Foreign Address</h6>
+      <hr />
+      <form [formGroup]="addressForm" (keydown.enter)="$event.preventDefault()">
+        <div class="row">
+          <!-- <div class="col-sm-12 col-md-4 col-lg-3">
               <label for="emailaddress">Email Address</label>
               <input nbInput fullWidth id="emailaddress" formControlName="email"
                 [status]="isInvalid('email',addressForm) ? 'danger' : 'basic'" placeholder="EMAIL ADDRESS"
                 class="form-control">
             </div> -->
-            <div class="col-sm-12 col-md-4 col-lg-3">
-              <label for="foreignaddress">City</label>
-              <input nbInput fullWidth id="foreignaddress" formControlName="ofwForeignAddress"
-                [status]="isInvalid('ofwForeignAddress',participantProfileForm) ? 'danger' : 'basic'"
-                placeholder="FOREIGN ADDRESS" class="form-control">
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-3">
-              <label for="country">Country</label>
-              <select nbSelect fullWidth id="country" formControlName="ofwCountry" [(ngModel)]="selectedCountry"
-                class="form-control">
-                <option value="">- SELECT COUNTRY -</option>
-                <option *ngFor="let country of countries" [value]="country">
-                  {{ country }}
-                </option>
-              </select>
-            </div>
-
-            <div class="col-sm-12 col-md-4 col-lg-3">
-              <label for="ofwContactNo">Contact No. Abroad</label>
-              <ngx-intl-tel-input [ngClass]="'custom'"
-                [preferredCountries]="[CountryISO.UnitedStates, CountryISO.Philippines]" [enableAutoCountrySelect]="false"
-                [enablePlaceholder]="true" [searchCountryFlag]="true"
-                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
-                [selectedCountryISO]="CountryISO.Philippines" [maxLength]="15" [phoneValidation]="true" name="phone"
-                formControlName="ofwContactNo"></ngx-intl-tel-input>
-            </div>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="foreignaddress">City</label>
+            <input
+              nbInput
+              fullWidth
+              id="foreignaddress"
+              formControlName="ofwForeignAddress"
+              [status]="
+                isInvalid('ofwForeignAddress', participantProfileForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="FOREIGN ADDRESS"
+              class="form-control"
+            />
           </div>
-        </form>
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="country">Country</label>
+            <select
+              nbSelect
+              fullWidth
+              id="country"
+              formControlName="ofwCountry"
+              [(ngModel)]="selectedCountry"
+              class="form-control"
+            >
+              <option value="">- SELECT COUNTRY -</option>
+              <option *ngFor="let country of countries" [value]="country">
+                {{ country }}
+              </option>
+            </select>
+          </div>
 
-      </nb-card-body>
-    </nb-card>
-
-
-
-
-
-
-
+          <div class="col-sm-12 col-md-4 col-lg-3">
+            <label for="ofwContactNo">Contact No. Abroad</label>
+            <ngx-intl-tel-input
+              [ngClass]="'custom'"
+              [preferredCountries]="[
+                CountryISO.UnitedStates,
+                CountryISO.Philippines
+              ]"
+              [enableAutoCountrySelect]="false"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="[
+                SearchCountryField.Iso2,
+                SearchCountryField.Name
+              ]"
+              [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.Philippines"
+              [maxLength]="15"
+              [phoneValidation]="true"
+              name="phone"
+              formControlName="ofwContactNo"
+            ></ngx-intl-tel-input>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
 
   <nb-card>
     <nb-card-body>
       <h6>Employment Details</h6>
-      <hr>
-      <form [formGroup]="employmentForm" (keydown.enter)="$event.preventDefault()">
+      <hr />
+      <form
+        [formGroup]="employmentForm"
+        (keydown.enter)="$event.preventDefault()"
+      >
         <div class="row">
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="employer">Principal/Employer</label>
-            <input nbInput fullWidth id="employer" formControlName="employerName"
-              [status]="isInvalid('employerName',employmentForm) ? 'danger' : 'basic'" placeholder="EMPLOYER NAME"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="employer"
+              formControlName="employerName"
+              [status]="
+                isInvalid('employerName', employmentForm) ? 'danger' : 'basic'
+              "
+              placeholder="EMPLOYER NAME"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="vessel">Vessel ( employers address)</label>
-            <input nbInput fullWidth id="vessel" formControlName="vessel"
-              [status]="isInvalid('vessel',employmentForm) ? 'danger' : 'basic'" placeholder="VESSEL"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="vessel"
+              formControlName="vessel"
+              [status]="
+                isInvalid('vessel', employmentForm) ? 'danger' : 'basic'
+              "
+              placeholder="VESSEL"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="position">Position</label>
-            <input nbInput fullWidth id="position" formControlName="occupation"
-              [status]="isInvalid('occupation',employmentForm) ? 'danger' : 'basic'" placeholder="POSITION"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="position"
+              formControlName="occupation"
+              [status]="
+                isInvalid('occupation', employmentForm) ? 'danger' : 'basic'
+              "
+              placeholder="POSITION"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-1">
             <label for="position">Currency</label>
-            <input nbInput fullWidth id="position" formControlName="currency"
-              [status]="isInvalid('currency',employmentForm) ? 'danger' : 'basic'" placeholder="currency"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="position"
+              formControlName="currency"
+              [status]="
+                isInvalid('currency', employmentForm) ? 'danger' : 'basic'
+              "
+              placeholder="currency"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-2">
             <label for="salary">Salary</label>
-            <select nbSelect fullWidth id="salary" formControlName="monthlySalary" class="form-control form-select"
+            <select
+              nbSelect
+              fullWidth
+              id="salary"
+              formControlName="monthlySalary"
+              class="form-control form-select"
             >
               <option value="">Select Base Salary Range</option>
-              <option *ngFor="let range of salaryRanges" [value]="range">{{ range }}</option>
-              <option  [value]="'100,000 and up'">100,000 and up</option>
+              <option *ngFor="let range of salaryRanges" [value]="range">
+                {{ range }}
+              </option>
+              <option [value]="'100,000 and up'">100,000 and up</option>
             </select>
 
             <!-- <input nbInput fullWidth id="salary" formControlName="monthlySalary"
@@ -266,37 +525,82 @@
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="agency">Agency</label>
-            <input nbInput fullWidth id="agency" formControlName="agencyName"
-              [status]="isInvalid('agencyName',employmentForm) ? 'danger' : 'basic'" placeholder="AGENCY"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="agency"
+              formControlName="agencyName"
+              [status]="
+                isInvalid('agencyName', employmentForm) ? 'danger' : 'basic'
+              "
+              placeholder="AGENCY"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="contractduration">Contract Duration</label>
-            <input nbInput fullWidth id="contractduration" formControlName="contractDuration"
-              [status]="isInvalid('contractDuration',employmentForm) ? 'danger' : 'basic'"
-              placeholder="CONTRACT DURATION" class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="contractduration"
+              formControlName="contractDuration"
+              [status]="
+                isInvalid('contractDuration', employmentForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="CONTRACT DURATION"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="coe_attachment">Employment Status</label>
-            <select nbSelect fullWidth id="coe_attachment" formControlName="coe_attachment" class="form-control form-select"
+            <select
+              nbSelect
+              fullWidth
+              id="coe_attachment"
+              formControlName="coe_attachment"
+              class="form-control form-select"
             >
-              <option  [value]="'Currently Employed'">Currently Employed</option>
-              <option  [value]="'Finished Contract'">Finished Contract</option>
+              <option [value]="'Currently Employed'">Currently Employed</option>
+              <option [value]="'Finished Contract'">Finished Contract</option>
             </select>
 
             <!-- <input nbInput fullWidth id="salary" formControlName="monthlySalary"
               [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'" placeholder="SALARY"
               class="form-control"> -->
           </div>
-          <div class="col-sm-12 col-md-4 col-lg-3" *ngIf="employmentForm.get('coe_attachment')?.value === 'Finished Contract'">
+          <div
+            class="col-sm-12 col-md-4 col-lg-3"
+            *ngIf="
+              employmentForm.get('coe_attachment')?.value ===
+              'Finished Contract'
+            "
+          >
             <label for="passport_attachment">Contract Year Ended</label>
-            <input nbInput fullWidth id="passport_attachment" formControlName="passport_attachment"
-              [status]="isInvalid('passport_attachment',employmentForm) ? 'danger' : 'basic'"
-              placeholder="CONTRACT Year ended" class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="passport_attachment"
+              formControlName="passport_attachment"
+              [status]="
+                isInvalid('passport_attachment', employmentForm)
+                  ? 'danger'
+                  : 'basic'
+              "
+              placeholder="CONTRACT Year ended"
+              class="form-control"
+            />
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="ofwtype">OFW Type</label>
-            <select nbSelect fullWidth id="ofwtype" formControlName="ofwType" class="form-control">
+            <select
+              nbSelect
+              fullWidth
+              id="ofwtype"
+              formControlName="ofwType"
+              class="form-control"
+            >
               <option value="">Select OFW Type</option>
               <option value="Land-Based">Land-Based</option>
               <option value="Sea-Based">Sea-Based</option>
@@ -305,25 +609,42 @@
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="jobsite">Job Site</label>
-            <input nbInput fullWidth id="jobsite" formControlName="jobSite"
-              [status]="isInvalid('jobSite',employmentForm) ? 'danger' : 'basic'" placeholder="JOB SITE"
-              class="form-control">
+            <input
+              nbInput
+              fullWidth
+              id="jobsite"
+              formControlName="jobSite"
+              [status]="
+                isInvalid('jobSite', employmentForm) ? 'danger' : 'basic'
+              "
+              placeholder="JOB SITE"
+              class="form-control"
+            />
           </div>
         </div>
       </form>
-
     </nb-card-body>
   </nb-card>
 
   <nb-card *ngIf="!readonly">
     <nb-card-body>
-      <div class="row justify-content-end " >
+      <div class="row justify-content-end">
         <div class="col-12 col-md-2 mt-1">
-          <button class="w-100" nbButton status="basic" routerLink="/main/jobs">Back</button>
+          <button class="w-100" nbButton status="basic" routerLink="/main/jobs">
+            Back
+          </button>
         </div>
         <div class="col-12 col-md-2 mt-1">
           <!-- <button class="w-100" nbButton status="primary" type="submit" (click)="submitAll()">Submit</button> -->
-          <button class="w-100" nbButton status="primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
+          <button
+            class="w-100"
+            nbButton
+            status="primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </nb-card-body>
@@ -335,20 +656,40 @@
 </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <p>Are you sure you want to submit?</p>
         <p>Please double check your Information before submitting.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-        <button type="button" class="btn btn-primary"  (click)="submitAll()" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="submitAll()"
+          data-bs-dismiss="modal"
+        >
+          Save changes
+        </button>
       </div>
     </div>
   </div>

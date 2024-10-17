@@ -134,6 +134,10 @@ export class ManageJobsComponent implements OnInit {
           const trimmedItem = item.trim();
           return { display: trimmedItem, value: trimmedItem };
         });
+        const tags = response.tags?.split(',').map((item: string) => {
+          const trimmedItem = item.trim();
+          return { display: trimmedItem, value: trimmedItem };
+        });
         this.jobForm.patchValue({
           id: response.id,
           postedby: response.postedby,
@@ -162,7 +166,7 @@ export class ManageJobsComponent implements OnInit {
             response.applicant_location_requirements,
           job_location_type: response.job_location_type,
           work_hours: response.work_hours,
-          tags: response.tags,
+          tags: tags,
           status: response.status,
           comments: response.comments,
           user_email: response.user_email,
@@ -178,8 +182,14 @@ export class ManageJobsComponent implements OnInit {
         ? skillsValue.map((obj: { value: string }) => obj.value).join(', ')
         : skillsValue; // If it's a string, just use it as is
 
+      const tagsValue = this.jobForm.value.tags;
+      const tags: string = Array.isArray(tagsValue)
+        ? tagsValue.map((obj: { value: string }) => obj.value).join(', ')
+        : tagsValue; // If it's a string, just use it as is
+
       let jobDetails: JobDetails = this.jobForm.value;
       jobDetails.skills = skills;
+      jobDetails.tags = tags;
       jobDetails.base_salary_currency =
         jobDetails.base_salary_currency.toString();
       if (this.jobId > 0) {

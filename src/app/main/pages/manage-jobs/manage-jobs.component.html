@@ -206,7 +206,7 @@
         <div class="col-12 col-md-4 col-lg-3">
           <div class="form-group mt-3">
             <label for="tags">Tags (Optional)</label>
-            <textarea
+            <!-- <textarea
               nbInput
               fieldSize="small"
               fullWidth
@@ -215,7 +215,12 @@
               placeholder="Tags"
               class="form-control for-employer"
               [status]="isInvalid('tags') ? 'danger' : 'basic'"
-            ></textarea>
+            ></textarea> -->
+            <tag-input
+              formControlName="tags"
+              [maxItems]="5"
+              fullWidth
+            ></tag-input>
           </div>
         </div>
 

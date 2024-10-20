@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -5,11 +6,12 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
 import { JobService } from 'src/app/shared/services/job.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
-  styleUrls: ['./company-list.component.scss']
+  styleUrls: ['./company-list.component.scss'],
 })
 export class CompanyListComponent {
   searchTerm: string = ''; // Bound to the search input
@@ -17,19 +19,21 @@ export class CompanyListComponent {
   user!: UserToken;
   isAuthenticated = false;
 
-  List!:any[];
+  List!: any[];
   filteredList: any[] = []; // List to display filtered jobs
 
   constructor(
     private jobService: JobService,
-    private router:Router,
+    private router: Router,
     private authService: AuthService,
-    private userDetailsService:UserDetailsService){
-    this.userSub = this.authService.user.subscribe(user => {
+    private userDetailsService: UserDetailsService,
+    private http: HttpClient
+  ) {
+    this.userSub = this.authService.user.subscribe((user) => {
       this.user = user;
       this.isAuthenticated = !!user;
     });
-   }
+  }
 
   ngOnInit(): void {
     this.fetchData();
@@ -37,22 +41,23 @@ export class CompanyListComponent {
 
   filter() {
     const term = this.searchTerm.toLowerCase();
-    this.filteredList = this.List.filter(row =>
-      row.companyName?.toLowerCase().includes(term) ||
-      row.companyType?.toLowerCase().includes(term) ||
-      row.same_as?.toLowerCase().includes(term) ||
-      row.logo?.toLowerCase().includes(term) ||
-      row.industry?.toLowerCase().includes(term) ||
-      row.description?.toLowerCase().includes(term) ||
-      row.mission?.toLowerCase().includes(term) ||
-      row.vision?.toLowerCase().includes(term) ||
-      row.address?.toLowerCase().includes(term)
+    this.filteredList = this.List.filter(
+      (row) =>
+        row.companyName?.toLowerCase().includes(term) ||
+        row.companyType?.toLowerCase().includes(term) ||
+        row.same_as?.toLowerCase().includes(term) ||
+        row.logo?.toLowerCase().includes(term) ||
+        row.industry?.toLowerCase().includes(term) ||
+        row.description?.toLowerCase().includes(term) ||
+        row.mission?.toLowerCase().includes(term) ||
+        row.vision?.toLowerCase().includes(term) ||
+        row.address?.toLowerCase().includes(term)
     );
   }
 
-  fetchData(){
-    if(this.isAuthenticated){
-      if(this.user._type == 3){
+  fetchData() {
+    if (this.isAuthenticated) {
+      if (this.user._type == 3) {
         this.userDetailsService.getEmployersList().subscribe((response) => {
           this.List = response;
           this.filteredList = response;
@@ -64,5 +69,21 @@ export class CompanyListComponent {
   openLink(url: string) {
     window.open(url, '_blank');
   }
-
+  apiUrl = `${environment.apiUrl}/api/auth`;
+  pdfData: any = null;
+  onExportReport() {
+    this.http
+      .get(`${this.apiUrl}/reports/getAllEmployers`, { responseType: 'blob' })
+      .subscribe(
+        (blob: Blob) => {
+          const file = new Blob([blob], { type: 'application/pdf' });
+          this.pdfData = URL.createObjectURL(file);
+          console.log('report', this.pdfData);
+          window.open(this.pdfData, '_blank');
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }
 }

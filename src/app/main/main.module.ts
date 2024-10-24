@@ -43,6 +43,8 @@ import { HeaderComponent } from './layout/header/header.component';
 import { ModalJobDetailsComponent } from './pages/jobs/modal-job-details/modal-job-details.component';
 import { OfwListComponent } from './pages/ofw-list/ofw-list.component';
 import { CompanyListComponent } from './pages/company-list/company-list.component';
+import { NgChartsModule } from 'ng2-charts';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -61,6 +63,7 @@ import { CompanyListComponent } from './pages/company-list/company-list.componen
     ModalJobDetailsComponent,
     OfwListComponent,
     CompanyListComponent,
+    DashboardComponent,
   ],
   imports: [
     FormsModule,
@@ -88,6 +91,7 @@ import { CompanyListComponent } from './pages/company-list/company-list.componen
     NbActionsModule,
     NbUserModule,
     NbDialogModule.forRoot(),
+    NgChartsModule,
   ],
 })
 export class MainModule {}

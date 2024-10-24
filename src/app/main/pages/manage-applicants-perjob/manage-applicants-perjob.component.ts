@@ -12,35 +12,33 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
 @Component({
   selector: 'app-manage-applicants-perjob',
   templateUrl: './manage-applicants-perjob.component.html',
-  styleUrls: ['./manage-applicants-perjob.component.scss']
+  styleUrls: ['./manage-applicants-perjob.component.scss'],
 })
 export class ManageApplicantsPerjobComponent implements OnInit {
-  jobId:number = 0;
-  jobDetails:any;
+  jobId: number = 0;
+  jobDetails: any;
 
   private userSub: Subscription;
   user!: UserToken;
   isAuthenticated = false;
 
-  employerDetails!: EmployerDetails
+  employerDetails!: EmployerDetails;
 
-  jobApplicants!: any[]
-
+  jobApplicants!: any[];
 
   constructor(
     private route: ActivatedRoute,
-    private authService : AuthService,
-    private jobService:JobService,
+    private authService: AuthService,
+    private jobService: JobService,
     private router: Router,
     private toastrService: NbToastrService,
     private userDetailsService: UserDetailsService
   ) {
-    this.userSub = this.authService.user.subscribe(user => {
+    this.userSub = this.authService.user.subscribe((user) => {
       this.user = user;
       this.isAuthenticated = !!user;
-
     });
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.jobId = Number(params.get('jobId'));
       console.log(this.jobId);
     });
@@ -56,30 +54,34 @@ export class ManageApplicantsPerjobComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getApplicantsList();
-    if(this.jobId > 0){
+    if (this.jobId > 0) {
       this.jobService.getJobDetails(this.jobId).subscribe((response) => {
         this.jobDetails = response;
       });
     }
   }
 
-  getApplicantsList(){
+  getApplicantsList() {
     this.jobService.getJobApplicants().subscribe((res: any) => {
       this.jobApplicants = res.filter((x: any) => x.jobID === this.jobId);
-    })
+    });
   }
 
   onStatusChange(applicant: any, event: string): void {
-    if(applicant){
-      const  application = {
-        id : applicant.id,
-        jobID : applicant.jobID,
-        appliedUserID : applicant.appliedUserID,
-        status : event
-      }
+    if (applicant) {
+      const application = {
+        id: applicant.id,
+        jobID: applicant.jobID,
+        appliedUserID: applicant.appliedUserID,
+        status: event,
+      };
       this.jobService.applyForJob(application).subscribe((res: any) => {
-        if(res){
-          this.showToast('Application submitted successfully!', 'Success', 'success');
+        if (res) {
+          this.showToast(
+            'Application submitted successfully!',
+            'Success',
+            'success'
+          );
         }
       });
     }
@@ -88,4 +90,19 @@ export class ManageApplicantsPerjobComponent implements OnInit {
     this.toastrService.show('Form submitted successfully!', title, { status });
   }
 
+  calculateAge(birthdate: Date | string): number {
+    const birthDateObj = new Date(birthdate);
+    const today = new Date();
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDifference = today.getMonth() - birthDateObj.getMonth();
+
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < birthDateObj.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  }
 }

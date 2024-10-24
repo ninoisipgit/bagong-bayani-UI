@@ -12,12 +12,17 @@ import { EventsComponent } from './pages/events/events.component';
 import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjob/manage-applicants-perjob.component';
 import { OfwListComponent } from './pages/ofw-list/ofw-list.component';
 import { CompanyListComponent } from './pages/company-list/company-list.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
     children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
       {
         path: 'jobs',
         component: JobsComponent,

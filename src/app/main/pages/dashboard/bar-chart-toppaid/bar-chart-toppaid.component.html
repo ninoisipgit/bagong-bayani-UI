@@ -1,0 +1,24 @@
+<div class="">
+  <h6 class="text-center my-5">{{ title }}</h6>
+
+  <div class="d-flex justify-content-center justify-content-md-end">
+    <select
+      class="form-select form-select-sm"
+      style="width: 200px"
+      (change)="onSelect($event.target)"
+    >
+      <option value="1">Current Year</option>
+      <option value="2">Previous Year</option>
+    </select>
+  </div>
+  <canvas
+    baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [type]="'bar'"
+  >
+  </canvas>
+</div>
+<!-- {{ data.CurrindustriesLabel }} -->

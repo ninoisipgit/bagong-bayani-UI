@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   isAuthenticated = false;
   showPassword: boolean = false;
 
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
         } else if (this.user._type == 2) {
           window.location.href = '/main/jobs';
         } else if (this.user._type == 3) {
-          window.location.href = '/main/events-management';
+          window.location.href = '/main/dashboard';
         }
       }
     });

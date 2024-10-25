@@ -47,6 +47,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LineChartComponent } from './pages/dashboard/line-chart/line-chart.component';
 import { BarChartComponent } from './pages/dashboard/bar-chart/bar-chart.component';
+import { BarChartToppaidComponent } from './pages/dashboard/bar-chart-toppaid/bar-chart-toppaid.component';
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -68,6 +70,7 @@ import { BarChartComponent } from './pages/dashboard/bar-chart/bar-chart.compone
     DashboardComponent,
     LineChartComponent,
     BarChartComponent,
+    BarChartToppaidComponent,
   ],
   imports: [
     FormsModule,

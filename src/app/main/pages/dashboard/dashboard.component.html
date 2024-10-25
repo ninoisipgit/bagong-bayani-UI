@@ -1,20 +1,36 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 col-md-6">
-      <app-line-chart title="Number of Applicants" [data]="applicantsData"></app-line-chart>
+      <app-line-chart
+        title="Number of Applicants"
+        [data]="applicantsData"
+      ></app-line-chart>
     </div>
     <div class="col-sm-12 col-md-6">
-      <app-line-chart title="Number of Companies" [data]="companiesData"></app-line-chart>
+      <app-line-chart
+        title="Number of Companies"
+        [data]="companiesData"
+      ></app-line-chart>
     </div>
 
     <div class="col-sm-12 col-md-6">
       <app-bar-chart title="Number of OFW" [data]="ofwData"></app-bar-chart>
     </div>
     <div class="col-sm-6">
-      <app-bar-chart title="Leading Companies with High Hiring Rates"></app-bar-chart>
+      <!-- <app-bar-chart
+        title="Leading Companies with High Hired Rates"
+      ></app-bar-chart> -->
+      <div class="col-sm-12">
+        <app-bar-chart-toppaid
+          title="Leading Companies with High Hired Rates"
+          [data]="topHired"
+        >
+        </app-bar-chart-toppaid>
+      </div>
     </div>
     <div class="col-sm-12">
-      <app-bar-chart title="Top Paid Jobs" [data]="topPaidData"></app-bar-chart>
+      <app-bar-chart-toppaid title="Top Paid Jobs" [data]="topPaidData">
+      </app-bar-chart-toppaid>
     </div>
   </div>
 </div>

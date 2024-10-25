@@ -28,6 +28,7 @@ export class DashboardComponent {
   companiesData: any = {};
   ofwData: any = [];
   topPaidData: any = [];
+  topHired: any = [];
   ngOnInit() {
     this.reportService.getNumberofApplicants().subscribe((response) => {
       this.applicantsData = {
@@ -49,8 +50,28 @@ export class DashboardComponent {
     });
     this.reportService.getTopPaidJobs().subscribe((response) => {
       this.topPaidData = {
-        currentYear: this.months.map((month) => response.currentYear[month]),
-        previousYear: this.months.map((month) => response.previousYear[month]),
+        currentYear: response.currentYear.map(
+          (e: any) => e.highest_base_salary
+        ),
+        CurrindustriesLabel: response.currentYear.map((e: any) => e.name),
+
+        previousYear: response.previousYear.map(
+          (e: any) => e.highest_base_salary
+        ),
+        PrevindustriesLabel: response.previousYear.map((e: any) => e.name),
+      };
+    });
+    this.reportService.getCompanyHighHired().subscribe((response) => {
+      this.topHired = {
+        currentYear: response.currentYear.map((e: any) => e.total),
+        CurrindustriesLabel: response.currentYear.map(
+          (e: any) => e.hiring_organization_name
+        ),
+
+        previousYear: response.previousYear.map((e: any) => e.total),
+        PrevindustriesLabel: response.previousYear.map(
+          (e: any) => e.hiring_organization_name
+        ),
       };
     });
   }

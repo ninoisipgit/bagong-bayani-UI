@@ -39,4 +39,11 @@ export class ReportsService {
       )
       .pipe(map((response) => response.data));
   }
+  getCompanyHighHired(): Observable<any> {
+    return this.http
+      .get<{ success: boolean; message: string; data: any }>(
+        `${apiUrl}/reports/getcompanyhighhired`
+      )
+      .pipe(map((response) => response.data));
+  }
 }

@@ -45,6 +45,8 @@ import { OfwListComponent } from './pages/ofw-list/ofw-list.component';
 import { CompanyListComponent } from './pages/company-list/company-list.component';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LineChartComponent } from './pages/dashboard/line-chart/line-chart.component';
+import { BarChartComponent } from './pages/dashboard/bar-chart/bar-chart.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -64,6 +66,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     OfwListComponent,
     CompanyListComponent,
     DashboardComponent,
+    LineChartComponent,
+    BarChartComponent,
   ],
   imports: [
     FormsModule,

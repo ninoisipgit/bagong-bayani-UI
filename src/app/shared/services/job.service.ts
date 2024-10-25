@@ -37,6 +37,13 @@ export class JobService {
       )
       .pipe(map((response) => response.data));
   }
+  getJobCategory(): Observable<any> {
+    return this.http
+      .get<{ success: boolean; message: string; data: any }>(
+        `${apiUrl}/job-categories`
+      )
+      .pipe(map((response) => response.data));
+  }
 
   deleteJob(jobId: number) {
     return this.http.delete(`${apiUrl}/jobs/${jobId}`);

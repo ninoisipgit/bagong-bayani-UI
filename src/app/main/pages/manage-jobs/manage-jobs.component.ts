@@ -78,7 +78,7 @@ export class ManageJobsComponent implements OnInit {
       responsibilities: [''],
       qualifications: [''],
       skills: [''],
-      industry: [''],
+      industry: ['', Validators.required],
       applicant_location_requirements: [''],
       job_location_type: [''],
       work_hours: [''],
@@ -127,7 +127,12 @@ export class ManageJobsComponent implements OnInit {
       this.salaryRanges.push(range);
     }
   }
+
+  jobCategories: any = [];
   ngOnInit(): void {
+    this.jobService.getJobCategory().subscribe((response) => {
+      this.jobCategories = response;
+    });
     if (this.jobId > 0) {
       this.jobService.getJobDetails(this.jobId).subscribe((response) => {
         const skills = response.skills?.split(',').map((item: string) => {

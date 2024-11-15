@@ -131,15 +131,12 @@
           <div class="form-group mt-3">
             <label for="date_posted">Date Posted</label>
             <input
-              nbInput
-              fieldSize="small"
-              fullWidth
               id="date_posted"
               formControlName="date_posted"
               placeholder="MM/DD/YYYY"
-              class="form-control"
+              class="form-control form-control-sm"
               type="date"
-              [status]="isInvalid('date_posted') ? 'danger' : 'basic'"
+              [ngClass]="isInvalid('date_posted') ? 'danger' : 'basic'"
             />
             <div *ngIf="isInvalid('date_posted')" class="invalid-feedback">
               Date Posted is required.
@@ -152,15 +149,13 @@
           <div class="form-group mt-3">
             <label for="valid_through">Valid Through</label>
             <input
-              nbInput
               fieldSize="small"
-              fullWidth
               id="valid_through"
               formControlName="valid_through"
               placeholder="MM/DD/YYYY"
-              class="form-control"
+              class="form-control form-control-sm"
               type="date"
-              [status]="isInvalid('valid_through') ? 'danger' : 'basic'"
+              [ngClass]="isInvalid('valid_through') ? 'danger' : 'basic'"
             />
           </div>
         </div>

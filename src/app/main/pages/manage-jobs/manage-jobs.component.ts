@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserToken } from 'src/app/auth/models/userToken';
@@ -148,8 +149,8 @@ export class ManageJobsComponent implements OnInit {
           postedby: response.postedby,
           title: response.title,
           description: response.description,
-          date_posted: response.date_posted,
-          valid_through: response.valid_through,
+          date_posted: moment(response.date_posted).format('YYYY-MM-DD'),
+          valid_through: moment(response.valid_through).format('YYYY-MM-DD'),
           employment_type: response.employment_type,
           hiring_organization_name: response.hiring_organization_name,
           hiring_organization_same_as: response.hiring_organization_same_as,

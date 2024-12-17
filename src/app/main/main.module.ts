@@ -26,6 +26,7 @@ import {
   NbActionsModule,
   NbUserModule,
   NbDialogModule,
+  NbStepperModule,
 } from '@nebular/theme';
 import { PersonalDetailsFormComponent } from './pages/personal-details-form/personal-details-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,6 +49,20 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LineChartComponent } from './pages/dashboard/line-chart/line-chart.component';
 import { BarChartComponent } from './pages/dashboard/bar-chart/bar-chart.component';
 import { BarChartToppaidComponent } from './pages/dashboard/bar-chart-toppaid/bar-chart-toppaid.component';
+import { ResumeBuilderComponent } from './pages/resume-builder/resume-builder.component';
+import { PersonalInfoComponent } from './pages/resume-builder/personal-info/personal-info.component';
+import { WorkExperienceComponent } from './pages/resume-builder/work-experience/work-experience.component';
+import { EducationComponent } from './pages/resume-builder/education/education.component';
+import { SkillsComponent } from './pages/resume-builder/skills/skills.component';
+import { ReferencesComponent } from './pages/resume-builder/references/references.component';
+import { ResumePreviewComponent } from './pages/resume-builder/resume-preview/resume-preview.component';
+
+import { AddWorkExperienceComponent } from './pages/resume-builder/work-experience/add-work-experience/add-work-experience.component';
+import { AddEducationComponent } from './pages/resume-builder/education/add-education/add-education.component';
+import { CertificationsComponent } from './pages/resume-builder/certifications/certifications.component';
+import { AddCertificationsComponent } from './pages/resume-builder/certifications/add-certifications/add-certifications.component';
+import { AddReferenceComponent } from './pages/resume-builder/references/add-reference/add-reference.component';
+import { ConfirmDialogComponent } from './pages/resume-builder/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +86,19 @@ import { BarChartToppaidComponent } from './pages/dashboard/bar-chart-toppaid/ba
     LineChartComponent,
     BarChartComponent,
     BarChartToppaidComponent,
+    ResumeBuilderComponent,
+    PersonalInfoComponent,
+    WorkExperienceComponent,
+    EducationComponent,
+    SkillsComponent,
+    CertificationsComponent,
+    ReferencesComponent,
+    ResumePreviewComponent,
+    AddWorkExperienceComponent,
+    AddEducationComponent,
+    AddCertificationsComponent,
+    AddReferenceComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     FormsModule,
@@ -99,6 +127,7 @@ import { BarChartToppaidComponent } from './pages/dashboard/bar-chart-toppaid/ba
     NbUserModule,
     NbDialogModule.forRoot(),
     NgChartsModule,
+    NbStepperModule,
   ],
 })
 export class MainModule {}

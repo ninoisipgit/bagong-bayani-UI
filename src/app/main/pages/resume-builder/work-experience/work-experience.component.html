@@ -1,0 +1,49 @@
+<section>
+  <div class="section-title">Work Experience</div>
+
+  <div class="d-flex justify-content-end my-3">
+    <button class="btn btn-primary" (click)="addWorkExperience()">Add +</button>
+  </div>
+  <div class="table-responsive">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr class="text-start">
+            <th>Job Title</th>
+            <th>Company</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Iterate over the employmentDetails FormArray -->
+          <tr
+            *ngFor="let detail of employmentDetailGroups; let i = index"
+            [formGroup]="detail"
+          >
+            <td>{{ detail.get("occupation")?.value }}</td>
+            <td>{{ detail.get("employerName")?.value }}</td>
+            <td class="text-center">
+              <!-- Assuming "contractDuration" stores the employment period -->
+              {{ detail.get("contractDuration")?.value }}
+            </td>
+            <td class="text-center">
+              <!-- Add buttons for action -->
+              <nb-icon
+                icon="trash-2-outline"
+                class="text-danger me-2 fs-4"
+                (click)="deleteEmployment(i)"
+              ></nb-icon>
+              |
+              <nb-icon
+                icon="edit-outline"
+                class="text-primary fs-4 ms-2"
+                (click)="editEmployment(i)"
+              ></nb-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

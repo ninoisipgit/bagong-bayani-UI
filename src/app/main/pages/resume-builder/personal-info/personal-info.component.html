@@ -1,0 +1,289 @@
+<form
+  [formGroup]="participantProfileForm"
+  (keydown.enter)="$event.preventDefault()"
+>
+  <section>
+    <div class="section-title">Personal Information</div>
+    <div class="row py-2">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label"> Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="LastName"
+          [class]="isInvalid('LastName', participantProfileForm)"
+        />
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label"> First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="FirstName"
+          [class]="isInvalid('FirstName', participantProfileForm)"
+        />
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label"> Middle Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="MiddleName"
+          [class]="isInvalid('MiddleName', participantProfileForm)"
+        />
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Suffix</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="suffix"
+          [class]="isInvalid('suffix', participantProfileForm)"
+        />
+      </div>
+
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Birthdate</label>
+        <input
+          type="date"
+          class="form-control"
+          formControlName="birthdate"
+          [class]="isInvalid('birthdate', participantProfileForm)"
+        />
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Gender</label>
+        <select
+          class="form-select"
+          formControlName="gender"
+          [class]="isInvalid('gender', participantProfileForm)"
+        >
+          <option>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Civil Status</label>
+        <select
+          class="form-select"
+          formControlName="civilstatus"
+          [class]="isInvalid('civilstatus', participantProfileForm)"
+        >
+          <option>Select Status</option>
+          <option value="single">Single</option>
+          <option value="married">Married</option>
+          <option value="divorce">Divorce</option>
+        </select>
+      </div>
+      <div class="col-sm-12">
+        <label class="text-label">About Me</label>
+        <textarea
+          class="form-control"
+          formControlName="aboutMe"
+          style="height: 100px"
+        ></textarea>
+      </div>
+    </div>
+  </section>
+  <div class="text-center my-5"></div>
+
+  <section>
+    <div class="section-title">Language</div>
+    <div class="row">
+      <div class="col-sm-12">
+        <label class="text-label">Language</label>
+        <tag-input
+          formControlName="languages"
+          [maxItems]="10"
+          class="border"
+        ></tag-input>
+      </div>
+    </div>
+  </section>
+  <div class="text-center my-5"></div>
+  <section>
+    <div class="section-title">Skills</div>
+    <tag-input
+      formControlName="tags"
+      [maxItems]="10"
+      class="border"
+    ></tag-input>
+  </section>
+</form>
+
+<div class="text-center my-5"></div>
+<section>
+  <form [formGroup]="addressForm" (keydown.enter)="$event.preventDefault()">
+    <div class="section-title">Philippine Address</div>
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Region</label>
+        <select
+          class="form-select"
+          formControlName="regionID"
+          [class]="isInvalid('regionID', addressForm)"
+          (change)="onSelectRegion($event)"
+        >
+          <option>Select Region</option>
+          <option *ngFor="let region of regions" [value]="region.code">
+            {{ region.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Province</label>
+        <select
+          class="form-select"
+          formControlName="provinceID"
+          [class]="isInvalid('provinceID', addressForm)"
+          (change)="onProvinceChange($event)"
+        >
+          <option>Select Province</option>
+          <option *ngFor="let province of provinces" [value]="province.code">
+            {{ province.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Municipality/City</label>
+        <select
+          class="form-select"
+          formControlName="cityID"
+          [class]="isInvalid('cityID', addressForm)"
+          (change)="onCityChange($event)"
+        >
+          <option>Select City</option>
+          <option *ngFor="let city of cities" [value]="city.code">
+            {{ city.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Barangay</label>
+        <select
+          class="form-select"
+          formControlName="barangayID"
+          [class]="isInvalid('barangayID', addressForm)"
+        >
+          <option>Select Barangay</option>
+          <option *ngFor="let barangay of barangays" [value]="barangay.code">
+            {{ barangay.name }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">House/Unit No, Street</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="street"
+          [class]="isInvalid('street', addressForm)"
+        />
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Zipcode</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="zipcode"
+          [class]="isInvalid('zipcode', addressForm)"
+        />
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Mobile No</label>
+        <ngx-intl-tel-input
+          formControlName="mobileNo"
+          [ngClass]="'custom'"
+          [preferredCountries]="[
+            CountryISO.UnitedStates,
+            CountryISO.Philippines
+          ]"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.Philippines"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          name="phone"
+        ></ngx-intl-tel-input>
+      </div>
+    </div>
+  </form>
+</section>
+<div class="text-center my-5"></div>
+<section>
+  <form [formGroup]="addressForm" (keydown.enter)="$event.preventDefault()">
+    <div class="section-title">Foreign Address</div>
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">City</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="ofwForeignAddress"
+          [class]="isInvalid('ofwForeignAddress', addressForm)"
+        />
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Country</label>
+        <select
+          class="form-select"
+          formControlName="ofwCountry"
+          [class]="isInvalid('ofwCountry', addressForm)"
+        >
+          <option>Select Country</option>
+          <option *ngFor="let country of countries" [value]="country">
+            {{ country }}
+          </option>
+        </select>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <label class="text-label">Mobile No.</label>
+        <ngx-intl-tel-input
+          formControlName="ofwContactNo"
+          [ngClass]="'custom'"
+          [preferredCountries]="[
+            CountryISO.UnitedStates,
+            CountryISO.Philippines
+          ]"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.Philippines"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          name="phone"
+        ></ngx-intl-tel-input>
+      </div>
+    </div>
+  </form>
+</section>
+<div class="text-end mt-5">
+  <button
+    nbButton
+    status="basic"
+    (click)="navigateTo('/main/personal-details')"
+    class="me-2"
+  >
+    Cancel
+  </button>
+  <button
+    nbButton
+    nbStepperNext
+    status="primary"
+    (click)="onSubmitPersonalDetails(); onSubmitAddress()"
+  >
+    next
+  </button>
+</div>

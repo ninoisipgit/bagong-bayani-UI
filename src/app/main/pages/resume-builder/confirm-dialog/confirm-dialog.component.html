@@ -1,0 +1,18 @@
+<div class="card-row">
+  <div class="card-col">
+    <nb-card size="tiny">
+      <nb-card-header>{{ data.title }}</nb-card-header>
+      <nb-card-body> {{ data.text }} </nb-card-body>
+      <nb-card-footer>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary me-2" (click)="confirmation(true)">
+            Yes
+          </button>
+          <button class="btn btn-secondary" (click)="confirmation(false)">
+            No
+          </button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

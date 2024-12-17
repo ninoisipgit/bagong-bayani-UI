@@ -1,0 +1,32 @@
+.section-title {
+  font-weight: 600;
+  color: rgb(29, 29, 29);
+  font-size: 1.2rem; /* Default font size for small screens */
+  margin-bottom: 10px;
+}
+.text-label {
+  font-weight: 600;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: rgb(65, 61, 61);
+}
+
+@media (min-width: 576px) {
+  .section-title {
+    font-weight: 600;
+    font-size: 1.4rem; /* Medium screens and up */
+    margin-bottom: 10px;
+  }
+}
+
+// @media (min-width: 768px) {
+//   .section-title {
+//     font-size: 2rem; /* Large screens and up */
+//   }
+// }
+
+// @media (min-width: 992px) {
+//   .section-title {
+//     font-size: 2.5rem; /* Extra large screens */
+//   }
+// }

@@ -1,0 +1,41 @@
+<!-- for small -->
+<div class="d-block d-md-none"></div>
+<!-- for large -->
+<div class="d-none d-md-block"></div>
+
+<nb-card>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal" [selectedIndex]="0">
+      <nb-step>
+        <app-personal-info></app-personal-info>
+      </nb-step>
+      <nb-step>
+        <app-work-experience></app-work-experience>
+        <div class="text-end mt-5">
+          <button class="me-2" nbButton nbStepperPrevious>prev</button>
+          <button nbButton nbStepperNext status="primary">next</button>
+        </div>
+      </nb-step>
+      <nb-step>
+        <app-education></app-education>
+        <hr />
+        <app-certifications></app-certifications>
+        <div class="text-end mt-5">
+          <button class="me-2" nbButton nbStepperPrevious>prev</button>
+          <button nbButton nbStepperNext status="primary">next</button>
+        </div>
+      </nb-step>
+      <nb-step>
+        <app-references></app-references>
+        <!-- <hr />
+        <app-skills></app-skills> -->
+        <div class="text-end mt-5">
+          <button class="me-2" nbButton nbStepperPrevious>prev</button>
+          <button nbButton status="primary" (click)="onExportResume()">
+            Done
+          </button>
+        </div>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

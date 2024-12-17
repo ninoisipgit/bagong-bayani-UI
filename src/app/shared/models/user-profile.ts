@@ -19,4 +19,6 @@ export interface UserProfile {
   employmentDetailsID?: string; // Optional
   tags?: string; // Optional
   cv?: any;
+  languages?: string;
+  aboutMe?: string;
 }

@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -13,6 +13,8 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
 import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 import { EmailData } from 'src/app/shared/models/job-details';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-personal-details-form',
   templateUrl: './personal-details-form.component.html',
@@ -46,7 +48,7 @@ export class PersonalDetailsFormComponent implements OnInit {
   readonly: boolean = false;
   personID: number = 0;
   jobID: number = 0;
-
+  apiUrl = `${environment.apiUrl}/api/auth`;
   constructor(
     private fb: FormBuilder,
     private locationService: LocationService,
@@ -56,7 +58,9 @@ export class PersonalDetailsFormComponent implements OnInit {
     private userDetails: UserDetailsService,
     private jobService: JobService,
     private location: Location,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router,
+    private http: HttpClient
   ) {
     this.participantProfileForm = this.fb.group({
       // Personal Information
@@ -499,10 +503,13 @@ export class PersonalDetailsFormComponent implements OnInit {
       }
     }
   }
+  navigateTo(link: any) {
+    this.router.navigate([link]);
+  }
   submitAll() {
     this.onSubmitPersonalDetails();
     this.onSubmitAddress();
-    this.onSubmitEmploymentDetails();
+    // this.onSubmitEmploymentDetails();
   }
 
   getCities(provinceId: any) {
@@ -545,5 +552,40 @@ export class PersonalDetailsFormComponent implements OnInit {
     // For Word documents, you can convert them to PDF or provide a link to download
     // Word documents can't be displayed directly in an iframe, but you can provide a message or a download option.
     return this.sanitizer.bypassSecurityTrustResourceUrl(''); // Return empty for unsupported formats
+  }
+
+  pdfData: any = null;
+
+  onExportResume() {
+    this.http
+      .get(`${this.apiUrl}/reports/generateResume/${this.personID}`, {
+        responseType: 'blob',
+      })
+      .subscribe(
+        (blob: Blob) => {
+          const file = new Blob([blob], { type: 'application/pdf' });
+          this.pdfData = URL.createObjectURL(file);
+          console.log('report', this.pdfData);
+          window.open(this.pdfData, '_blank');
+
+          // // Create a link element
+          // const link = document.createElement('a');
+          // link.href = this.pdfData;
+          // link.download = 'file.pdf'; // Set the desired file name
+
+          // // Append the link to the body
+          // document.body.appendChild(link);
+
+          // // Trigger the download
+          // link.click();
+
+          // // Clean up and remove the link
+          // document.body.removeChild(link);
+          // URL.revokeObjectURL(this.pdfData); // Free up memory
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
   }
 }

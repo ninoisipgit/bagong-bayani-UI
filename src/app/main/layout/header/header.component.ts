@@ -81,6 +81,7 @@ export class HeaderComponent implements OnInit {
           this.userMenu = [
             { title: 'Profile', icon: 'person-done-outline' },
             { title: 'Job Lists', icon: 'briefcase-outline' },
+            { title: 'Build Resume', icon: 'file-text-outline' },
             { title: 'Logout', icon: 'log-out-outline' },
           ];
         } else if (user._type == 3) {
@@ -126,6 +127,9 @@ export class HeaderComponent implements OnInit {
 
       if (title.item.title == 'Job Lists') {
         this.router.navigate(['/main/jobs']);
+      }
+      if (title.item.title == 'Build Resume') {
+        this.router.navigate(['/main/resume-builder']);
       }
 
       if (title.item.title == "Manage Ofw's") {

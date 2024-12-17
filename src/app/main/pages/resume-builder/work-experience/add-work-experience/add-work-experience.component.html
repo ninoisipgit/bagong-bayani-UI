@@ -1,0 +1,143 @@
+<nb-card>
+  <nb-card-body>
+    <h6>New Work Experience</h6>
+    <form
+      [formGroup]="employmentForm"
+      (keydown.enter)="$event.preventDefault()"
+    >
+      <div class="row py-3">
+        <div class="col-md-6">
+          <label class="text-label"> Job Title</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="occupation"
+            [class]="isInvalid('occupation', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Company Name</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="employerName"
+            [class]="isInvalid('employerName', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Currency</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="currency"
+            [class]="isInvalid('currency', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Salary</label>
+          <select
+            class="form-select form-select-sm"
+            formControlName="monthlySalary"
+            [class]="isInvalid('monthlySalary', employmentForm)"
+          >
+            <option value="">Select Base Salary Range</option>
+            <option *ngFor="let range of salaryRanges" [value]="range">
+              {{ range }}
+            </option>
+            <option [value]="'100,000 and up'">100,000 and up</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Agency</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="agencyName"
+            [class]="isInvalid('agencyName', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> OFW Type</label>
+          <select
+            class="form-select form-select-sm"
+            formControlName="ofwType"
+            [class]="isInvalid('ofwType', employmentForm)"
+          >
+            <option>Select Site</option>
+            <option value="Land-Based">Land-Based</option>
+            <option value="Sea-Based">Sea-Based</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Job Site</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="jobSite"
+            [class]="isInvalid('jobSite', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Employment Status</label>
+          <select
+            class="form-select form-select-sm"
+            formControlName="coe_attachment"
+            [class]="isInvalid('coe_attachment', employmentForm)"
+          >
+            <option>Select Status</option>
+            <option value="Currently Employed">Currently Employed</option>
+            <option value="Finished Contract">Finished Contract</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="text-label"> Start Date</label>
+          <input
+            type="date"
+            class="form-control form-control-sm"
+            formControlName="startDate"
+            [class]="isInvalid('startDate', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> End Date</label>
+          <input
+            type="date"
+            class="form-control form-control-sm"
+            formControlName="endDate"
+            [class]="isInvalid('endDate', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Company Address</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="vessel"
+            [class]="isInvalid('vessel', employmentForm)"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Contract Duration</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="contractDuration"
+            [class]="isInvalid('contractDuration', employmentForm)"
+          />
+        </div>
+      </div>
+      <div class="text-end">
+        <button
+          class="btn btn-primary me-2"
+          (click)="onSubmitEmploymentDetails()"
+        >
+          {{ type }}
+        </button>
+        <button class="btn btn-secondary" (click)="onCloseModal()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

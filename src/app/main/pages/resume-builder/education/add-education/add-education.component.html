@@ -1,0 +1,51 @@
+<nb-card>
+  <nb-card-body>
+    <h6>{{ title }}</h6>
+    <form [formGroup]="educationForm">
+      <div class="row py-3">
+        <div class="col-md-6">
+          <label class="text-label">Degree</label>
+          <input
+            type="text"
+            formControlName="degree"
+            class="form-control form-control-sm"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label">Institution</label>
+          <input
+            type="text"
+            formControlName="institution"
+            class="form-control form-control-sm"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label">Start Date</label>
+          <input
+            type="date"
+            formControlName="startDate"
+            class="form-control form-control-sm"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label">End Date</label>
+          <input
+            type="date"
+            formControlName="endDate"
+            class="form-control form-control-sm"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="text-end">
+      <button
+        class="btn btn-primary me-2"
+        (click)="submitEvent()"
+        [disabled]="!educationForm.valid"
+      >
+        {{ type }}
+      </button>
+      <button class="btn btn-secondary" (click)="onCloseModal()">Cancel</button>
+    </div>
+  </nb-card-body>
+</nb-card>

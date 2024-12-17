@@ -48,6 +48,9 @@ export class UserDetailsService {
   updateEmploymentDetails(data: any) {
     return this.http.put(`${apiUrl}/employment/${data.id}`, data);
   }
+  deleteEmploymentDetails(data: any) {
+    return this.http.delete(`${apiUrl}/employment/${data.id}`);
+  }
 
   getEmploymentDetailsByUserId(userId: number): Observable<any> {
     return this.http
@@ -76,16 +79,17 @@ export class UserDetailsService {
     return this.http.post(`${apiUrl}/jobs`, data);
   }
   getEmployersList(): Observable<any> {
-    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/employers`)
-      .pipe(
-        map(response => response?.data)
-      );
+    return this.http
+      .get<{ success: boolean; message: string; data: any }>(
+        `${apiUrl}/employers`
+      )
+      .pipe(map((response) => response?.data));
   }
   getOfwList(): Observable<any> {
-    return this.http.get<{ success: boolean; message: string; data: any }>(`${apiUrl}/persons`)
-      .pipe(
-        map(response => response?.data)
-      );
+    return this.http
+      .get<{ success: boolean; message: string; data: any }>(
+        `${apiUrl}/persons`
+      )
+      .pipe(map((response) => response?.data));
   }
-
 }

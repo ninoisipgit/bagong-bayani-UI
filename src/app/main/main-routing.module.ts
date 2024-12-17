@@ -13,6 +13,7 @@ import { ManageApplicantsPerjobComponent } from './pages/manage-applicants-perjo
 import { OfwListComponent } from './pages/ofw-list/ofw-list.component';
 import { CompanyListComponent } from './pages/company-list/company-list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ResumeBuilderComponent } from './pages/resume-builder/resume-builder.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
+      },
+      {
+        path: 'resume-builder',
+        component: ResumeBuilderComponent,
       },
       {
         path: 'jobs',

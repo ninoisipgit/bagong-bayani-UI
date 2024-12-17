@@ -1,0 +1,55 @@
+<nb-card>
+  <nb-card-body>
+    <h6>Character Reference</h6>
+    <form [formGroup]="referenceForm">
+      <div class="row py-3">
+        <div class="col-md-6">
+          <label class="text-label"> Name</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="Name"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Position</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="position"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label"> Organization</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="organization"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label">Phone Number</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            formControlName="phone_number"
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="text-label">Email Address</label>
+          <input
+            type="email"
+            class="form-control form-control-sm"
+            formControlName="email"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="text-end">
+      <button class="btn btn-primary me-2" (click)="submitEvent()">
+        {{ type }}
+      </button>
+      <button class="btn btn-secondary" (click)="onCloseModal()">Cancel</button>
+    </div>
+  </nb-card-body>
+</nb-card>

@@ -2,23 +2,41 @@
   <nb-card class="mb-0">
     <nb-card-body>
       <div class="row justify-content-end">
-        <div class="col-sm-12 col-md-8">
+        <div class="col-sm-12 col-md-12">
           <h6>OFW Personal Information</h6>
         </div>
-        <div class="col-md-4">
-          <nb-select
-            *ngIf="jobApplicant"
-            placeholder="Select Showcase"
-            [(selected)]="jobApplicant.status"
-            fullWidth
-            (selectedChange)="onStatusChange(jobApplicant, $event)"
+        <div class="col-md-5">
+          <div *ngIf="jobApplicant" class="flex-grow-1">
+            <nb-select
+              placeholder="Select Showcase"
+              [(selected)]="jobApplicant.status"
+              fullWidth
+              (selectedChange)="onStatusChange(jobApplicant, $event)"
+              class="w-100"
+            >
+              <nb-option value="applied">Applied</nb-option>
+              <nb-option value="interviewed">Interviewed</nb-option>
+              <nb-option value="hired">Hired</nb-option>
+              <nb-option value="declined">Declined</nb-option>
+              <nb-option value="withdrawn">Withdrawn</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="col-12 text-end mt-2">
+          <button
+            *ngIf="user._type == 1 || user._type == 2"
+            class="btn btn-primary btn-sm me-2"
+            (click)="onExportResume()"
           >
-            <nb-option value="applied">applied</nb-option>
-            <nb-option value="interviewed">interviewed</nb-option>
-            <nb-option value="hired">hired</nb-option>
-            <nb-option value="declined">declined</nb-option>
-            <nb-option value="withdrawn ">withdrawn </nb-option>
-          </nb-select>
+            View CV
+          </button>
+          <button
+            *ngIf="user._type == 2"
+            class="btn btn-primary btn-sm"
+            (click)="navigateTo('/main/resume-builder')"
+          >
+            Build CV
+          </button>
         </div>
       </div>
     </nb-card-body>
@@ -438,7 +456,7 @@
     </nb-card-body>
   </nb-card>
 
-  <nb-card>
+  <!-- <nb-card>
     <nb-card-body>
       <h6>Employment Details</h6>
       <hr />
@@ -517,11 +535,7 @@
                 {{ range }}
               </option>
               <option [value]="'100,000 and up'">100,000 and up</option>
-            </select>
-
-            <!-- <input nbInput fullWidth id="salary" formControlName="monthlySalary"
-              [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'" placeholder="SALARY"
-              class="form-control"> -->
+            </select> 
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <label for="agency">Agency</label>
@@ -564,11 +578,7 @@
             >
               <option [value]="'Currently Employed'">Currently Employed</option>
               <option [value]="'Finished Contract'">Finished Contract</option>
-            </select>
-
-            <!-- <input nbInput fullWidth id="salary" formControlName="monthlySalary"
-              [status]="isInvalid('monthlySalary',employmentForm) ? 'danger' : 'basic'" placeholder="SALARY"
-              class="form-control"> -->
+            </select> 
           </div>
           <div
             class="col-sm-12 col-md-4 col-lg-3"
@@ -603,8 +613,7 @@
             >
               <option value="">Select OFW Type</option>
               <option value="Land-Based">Land-Based</option>
-              <option value="Sea-Based">Sea-Based</option>
-              <!-- Add OFW Type options here -->
+              <option value="Sea-Based">Sea-Based</option> 
             </select>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
@@ -624,7 +633,7 @@
         </div>
       </form>
     </nb-card-body>
-  </nb-card>
+  </nb-card> -->
 
   <nb-card *ngIf="!readonly">
     <nb-card-body>
